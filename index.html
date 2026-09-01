@@ -11,10 +11,18 @@
 body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
 a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer}
 .bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:80;background:var(--grad)}
-.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:70;width:min(1180px,calc(100% - 24px));display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.72);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.6);border-radius:999px;padding:8px 12px 8px 18px}
-.brand{font-weight:700}.brand span{color:var(--muted);font-weight:400}
-.links{display:flex;gap:14px;font-size:13px;flex:1}
-.login{margin-left:auto;background:var(--navy);color:#fff;border-radius:999px;padding:9px 14px;font-weight:600}
+.nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:70;width:min(1180px,calc(100% - 28px));display:flex;align-items:center;gap:16px;padding:8px 10px 8px 16px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.36));border:1px solid rgba(255,255,255,.92);box-shadow:inset 0 1px 0 #fff,inset 0 -12px 22px rgba(255,255,255,.28),0 18px 40px rgba(28,40,80,.16),0 4px 10px rgba(28,40,80,.06);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%)}
+.brand{font-weight:700;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.brand .vtc{font-weight:800;letter-spacing:-.04em}
+.brand .rule{width:1px;height:16px;background:rgba(21,32,58,.16)}
+.brand span{color:var(--muted);font-weight:400}
+.links{display:flex;gap:16px;font-size:13px;flex:1;color:#1a2a4a}
+.nav-tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+.orb{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);box-shadow:0 8px 16px rgba(28,40,80,.1),inset 0 1px 0 #fff;font-size:13px}
+.orb.bell{position:relative}
+.orb.bell:after{content:"99+";position:absolute;top:-6px;right:-8px;background:#e11d48;color:#fff;font-size:9px;font-weight:700;border-radius:999px;padding:2px 4px}
+.orb.ava{background:#7ac142;color:#fff;font-weight:800;border:0}
+.login{background:var(--navy);color:#fff;border-radius:999px;padding:9px 14px;font-weight:600;box-shadow:0 8px 18px rgba(21,32,58,.22)}
 .screen{height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;overflow:hidden}
 .hero{background:#12182b;color:#fff}
 .wash{position:absolute;inset:0;background:radial-gradient(900px 500px at 75% 20%,rgba(123,92,255,.28),transparent 55%),linear-gradient(160deg,#171d32,#101624)}
@@ -24,7 +32,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,#d2c2ff,#ff97c8);-webki
 .sub{margin-top:16px;max-width:440px;color:rgba(255,255,255,.8);line-height:1.55}
 .deck{height:420px;perspective:1400px}.stage{height:100%;transform-style:preserve-3d;transform:rotateY(-18deg) rotateX(8deg)}
 .jcard{position:absolute;width:300px;padding:16px;border-radius:24px;display:grid;grid-template-columns:52px 1fr 22px;gap:8px 10px;align-items:center;background:#F0F0F3;box-shadow:-10px -10px 30px #fff,10px 10px 30px var(--neu-dark)}
-.jcard:nth-child(1){transform:translate3d(30px,10px,70px)}.jcard:nth-child(2){transform:translate3d(78px,138px,10px)}.jcard:nth-child(3){transform:translate3d(18px,266px,-50px)}
+.jcard:nth-child(1){transform:translate3d(30px,10px,70px)}.jcard:nth-child(2){transform:translate3d(78px,138px,10px)}.jcard:nth-child(3){transform:translate3d(18px,266px,-40px)}
 .logo{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff;font-weight:800}
 .l1{background:#1a1a1a}.l2{background:linear-gradient(135deg,#ff7a3c,#ff4d4d)}.l3{background:#0b6b5b}
 .pill{display:inline-flex;margin-top:5px;background:var(--grad);color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:3px 8px}
@@ -43,7 +51,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,#d2c2ff,#ff97c8);-webki
 .glass{background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(22px);border-radius:28px;padding:22px}
 .branding{background:#f3f4f6}
 .subtraction{position:relative;height:min(64vh,520px)}
-.poster{width:100%;height:100%;object-fit:contain;opacity:0;transform:scale(.94);filter:drop-shadow(0 24px 40px rgba(40,30,80,.14))}
+.poster{width:100%;height:100%;object-fit:contain;opacity:0;transform:scale(.94)}
 .branding.in .poster{opacity:1;transform:none;transition:opacity .7s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
 .fallback{position:absolute;inset:0;display:none}
 .slice{position:absolute;overflow:hidden;transform:skewX(-18deg) translateY(24px);opacity:0}
@@ -64,9 +72,22 @@ footer{display:flex;justify-content:space-between;margin-top:18px;color:var(--mu
 </style></head>
 <body>
 <div class="bar" id="bar"></div>
-<header class="nav"><div class="brand">VTC | V-NEX <span>· your job partner</span></div>
-<nav class="links"><a href="#offers">Find Jobs</a><a href="#offers">Polish CV</a><a href="#brand">Branding</a><a href="#end">About</a></nav>
-<a class="login" href="#top">Log in</a></header>
+<header class="nav">
+  <div class="brand"><span class="vtc">VTC</span><i class="rule"></i>V-NEX <span>· your job partner</span></div>
+  <nav class="links">
+    <a href="#offers">Find Jobs</a>
+    <a href="#offers">Polish CV and Cover Letter</a>
+    <a href="#offers">Career Coaching</a>
+    <a href="#offers">Event Calendar</a>
+    <a href="#brand">About V-Nex</a>
+  </nav>
+  <div class="nav-tools">
+    <span class="orb">⌕</span>
+    <span class="orb bell">🔔</span>
+    <span class="orb ava">WC</span>
+    <a class="login" href="#top">Log in</a>
+  </div>
+</header>
 <section class="screen hero" id="top"><div class="wash"></div>
 <div class="hero-grid"><div><small style="letter-spacing:.14em;text-transform:uppercase;opacity:.7">VTC · official career nexus</small>
 <h1>From class to offer —<br><em>one nexus.</em></h1>
@@ -88,12 +109,8 @@ footer{display:flex;justify-content:space-between;margin-top:18px;color:var(--mu
 <p>Nexus · Next Page · Next Step. The campus cut into the mark.</p></div>
 <div class="subtraction">
 <img class="poster" alt="" src="assets/brand-subtraction.jpg" onerror="this.style.display='none';document.getElementById('fb').style.display='block'"/>
-<div class="fallback" id="fb">
-<div class="slice"></div><div class="slice"></div><div class="slice"></div><div class="slice"></div>
-<div class="word">V-NEX</div>
-</div>
-</div>
-</div></section>
+<div class="fallback" id="fb"><div class="slice"></div><div class="slice"></div><div class="slice"></div><div class="slice"></div><div class="word">V-NEX</div></div>
+</div></div></section>
 <section class="screen close" id="end"><div class="close-wrap"><div class="glass-hero">
 <div class="kicker">Discover V-NEX</div>
 <h3>Official gateway for students, alumni and industry</h3>
