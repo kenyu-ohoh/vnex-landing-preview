@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V-NEX — From class to offer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f3f5fa;
+      --card: #ffffff;
+      --ink: #101528;
+      --muted: #5b6478;
+      --navy: #12172b;
+      --line: rgba(16, 21, 40, 0.08);
+      --radius: 28px;
+      --shadow: 0 18px 50px rgba(28, 39, 84, 0.08);
+      --grad: linear-gradient(90deg, #3b6cff 0%, #c15bff 52%, #ff8a4c 100%);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Outfit, system-ui, sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; }
+    .preview-flag { position: sticky; top: 0; z-index: 50; background: #12172b; color: #fff; font-size: 12px; letter-spacing: .04em; text-align: center; padding: 8px 16px; }
+    .preview-flag strong { color: #ffb078; }
+    .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    header.nav { display: flex; align-items: center; justify-content: space-between; background: #fff; border-radius: 999px; padding: 10px 14px 10px 18px; margin: 18px auto; box-shadow: var(--shadow); position: sticky; top: 40px; z-index: 40; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .brand small { font-weight: 400; color: var(--muted); }
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+    .ghost, .btn { border: 0; cursor: pointer; font: inherit; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+    .ghost { background: #eef1f7; color: var(--ink); border-radius: 999px; padding: 10px 14px; font-size: 14px; }
+    .btn { background: var(--grad); color: #fff; font-weight: 600; border-radius: 999px; padding: 12px 20px; box-shadow: 0 10px 24px rgba(80, 70, 220, .25); }
+    .hero { margin: 18px auto 28px; border-radius: 36px; min-height: min(86vh, 820px); position: relative; overflow: hidden; background: #0c1022; box-shadow: var(--shadow); }
+    .shader { position: absolute; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(186, 92, 255, .55), transparent 42%), radial-gradient(circle at 80% 30%, rgba(56, 164, 255, .45), transparent 40%), radial-gradient(circle at 50% 80%, rgba(255, 138, 76, .38), transparent 45%), linear-gradient(160deg, #1a1140, #0c1022 55%, #14204a); transform: translate3d(0, calc(var(--p, 0) * -40px), 0); }
+    .facet { position: absolute; border-radius: 28px; background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.04)); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(10px); box-shadow: 0 20px 60px rgba(0,0,0,.18); }
+    .f1 { width: 280px; height: 280px; left: -40px; top: 80px; rotate: 18deg; }
+    .f2 { width: 220px; height: 220px; right: 8%; top: 40px; rotate: -12deg; }
+    .f3 { width: 160px; height: 160px; right: 18%; bottom: 80px; rotate: 28deg; }
+    .wordmark { position: absolute; inset: 8% 6% auto; font-size: clamp(64px, 14vw, 180px); font-weight: 800; letter-spacing: -0.06em; color: transparent; background: linear-gradient(110deg, #fff 10%, #d9b8ff 35%, #7ecbff 60%, #ffc28a 90%); -webkit-background-clip: text; background-clip: text; opacity: .22; pointer-events: none; line-height: .85; }
+    .hero-copy { position: relative; z-index: 2; padding: clamp(48px, 8vh, 100px) clamp(24px, 5vw, 72px) 48px; max-width: 760px; }
+    .eyebrow { color: rgba(255,255,255,.72); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; }
+    h1 { color: #fff; font-size: clamp(40px, 6vw, 76px); line-height: .95; letter-spacing: -.04em; font-weight: 800; }
+    h1 .accent { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .glass { margin-top: 28px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; background: rgba(12, 16, 34, .62); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(16px); border-radius: 999px; padding: 10px 10px 10px 22px; max-width: 640px; }
+    .glass p { color: #e8ecf8; font-size: 14px; line-height: 1.45; max-width: 380px; }
+    .switch { display: flex; justify-content: center; margin: 8px 0 28px; }
+    .switch-inner { background: var(--navy); color: #fff; border-radius: 999px; padding: 6px; display: flex; gap: 4px; }
+    .switch-inner button { border: 0; background: transparent; color: #c9d0e3; font: inherit; padding: 10px 18px; border-radius: 999px; cursor: pointer; }
+    .switch-inner button.active { background: #fff; color: var(--ink); font-weight: 600; }
+    .features { display: grid; gap: 16px; margin-bottom: 56px; }
+    .feature { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); display: grid; grid-template-columns: 1.1fr 1fr; min-height: 240px; overflow: hidden; }
+    .feature-copy { padding: 36px; display: flex; flex-direction: column; justify-content: center; }
+    .feature-copy span { color: #6b4dff; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .feature-copy h2 { font-size: 32px; letter-spacing: -.03em; margin: 8px 0 10px; }
+    .feature-copy p { color: var(--muted); line-height: 1.55; }
+    .stage { position: relative; background: radial-gradient(circle at 70% 30%, rgba(193,91,255,.18), transparent 40%), linear-gradient(180deg, #eef2ff, #f7f8fc); display: grid; place-items: center; min-height: 240px; }
+    .orb { width: 120px; height: 120px; border-radius: 36px; background: linear-gradient(135deg, #8a7bff, #62c2ff 55%, #ffb07a); box-shadow: 20px 30px 40px rgba(80,70,200,.18); transform: rotate(18deg); }
+    .orb.ring { border-radius: 50%; width: 150px; height: 150px; background: conic-gradient(from 180deg, #6ea8ff, #c15bff, #ff8a4c, #6ea8ff); }
+    .orb.donut { border-radius: 50%; background: conic-gradient(#6ea8ff 0 82%, #e6e9f2 82%); display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 28px; }
+    .orb.donut::after { content: "82"; width: 86px; height: 86px; border-radius: 50%; background: #101528; display: grid; place-items: center; }
+    .match { position: absolute; right: 28px; top: 28px; background: #fff; border-radius: 16px; padding: 12px 14px; box-shadow: var(--shadow); font-size: 13px; font-weight: 600; }
+    .match b { color: #e11d73; }
+    .discover { text-align: center; padding: 24px 0 12px; }
+    .discover p { color: var(--muted); max-width: 640px; margin: 12px auto 0; line-height: 1.6; }
+    .discover h3 { font-size: 20px; }
+    .nex { font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: -.03em; margin-top: 8px; }
+    .nex em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .links { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 28px 0 64px; }
+    .links a { background: #fff; border-radius: 22px; padding: 18px 14px 16px; text-align: center; text-decoration: none; color: var(--ink); box-shadow: var(--shadow); font-size: 13px; font-weight: 600; }
+    .chip { width: 54px; height: 54px; border-radius: 16px; margin: 0 auto 10px; background: linear-gradient(135deg, #9f8cff, #62c2ff 60%, #ffb07a); }
+    footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 12px; padding: 8px 0 40px; }
+    @media (max-width: 860px) { .feature { grid-template-columns: 1fr; } .links { grid-template-columns: 1fr 1fr; } .hero { min-height: 92vh; border-radius: 24px; } header.nav { top: 36px; } }
+  </style>
+</head>
+<body>
+  <div class="preview-flag">V-NEX landing concept preview · not the production site · <strong>From class to offer — one nexus.</strong></div>
+  <div class="wrap">
+    <header class="nav">
+      <div class="brand">VTC <small>| V-NEX · your job partner</small></div>
+      <div class="nav-actions"><span class="ghost">EN</span><a class="btn" href="#login">Log in</a></div>
+    </header>
+    <section class="hero" id="top">
+      <div class="shader" id="shader"></div>
+      <div class="facet f1"></div><div class="facet f2"></div><div class="facet f3"></div>
+      <div class="wordmark">V-NEX</div>
+      <div class="hero-copy">
+        <div class="eyebrow">VTC · V-NEX</div>
+        <h1>From class to offer —<br /><span class="accent">one nexus.</span></h1>
+        <div class="glass" id="login">
+          <p>One-stop career nexus connecting employers with VTC students and alumni.</p>
+          <a class="btn" href="#features">Log in</a>
+        </div>
+      </div>
+    </section>
+    <div class="switch"><div class="switch-inner" role="tablist">
+      <button class="active" data-role="students">Students & Alumni</button>
+      <button data-role="employers">Employers</button>
+    </div></div>
+    <section class="features" id="features"></section>
+    <section class="discover">
+      <h3>V for VTC</h3>
+      <div class="nex"><em>NEX</em> for Nexus · Next Page · Next Step</div>
+      <p>Derived from Nexus—a central connection—V-NEX serves as the official gateway integrating VTC students, alumni, and industry partners across one shared network. Together, we connect potential with opportunity for the future.</p>
+    </section>
+    <section>
+      <div class="nex" style="font-size:20px;margin:28px 0 12px">VTC Quick Links</div>
+      <div class="links">
+        <a href="#"><div class="chip"></div>Official Website</a>
+        <a href="#"><div class="chip"></div>Admission</a>
+        <a href="#"><div class="chip"></div>SIAP</a>
+        <a href="#"><div class="chip"></div>Alumni</a>
+        <a href="#"><div class="chip"></div>Occupation Dictionary</a>
+      </div>
+    </section>
+    <footer>
+      <div>VTC | V-NEX · your job partner</div>
+      <div>Accessibility | Privacy Policy | Terms Conditions · ©2026 VTC V-Nex</div>
+    </footer>
+  </div>
+  <script>
+    const features = {
+      students: [
+        ["01", "AI Job Recommendations", "Personalised ranking from CV, skills and preferences.", "orb", "95% Match"],
+        ["02", "AI Resume & CV Builder", "Online apply + AI cover letter. History & favorites.", "donut", "CV readiness"],
+        ["03", "Industry Insights", "Notify you of Industry Insights.", "ring", "Live pulses"],
+        ["04", "Career Coaching Resources", "AI CV score, Coaching Corner, workshops & fairs.", "orb", "Workshops"],
+        ["05", "Recruitment and Placement Activities", "Placement activities, workshops and fairs.", "orb", "Open events"]
+      ],
+      employers: [
+        ["01", "AI Job Recommendations", "See how VTC talent is ranked against your roles.", "orb", "Talent match"],
+        ["02", "AI Resume & CV Builder", "Review structured applications built on the same network.", "donut", "Ready profiles"],
+        ["03", "Industry Insights", "Share industry signals back into the student nexus.", "ring", "Broadcast"],
+        ["04", "Career Coaching Resources", "Meet candidates prepared through coaching and fairs.", "orb", "Campus ready"],
+        ["05", "Recruitment and Placement Activities", "Run recruitment and placement through one gateway.", "orb", "Hire on nexus"]
+      ]
+    };
+    const root = document.getElementById("features");
+    function render(role) {
+      root.innerHTML = features[role].map(([no, title, body, shape, tag]) => `
+        <article class="feature">
+          <div class="feature-copy"><span>Who benefits · ${no}</span><h2>${title}</h2><p>${body}</p></div>
+          <div class="stage"><div class="match"><b>${tag}</b></div><div class="orb ${shape === "orb" ? "" : shape}"></div></div>
+        </article>`).join("");
+    }
+    render("students");
+    document.querySelectorAll(".switch-inner button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".switch-inner button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        render(btn.dataset.role);
+      });
+    });
+    const shader = document.getElementById("shader");
+    window.addEventListener("scroll", () => {
+      shader.style.setProperty("--p", String(Math.min(window.scrollY / 600, 1)));
+    }, { passive: true });
+  </script>
+</body>
+</html>
