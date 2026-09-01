@@ -45,6 +45,8 @@ h1 em{font-style:normal;background:linear-gradient(90deg,#d2c2ff,#ff97c8);-webki
 .glass{background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(22px);border-radius:28px;padding:22px}
 .branding{background:#f3f4f6}
 .subtraction{position:relative;height:min(64vh,520px)}
+.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+.fallback{position:absolute;inset:0;display:none}
 .slice{position:absolute;overflow:hidden;transform:skewX(-18deg) translateY(24px);opacity:0}
 .branding.in .slice{opacity:1;transform:skewX(-18deg) translateY(0);transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .6s}
 .slice:nth-child(1){width:18%;height:78%;left:8%;top:4%;background:linear-gradient(160deg,#f3c27a,#9a6bff);transition-delay:.05s}
@@ -91,8 +93,9 @@ footer{display:flex;justify-content:space-between;margin-top:18px;color:var(--mu
 <h2>V for VTC.<br>NEX for Nexus.</h2>
 <p>Nexus - Next Page - Next Step. The campus cut into the mark.</p></div>
 <div class="subtraction">
-<div class="slice"></div><div class="slice"></div><div class="slice"></div><div class="slice"></div>
-<div class="word">V-NEX</div>
+<img class="poster" alt="V-NEX subtraction branding" src="assets/brand-subtraction.png" onerror="this.style.display='none';document.getElementById('fb').style.display='block'"/>
+<div class="fallback" id="fb"><div class="slice"></div><div class="slice"></div><div class="slice"></div><div class="slice"></div>
+<div class="word">V-NEX</div></div>
 </div></div></section>
 <section class="screen close" id="end"><div class="close-wrap"><div class="glass-hero">
 <div class="kicker">Discover V-NEX</div>
