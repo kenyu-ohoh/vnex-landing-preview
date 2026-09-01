@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V-NEX â€” From class to offer</title>
+<title>V-NEX - From class to offer</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 :root{--bg:#F0F0F3;--ink:#1b2437;--muted:#6b7385;--navy:#15203a;--grad:linear-gradient(90deg,#7b5cff,#e14b9a);--neu-dark:rgba(174,174,192,.4)}
@@ -11,18 +11,11 @@
 body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
 a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer}
 .bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:80;background:var(--grad)}
-.nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:70;width:min(1180px,calc(100% - 28px));display:flex;align-items:center;gap:16px;padding:8px 10px 8px 16px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.36));border:1px solid rgba(255,255,255,.92);box-shadow:inset 0 1px 0 #fff,inset 0 -12px 22px rgba(255,255,255,.28),0 18px 40px rgba(28,40,80,.16),0 4px 10px rgba(28,40,80,.06);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%)}
+.nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:70;width:min(1180px,calc(100% - 28px));display:flex;align-items:center;gap:18px;padding:8px 10px 8px 18px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.36));border:1px solid rgba(255,255,255,.92);box-shadow:inset 0 1px 0 #fff,inset 0 -12px 22px rgba(255,255,255,.28),0 18px 40px rgba(28,40,80,.16),0 4px 10px rgba(28,40,80,.06);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%)}
 .brand{font-weight:700;display:flex;align-items:center;gap:8px;white-space:nowrap}
-.brand .vtc{font-weight:800}
-.brand .rule{width:1px;height:16px;background:rgba(21,32,58,.16)}
-.brand span{color:var(--muted);font-weight:400}
-.links{display:flex;gap:16px;font-size:13px;flex:1}
-.nav-tools{margin-left:auto;display:flex;align-items:center;gap:8px}
-.orb{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.55);border:1px solid #fff;box-shadow:0 8px 16px rgba(28,40,80,.1),inset 0 1px 0 #fff}
-.orb.bell{position:relative}
-.orb.bell:after{content:"99+";position:absolute;top:-6px;right:-8px;background:#e11d48;color:#fff;font-size:9px;font-weight:700;border-radius:999px;padding:2px 4px}
-.orb.ava{background:#7ac142;color:#fff;font-weight:800;border:0}
-.login{background:var(--navy);color:#fff;border-radius:999px;padding:9px 14px;font-weight:600}
+.brand .vtc{font-weight:800}.brand .rule{width:1px;height:16px;background:rgba(21,32,58,.16)}.brand span{color:var(--muted);font-weight:400}
+.links{display:flex;gap:18px;font-size:13px;flex:1;color:#1a2a4a}
+.login{margin-left:auto;background:var(--navy);color:#fff;border-radius:999px;padding:9px 16px;font-weight:600;box-shadow:0 8px 18px rgba(21,32,58,.22)}
 .screen{height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;overflow:hidden}
 .hero{background:#12182b;color:#fff}
 .wash{position:absolute;inset:0;background:radial-gradient(900px 500px at 75% 20%,rgba(123,92,255,.28),transparent 55%),linear-gradient(160deg,#171d32,#101624)}
@@ -70,18 +63,23 @@ footer{display:flex;justify-content:space-between;margin-top:18px;color:var(--mu
 <body>
 <div class="bar" id="bar"></div>
 <header class="nav">
-  <div class="brand"><span class="vtc">VTC</span><i class="rule"></i>V-NEX <span>· your job partner</span></div>
-  <nav class="links"><a href="#offers">Find Jobs</a><a href="#offers">Polish CV and Cover Letter</a><a href="#offers">Career Coaching</a><a href="#offers">Event Calendar</a><a href="#brand">About V-Nex</a></nav>
-  <div class="nav-tools"><span class="orb">âŒ•</span><span class="orb bell">ðŸ””</span><span class="orb ava">WC</span><a class="login" href="#top">Log in</a></div>
+  <div class="brand"><span class="vtc">VTC</span><i class="rule"></i>V-NEX <span>- your job partner</span></div>
+  <nav class="links">
+    <a href="#offers">Find Jobs</a>
+    <a href="#offers">Polish CV</a>
+    <a href="#offers">Career Coaching</a>
+    <a href="#brand">About V-Nex</a>
+  </nav>
+  <a class="login" href="#top">Log in</a>
 </header>
 <section class="screen hero" id="top"><div class="wash"></div>
-<div class="hero-grid"><div><small style="letter-spacing:.14em;text-transform:uppercase;opacity:.7">VTC · official career nexus</small>
-<h1>From class to offer â€”<br><em>one nexus.</em></h1>
+<div class="hero-grid"><div><small style="letter-spacing:.14em;text-transform:uppercase;opacity:.7">VTC - official career nexus</small>
+<h1>From class to offer -<br><em>one nexus.</em></h1>
 <p class="sub">One-stop career nexus connecting employers with VTC students and alumni.</p></div>
 <div class="deck"><div class="stage" id="stage">
-<article class="jcard"><div class="logo l1">F</div><div><h3>Junior UX Designer</h3><small>Studio North</small><span class="pill">96%</span></div><div>â™¡</div><button class="apply">Apply â†’</button></article>
-<article class="jcard"><div class="logo l2">A</div><div><h3>Product Designer</h3><small>Harbour Lab</small><span class="pill">91%</span></div><div>â™¡</div><button class="apply">Apply â†’</button></article>
-<article class="jcard"><div class="logo l3">C</div><div><h3>UI Designer</h3><small>Pacific Team</small><span class="pill">88%</span></div><div>â™¥</div><button class="apply">Apply â†’</button></article>
+<article class="jcard"><div class="logo l1">F</div><div><h3>Junior UX Designer</h3><small>Studio North</small><span class="pill">96%</span></div><div>+</div><button class="apply">Apply</button></article>
+<article class="jcard"><div class="logo l2">A</div><div><h3>Product Designer</h3><small>Harbour Lab</small><span class="pill">91%</span></div><div>+</div><button class="apply">Apply</button></article>
+<article class="jcard"><div class="logo l3">C</div><div><h3>UI Designer</h3><small>Pacific Team</small><span class="pill">88%</span></div><div>+</div><button class="apply">Apply</button></article>
 </div></div></div></section>
 <section class="screen offers" id="offers"><div class="offers-wrap"><div>
 <div class="kicker">Who benefits</div>
@@ -92,7 +90,7 @@ footer{display:flex;justify-content:space-between;margin-top:18px;color:var(--mu
 <section class="screen branding" id="brand"><div class="brand-grid">
 <div><div class="kicker">V-NEX branding</div>
 <h2>V for VTC.<br>NEX for Nexus.</h2>
-<p>Nexus · Next Page · Next Step. Upload assets/brand-subtraction.png to replace this slice animation with the Tower artwork.</p></div>
+<p>Nexus - Next Page - Next Step. The campus cut into the mark.</p></div>
 <div class="subtraction">
 <div class="slice"></div><div class="slice"></div><div class="slice"></div><div class="slice"></div>
 <div class="word">V-NEX</div>
@@ -100,13 +98,13 @@ footer{display:flex;justify-content:space-between;margin-top:18px;color:var(--mu
 <section class="screen close" id="end"><div class="close-wrap"><div class="glass-hero">
 <div class="kicker">Discover V-NEX</div>
 <h3>Official gateway for students, alumni and industry</h3>
-<p>Derived from Nexusâ€”a central connectionâ€”V-NEX integrates VTC talent and partners across one shared network.</p>
+<p>Derived from Nexus - a central connection - V-NEX integrates VTC talent and partners across one shared network.</p>
 <div class="ql"><a href="#">Official Website</a><a href="#">Admission</a><a href="#">SIAP</a><a href="#">Alumni</a><a href="#">Occupation Dictionary</a></div>
-<footer><div>VTC | V-NEX</div><div>Â©2026 VTC V-Nex</div></footer>
+<footer><div>VTC | V-NEX</div><div>2026 VTC V-Nex</div></footer>
 </div></div></section>
 <script>
 const features={students:[['AI Job Recommendations','Personalised ranking from CV, skills and preferences.','jobs'],['AI Resume & CV Builder','Online apply + AI cover letter. History & favorites.','cv'],['Industry Insights','Notify you of Industry Insights.','insights'],['Career Coaching Resources','AI CV score, Coaching Corner, workshops & fairs.','coach'],['Recruitment and Placement','Workshops, fairs and placement activities.','events']],employers:[['AI Job Recommendations','See how VTC talent is ranked against your roles.','jobs'],['AI Resume & CV Builder','Review structured applications on one network.','cv'],['Industry Insights','Share industry signals into the student nexus.','insights'],['Career Coaching Resources','Meet candidates prepared through coaching and fairs.','coach'],['Recruitment and Placement','Run recruitment and placement through one gateway.','events']]};
-const panels={jobs:'<div class="neu"><article class="jcard" style="position:relative;width:100%"><div class="logo l1">F</div><div><h3>Junior UX Designer</h3><small>Studio North</small><span class="pill">96%</span></div><div>â™¡</div><button class="apply">Apply â†’</button></article></div>',cv:'<div class="neu" style="min-height:200px"><strong>CV readiness 82</strong></div>',insights:'<div class="glass"><div class="kicker">Live signal</div><p>FinTech hiring pulse</p></div>',coach:'<div class="neu">Career Toolkit · Insights · Cover Letter</div>',events:'<div class="neu"><strong>Summer Tech Internship Fair</strong></div>'};
+const panels={jobs:'<div class="neu"><article class="jcard" style="position:relative;width:100%"><div class="logo l1">F</div><div><h3>Junior UX Designer</h3><small>Studio North</small><span class="pill">96%</span></div><div>+</div><button class="apply">Apply</button></article></div>',cv:'<div class="neu" style="min-height:200px"><strong>CV readiness 82</strong></div>',insights:'<div class="glass"><div class="kicker">Live signal</div><p>FinTech hiring pulse</p></div>',coach:'<div class="neu">Career Toolkit</div>',events:'<div class="neu"><strong>Summer Tech Internship Fair</strong></div>'};
 let role='students',idx=0;const title=document.getElementById('ftitle'),copy=document.getElementById('fcopy'),panelRoot=document.getElementById('panels'),dots=document.getElementById('dots');
 function render(){const list=features[role],cur=list[idx];title.textContent=cur[0];copy.textContent=cur[1];panelRoot.innerHTML='<div class="panel show">'+panels[cur[2]]+'</div>';dots.innerHTML=list.map((_,i)=>'<i class="'+(i===idx?'on':'')+'"></i>').join('');}
 render();
@@ -119,5 +117,3 @@ window.addEventListener('scroll',()=>{const max=document.body.scrollHeight-inner
 const brand=document.getElementById('brand');
 new IntersectionObserver(([e])=>{if(e.isIntersecting)brand.classList.add('in')},{threshold:.3}).observe(brand);
 </script></body></html>
-
-
