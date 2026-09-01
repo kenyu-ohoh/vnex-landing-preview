@@ -1,2 +1,112 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>V-NEX branding</title></head><body><p>See latest preview assets locally. Branding section ships in workspace index.html.</p></body></html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>V-NEX — From class to offer</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#F0F0F3;--ink:#1b2437;--muted:#6b7385;--navy:#15203a;--grad:linear-gradient(90deg,#7b5cff,#e14b9a);--neu-dark:rgba(174,174,192,.4)}
+*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}html{scroll-snap-type:y mandatory}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer}
+.bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:80;background:var(--grad)}
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:70;width:min(1180px,calc(100% - 24px));display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.72);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.6);border-radius:999px;padding:8px 12px 8px 18px}
+.brand{font-weight:700}.brand span{color:var(--muted);font-weight:400}
+.links{display:flex;gap:14px;font-size:13px;flex:1}
+.login{margin-left:auto;background:var(--navy);color:#fff;border-radius:999px;padding:9px 14px;font-weight:600}
+.screen{height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;overflow:hidden}
+.hero{background:#12182b;color:#fff}
+.wash{position:absolute;inset:0;background:radial-gradient(900px 500px at 75% 20%,rgba(123,92,255,.28),transparent 55%),linear-gradient(160deg,#171d32,#101624)}
+.hero-grid{position:relative;z-index:2;height:100%;width:min(1180px,calc(100% - 40px));margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:24px;padding-top:56px}
+h1{font-size:clamp(42px,6.4vw,78px);line-height:.92;letter-spacing:-.045em}
+h1 em{font-style:normal;background:linear-gradient(90deg,#d2c2ff,#ff97c8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin-top:16px;max-width:440px;color:rgba(255,255,255,.8);line-height:1.55}
+.deck{height:420px;perspective:1400px}.stage{height:100%;transform-style:preserve-3d;transform:rotateY(-18deg) rotateX(8deg)}
+.jcard{position:absolute;width:300px;padding:16px;border-radius:24px;display:grid;grid-template-columns:52px 1fr 22px;gap:8px 10px;align-items:center;background:#F0F0F3;box-shadow:-10px -10px 30px #fff,10px 10px 30px var(--neu-dark)}
+.jcard:nth-child(1){transform:translate3d(30px,10px,70px)}.jcard:nth-child(2){transform:translate3d(78px,138px,10px)}.jcard:nth-child(3){transform:translate3d(18px,266px,-50px)}
+.logo{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff;font-weight:800}
+.l1{background:#1a1a1a}.l2{background:linear-gradient(135deg,#ff7a3c,#ff4d4d)}.l3{background:#0b6b5b}
+.pill{display:inline-flex;margin-top:5px;background:var(--grad);color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:3px 8px}
+.apply{grid-column:1/-1;background:var(--navy);color:#fff;border-radius:12px;padding:9px;font-weight:600}
+.offers{background:var(--bg)}
+.offers-wrap,.brand-grid{height:100%;width:min(1180px,calc(100% - 40px));margin:0 auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:center;padding-top:72px}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7b5cff;font-weight:700}
+.offers h2,.brand-grid h2{font-size:clamp(28px,4.4vw,52px);letter-spacing:-.04em;line-height:1;margin:8px 0 12px}
+.offers p,.brand-grid p{color:var(--muted);line-height:1.55;max-width:460px}
+.seg{display:flex;gap:6px;margin:18px 0 14px}.seg button{background:#F0F0F3;color:var(--muted);border-radius:999px;padding:8px 14px;box-shadow:-6px -6px 14px #fff,6px 6px 14px var(--neu-dark)}.seg button.on{color:var(--ink);font-weight:700}
+.dots{display:flex;gap:8px;margin-top:18px}.dots i{width:8px;height:8px;border-radius:50%;background:#c9c9d4}.dots i.on{background:#7b5cff;width:22px}
+.stage-panel{min-height:360px;position:relative}
+.panel{position:absolute;inset:0;opacity:0;transform:rotateY(18deg) scale(.92);transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .5s}
+.panel.show{opacity:1;transform:none}
+.neu{background:#F0F0F3;border-radius:28px;padding:22px;box-shadow:-10px -10px 30px #fff,10px 10px 30px var(--neu-dark)}
+.glass{background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(22px);border-radius:28px;padding:22px}
+.branding{background:#ececee}
+.subtraction{position:relative;height:min(64vh,500px)}
+.slice{position:absolute;overflow:hidden;transform:skewX(-18deg) translateY(36px);opacity:0}
+.branding.in .slice{opacity:1;transform:skewX(-18deg) translateY(0);transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .6s}
+.slice:nth-child(1){width:18%;height:78%;left:8%;top:4%;background:linear-gradient(160deg,#f3c27a,#c9a6ff);transition-delay:.05s}
+.slice:nth-child(2){width:24%;height:86%;left:24%;top:0;background:linear-gradient(160deg,#9ad7ff,#d7b8ff);transition-delay:.14s}
+.slice:nth-child(3){width:22%;height:80%;left:46%;top:8%;background:linear-gradient(160deg,#ffd39a,#b9a6ff);transition-delay:.22s}
+.slice:nth-child(4){width:18%;height:72%;left:66%;top:16%;background:linear-gradient(160deg,#7ee0ff,#ffb4d6);transition-delay:.3s}
+.slice i{position:absolute;inset:-30%;transform:skewX(18deg);background-image:url('assets/vtc-tower.jpg');background-size:cover;background-position:center;opacity:.55;animation:pan 16s ease-in-out infinite alternate}
+.word{position:absolute;left:10%;top:40%;z-index:5;font-size:clamp(40px,7vw,84px);font-weight:800;color:#fff;letter-spacing:-.06em;opacity:0;transform:translateY(16px)}
+.branding.in .word{opacity:1;transform:none;transition:all .7s .35s}
+@keyframes pan{from{transform:skewX(18deg) translateX(-3%)}to{transform:skewX(18deg) translateX(4%)}}
+.close{background:linear-gradient(180deg,#f7f4ff,#eef2ff)}
+.close-wrap{height:100%;width:min(1180px,calc(100% - 40px));margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding-top:48px}
+.glass-hero{background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(24px);border-radius:32px;padding:36px}
+.close h3{font-size:clamp(26px,4vw,44px)}
+.close p{color:var(--muted);max-width:680px;margin:12px 0 22px;line-height:1.65}
+.ql{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.ql a{text-align:center;padding:16px 8px;border-radius:18px;background:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.7);font-weight:600;font-size:13px}
+footer{display:flex;justify-content:space-between;margin-top:18px;color:var(--muted);font-size:12px}
+@media(max-width:900px){.links{display:none}.hero-grid,.offers-wrap,.brand-grid{grid-template-columns:1fr;padding-top:88px}.deck{height:280px}.ql{grid-template-columns:1fr 1fr}}
+</style></head>
+<body>
+<div class="bar" id="bar"></div>
+<header class="nav"><div class="brand">VTC | V-NEX <span>· your job partner</span></div>
+<nav class="links"><a href="#offers">Find Jobs</a><a href="#offers">Polish CV</a><a href="#brand">Branding</a><a href="#end">About</a></nav>
+<a class="login" href="#top">Log in</a></header>
+<section class="screen hero" id="top"><div class="wash"></div>
+<div class="hero-grid"><div><small style="letter-spacing:.14em;text-transform:uppercase;opacity:.7">VTC · official career nexus</small>
+<h1>From class to offer —<br><em>one nexus.</em></h1>
+<p class="sub">One-stop career nexus connecting employers with VTC students and alumni.</p></div>
+<div class="deck"><div class="stage" id="stage">
+<article class="jcard"><div class="logo l1">F</div><div><h3>Junior UX Designer</h3><small>Studio North</small><span class="pill">96%</span></div><div>♡</div><button class="apply">Apply →</button></article>
+<article class="jcard"><div class="logo l2">A</div><div><h3>Product Designer</h3><small>Harbour Lab</small><span class="pill">91%</span></div><div>♡</div><button class="apply">Apply →</button></article>
+<article class="jcard"><div class="logo l3">C</div><div><h3>UI Designer</h3><small>Pacific Team</small><span class="pill">88%</span></div><div>♥</div><button class="apply">Apply →</button></article>
+</div></div></div></section>
+<section class="screen offers" id="offers"><div class="offers-wrap"><div>
+<div class="kicker">Who benefits</div>
+<div class="seg"><button class="on" data-role="students">Students & Alumni</button><button data-role="employers">Employers</button></div>
+<h2 id="ftitle">AI Job Recommendations</h2>
+<p id="fcopy">Personalised ranking from CV, skills and preferences.</p>
+<div class="dots" id="dots"></div></div><div class="stage-panel" id="panels"></div></div></section>
+<section class="screen branding" id="brand"><div class="brand-grid">
+<div><div class="kicker">V-NEX branding</div>
+<h2>V for VTC.<br>NEX for Nexus.</h2>
+<p>Nexus · Next Page · Next Step. Subtraction slices cut through the VTC Tower — campus becomes the brand mark.</p></div>
+<div class="subtraction"><div class="slice"><i></i></div><div class="slice"><i></i></div><div class="slice"><i></i></div><div class="slice"><i></i></div><div class="word">V-NEX</div></div>
+</div></section>
+<section class="screen close" id="end"><div class="close-wrap"><div class="glass-hero">
+<div class="kicker">Discover V-NEX</div>
+<h3>Official gateway for students, alumni and industry</h3>
+<p>Derived from Nexus—a central connection—V-NEX integrates VTC talent and partners across one shared network.</p>
+<div class="ql"><a href="#">Official Website</a><a href="#">Admission</a><a href="#">SIAP</a><a href="#">Alumni</a><a href="#">Occupation Dictionary</a></div>
+<footer><div>VTC | V-NEX</div><div>©2026 VTC V-Nex</div></footer>
+</div></div></section>
+<script>
+const features={students:[['AI Job Recommendations','Personalised ranking from CV, skills and preferences.','jobs'],['AI Resume & CV Builder','Online apply + AI cover letter. History & favorites.','cv'],['Industry Insights','Notify you of Industry Insights.','insights'],['Career Coaching Resources','AI CV score, Coaching Corner, workshops & fairs.','coach'],['Recruitment and Placement','Workshops, fairs and placement activities.','events']],employers:[['AI Job Recommendations','See how VTC talent is ranked against your roles.','jobs'],['AI Resume & CV Builder','Review structured applications on one network.','cv'],['Industry Insights','Share industry signals into the student nexus.','insights'],['Career Coaching Resources','Meet candidates prepared through coaching and fairs.','coach'],['Recruitment and Placement','Run recruitment and placement through one gateway.','events']]};
+const panels={jobs:'<div class="neu"><article class="jcard" style="position:relative;width:100%"><div class="logo l1">F</div><div><h3>Junior UX Designer</h3><small>Studio North</small><span class="pill">96%</span></div><div>♡</div><button class="apply">Apply →</button></article></div>',cv:'<div class="neu" style="min-height:200px"><strong>CV readiness 82</strong></div>',insights:'<div class="glass"><div class="kicker">Live signal</div><p>FinTech hiring pulse</p></div>',coach:'<div class="neu">Career Toolkit · Insights · Cover Letter</div>',events:'<div class="neu"><strong>Summer Tech Internship Fair</strong></div>'};
+let role='students',idx=0;const title=document.getElementById('ftitle'),copy=document.getElementById('fcopy'),panelRoot=document.getElementById('panels'),dots=document.getElementById('dots');
+function render(){const list=features[role],cur=list[idx];title.textContent=cur[0];copy.textContent=cur[1];panelRoot.innerHTML='<div class="panel show">'+panels[cur[2]]+'</div>';dots.innerHTML=list.map((_,i)=>'<i class="'+(i===idx?'on':'')+'"></i>').join('');}
+render();
+document.querySelectorAll('.seg button').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.seg button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');role=btn.dataset.role;idx=0;render();});
+dots.addEventListener('click',e=>{const i=[...dots.children].indexOf(e.target);if(i>=0){idx=i;render();}});
+setInterval(()=>{idx=(idx+1)%features[role].length;render();},5200);
+const stage=document.getElementById('stage');
+document.querySelector('.hero').addEventListener('mousemove',e=>{const r=e.currentTarget.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;stage.style.transform='rotateY('+(-18+x*16)+'deg) rotateX('+(8-y*10)+'deg)';});
+window.addEventListener('scroll',()=>{const max=document.body.scrollHeight-innerHeight;document.getElementById('bar').style.width=(scrollY/max*100)+'%';},{passive:true});
+const brand=document.getElementById('brand');
+new IntersectionObserver(([e])=>{if(e.isIntersecting)brand.classList.add('in')},{threshold:.3}).observe(brand);
+</script></body></html>
