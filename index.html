@@ -41,18 +41,10 @@ h1 em{font-style:normal;background:linear-gradient(90deg,#d2c2ff,#ff97c8);-webki
 .panel.show{opacity:1;transform:none}
 .neu{background:#F0F0F3;border-radius:28px;padding:22px;box-shadow:-10px -10px 30px #fff,10px 10px 30px var(--neu-dark)}
 .glass{background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(22px);border-radius:28px;padding:22px}
-.branding{background:#ececee}
-.subtraction{position:relative;height:min(64vh,500px)}
-.slice{position:absolute;overflow:hidden;transform:skewX(-18deg) translateY(36px);opacity:0}
-.branding.in .slice{opacity:1;transform:skewX(-18deg) translateY(0);transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .6s}
-.slice:nth-child(1){width:18%;height:78%;left:8%;top:4%;background:linear-gradient(160deg,#f3c27a,#c9a6ff);transition-delay:.05s}
-.slice:nth-child(2){width:24%;height:86%;left:24%;top:0;background:linear-gradient(160deg,#9ad7ff,#d7b8ff);transition-delay:.14s}
-.slice:nth-child(3){width:22%;height:80%;left:46%;top:8%;background:linear-gradient(160deg,#ffd39a,#b9a6ff);transition-delay:.22s}
-.slice:nth-child(4){width:18%;height:72%;left:66%;top:16%;background:linear-gradient(160deg,#7ee0ff,#ffb4d6);transition-delay:.3s}
-.slice i{position:absolute;inset:-30%;transform:skewX(18deg);background-image:url('assets/vtc-tower.jpg');background-size:cover;background-position:center;opacity:.55;animation:pan 16s ease-in-out infinite alternate}
-.word{position:absolute;left:10%;top:40%;z-index:5;font-size:clamp(40px,7vw,84px);font-weight:800;color:#fff;letter-spacing:-.06em;opacity:0;transform:translateY(16px)}
-.branding.in .word{opacity:1;transform:none;transition:all .7s .35s}
-@keyframes pan{from{transform:skewX(18deg) translateX(-3%)}to{transform:skewX(18deg) translateX(4%)}}
+.branding{background:#f3f4f6}
+.subtraction{position:relative;height:min(64vh,520px);display:grid;place-items:center}
+.poster{width:100%;height:100%;object-fit:contain;opacity:0;transform:scale(.94) rotateX(8deg);filter:drop-shadow(0 24px 40px rgba(40,30,80,.14))}
+.branding.in .poster{opacity:1;transform:none;transition:opacity .7s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
 .close{background:linear-gradient(180deg,#f7f4ff,#eef2ff)}
 .close-wrap{height:100%;width:min(1180px,calc(100% - 40px));margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding-top:48px}
 .glass-hero{background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(24px);border-radius:32px;padding:36px}
@@ -85,8 +77,8 @@ footer{display:flex;justify-content:space-between;margin-top:18px;color:var(--mu
 <section class="screen branding" id="brand"><div class="brand-grid">
 <div><div class="kicker">V-NEX branding</div>
 <h2>V for VTC.<br>NEX for Nexus.</h2>
-<p>Nexus · Next Page · Next Step. Subtraction slices cut through the VTC Tower — campus becomes the brand mark.</p></div>
-<div class="subtraction"><div class="slice"><i></i></div><div class="slice"><i></i></div><div class="slice"><i></i></div><div class="slice"><i></i></div><div class="word">V-NEX</div></div>
+<p>Nexus · Next Page · Next Step. The campus cut into the mark — VTC Tower as subtraction slices.</p></div>
+<div class="subtraction"><img class="poster" alt="V-NEX branding" src="assets/brand-subtraction.jpg"/></div>
 </div></section>
 <section class="screen close" id="end"><div class="close-wrap"><div class="glass-hero">
 <div class="kicker">Discover V-NEX</div>
