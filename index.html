@@ -1,121 +1,242 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V-NEX - From class to offer</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<style>
-:root{--bg:#F0F0F3;--ink:#1b2437;--muted:#6b7385;--navy:#15203a;--grad:linear-gradient(90deg,#7b5cff,#e14b9a);--neu-dark:rgba(174,174,192,.4)}
-*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}html{scroll-snap-type:y mandatory}
-body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
-a{color:inherit;text-decoration:none}button{font:inherit;border:0;cursor:pointer}
-.bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:80;background:var(--grad)}
-.nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:70;width:min(1180px,calc(100% - 28px));display:flex;align-items:center;gap:18px;padding:8px 10px 8px 18px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.36));border:1px solid rgba(255,255,255,.92);box-shadow:inset 0 1px 0 #fff,inset 0 -12px 22px rgba(255,255,255,.28),0 18px 40px rgba(28,40,80,.16),0 4px 10px rgba(28,40,80,.06);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%)}
-.brand{font-weight:700;display:flex;align-items:center;gap:8px;white-space:nowrap}
-.brand .vtc{font-weight:800}.brand .rule{width:1px;height:16px;background:rgba(21,32,58,.16)}.brand span{color:var(--muted);font-weight:400}
-.nav-tools{margin-left:auto;display:flex;align-items:center;gap:10px}
-.lang{background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.95);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600;color:#1a2a4a;box-shadow:inset 0 1px 0 #fff,0 6px 14px rgba(28,40,80,.08)}
-.lang span{opacity:.45;margin-left:6px}
-.login{background:var(--navy);color:#fff;border-radius:999px;padding:9px 16px;font-weight:600;box-shadow:0 8px 18px rgba(21,32,58,.22)}
-.screen{height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;overflow:hidden}
-.hero{background:#12182b;color:#fff}
-.wash{position:absolute;inset:0;background:radial-gradient(900px 500px at 75% 20%,rgba(123,92,255,.28),transparent 55%),linear-gradient(160deg,#171d32,#101624)}
-.hero-grid{position:relative;z-index:2;height:100%;width:min(1180px,calc(100% - 40px));margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:24px;padding-top:56px}
-h1{font-size:clamp(42px,6.4vw,78px);line-height:.92;letter-spacing:-.045em}
-h1 em{font-style:normal;background:linear-gradient(90deg,#d2c2ff,#ff97c8);-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{margin-top:16px;max-width:440px;color:rgba(255,255,255,.8);line-height:1.55}
-.deck{height:420px;perspective:1400px}.stage{height:100%;transform-style:preserve-3d;transform:rotateY(-18deg) rotateX(8deg)}
-.jcard{position:absolute;width:300px;padding:16px;border-radius:24px;display:grid;grid-template-columns:52px 1fr 22px;gap:8px 10px;align-items:center;background:#F0F0F3;box-shadow:-10px -10px 30px #fff,10px 10px 30px var(--neu-dark)}
-.jcard:nth-child(1){transform:translate3d(30px,10px,70px)}.jcard:nth-child(2){transform:translate3d(78px,138px,10px)}.jcard:nth-child(3){transform:translate3d(18px,266px,-40px)}
-.logo{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff;font-weight:800}
-.l1{background:#1a1a1a}.l2{background:linear-gradient(135deg,#ff7a3c,#ff4d4d)}.l3{background:#0b6b5b}
-.pill{display:inline-flex;margin-top:5px;background:var(--grad);color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:3px 8px}
-.apply{grid-column:1/-1;background:var(--navy);color:#fff;border-radius:12px;padding:9px;font-weight:600}
-.offers{background:var(--bg)}
-.offers-wrap,.brand-grid{height:100%;width:min(1180px,calc(100% - 40px));margin:0 auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:center;padding-top:72px}
-.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7b5cff;font-weight:700}
-.offers h2,.brand-grid h2{font-size:clamp(28px,4.4vw,52px);letter-spacing:-.04em;line-height:1;margin:8px 0 12px}
-.offers p,.brand-grid p{color:var(--muted);line-height:1.55;max-width:460px}
-.seg{display:flex;gap:6px;margin:18px 0 14px}.seg button{background:#F0F0F3;color:var(--muted);border-radius:999px;padding:8px 14px;box-shadow:-6px -6px 14px #fff,6px 6px 14px var(--neu-dark)}.seg button.on{color:var(--ink);font-weight:700}
-.dots{display:flex;gap:8px;margin-top:18px}.dots i{width:8px;height:8px;border-radius:50%;background:#c9c9d4}.dots i.on{background:#7b5cff;width:22px}
-.stage-panel{min-height:360px;position:relative}
-.panel{position:absolute;inset:0;opacity:0;transform:rotateY(18deg) scale(.92);transition:.6s}.panel.show{opacity:1;transform:none}
-.neu{background:#F0F0F3;border-radius:28px;padding:22px;box-shadow:-10px -10px 30px #fff,10px 10px 30px var(--neu-dark)}
-.glass{background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(22px);border-radius:28px;padding:22px}
-.branding{background:#f3f4f6}
-.subtraction{position:relative;height:min(64vh,520px)}
-.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
-.fallback{position:absolute;inset:0;display:none}
-.slice{position:absolute;overflow:hidden;transform:skewX(-18deg) translateY(24px);opacity:0}
-.branding.in .slice{opacity:1;transform:skewX(-18deg) translateY(0);transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .6s}
-.slice:nth-child(1){width:18%;height:78%;left:8%;top:4%;background:linear-gradient(160deg,#f3c27a,#9a6bff);transition-delay:.05s}
-.slice:nth-child(2){width:24%;height:86%;left:24%;top:0;background:linear-gradient(160deg,#9ad7ff,#d7b8ff);transition-delay:.14s}
-.slice:nth-child(3){width:22%;height:80%;left:46%;top:8%;background:linear-gradient(160deg,#ffd39a,#7ecbff);transition-delay:.22s}
-.slice:nth-child(4){width:20%;height:72%;left:64%;top:16%;background:linear-gradient(160deg,#7ee0ff,#6b7cff);transition-delay:.3s}
-.word{position:absolute;left:10%;top:40%;z-index:5;font-size:clamp(40px,6vw,76px);font-weight:800;color:#fff;letter-spacing:-.06em;opacity:0}
-.branding.in .word{opacity:1;transition:opacity .6s .3s}
-.close{background:linear-gradient(180deg,#f7f4ff,#eef2ff)}
-.close-wrap{height:100%;width:min(1180px,calc(100% - 40px));margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding-top:48px}
-.glass-hero{background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(24px);border-radius:32px;padding:36px}
-.close h3{font-size:clamp(26px,4vw,44px)}
-.close p{color:var(--muted);max-width:680px;margin:12px 0 22px;line-height:1.65}
-.ql{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.ql a{text-align:center;padding:16px 8px;border-radius:18px;background:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.7);font-weight:600;font-size:13px}
-footer{display:flex;justify-content:space-between;margin-top:18px;color:var(--muted);font-size:12px}
-@media(max-width:900px){.hero-grid,.offers-wrap,.brand-grid{grid-template-columns:1fr;padding-top:88px}.deck{height:280px}.ql{grid-template-columns:1fr 1fr}}
-</style></head>
+<title>V-NEX | Career Nexus Landing</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/main.css"/>
+</head>
 <body>
-<div class="bar" id="bar"></div>
-<header class="nav">
-  <div class="brand"><span class="vtc">VTC</span><i class="rule"></i>V-NEX <span>- your job partner</span></div>
-  <div class="nav-tools">
-    <button class="lang" type="button">EN <span>v</span></button>
-    <a class="login" href="#top">Log in</a>
+<header class="hero" id="top">
+  <div class="hero-art" id="hero-art">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/brand-subtraction.png" aria-label="V-NEX hero loop background">
+      <source src="assets/hero-loop.mp4" type="video/mp4"/>
+    </video>
+    <img class="hero-fallback" src="assets/brand-subtraction.png" alt="V-NEX hero"/>
   </div>
+  <div class="hero-overlay"></div>
+
+  <div class="container nav-wrap" data-reveal>
+    <nav class="nav">
+      <div class="brand"><img class="brand-logo" src="assets/vtc-logo.svg" alt="VTC"/> <span>V-NEX</span> <small>your job partner</small></div>
+      <div class="spacer"></div>
+      <details class="lang-dropdown">
+        <summary class="lang-trigger" aria-label="Language selector for preview"><span class="lang-current">English</span></summary>
+        <ul class="lang-menu" role="listbox" aria-label="Language options for preview">
+          <li><button class="lang-option" type="button" role="option" data-lang="ENG" aria-selected="true">English</button></li>
+          <li><button class="lang-option" type="button" role="option" data-lang="TC" aria-selected="false">繁體中文</button></li>
+          <li><button class="lang-option" type="button" role="option" data-lang="SC" aria-selected="false">简体中文</button></li>
+        </ul>
+      </details>
+      <a class="login" href="#benefits" aria-label="Log In">
+        <svg class="login-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M10 6h7a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3h-7"/>
+          <path d="M4 12h10"/>
+          <path d="M10 8l4 4-4 4"/>
+        </svg>
+        <span>Log In</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="container hero-copy" data-reveal>
+    <h1>Find your next <span class="hero-accent">opportunity</span></h1>
+    <p>Explore roles, discover possibilities, and move your career forward.</p>
+  </div>
+
+  <a class="hero-down" href="#discover" aria-label="Scroll to discover section">
+    <span class="hero-down-mouse" aria-hidden="true"><span class="wheel"></span></span>
+    <span class="hero-down-touch" aria-hidden="true">
+      <span class="touch-point"></span>
+    </span>
+  </a>
 </header>
-<section class="screen hero" id="top"><div class="wash"></div>
-<div class="hero-grid"><div><small style="letter-spacing:.14em;text-transform:uppercase;opacity:.7">VTC - official career nexus</small>
-<h1>From class to offer -<br><em>one nexus.</em></h1>
-<p class="sub">One-stop career nexus connecting employers with VTC students and alumni.</p></div>
-<div class="deck"><div class="stage" id="stage">
-<article class="jcard"><div class="logo l1">F</div><div><h3>Junior UX Designer</h3><small>Studio North</small><span class="pill">96%</span></div><div>+</div><button class="apply">Apply</button></article>
-<article class="jcard"><div class="logo l2">A</div><div><h3>Product Designer</h3><small>Harbour Lab</small><span class="pill">91%</span></div><div>+</div><button class="apply">Apply</button></article>
-<article class="jcard"><div class="logo l3">C</div><div><h3>UI Designer</h3><small>Pacific Team</small><span class="pill">88%</span></div><div>+</div><button class="apply">Apply</button></article>
-</div></div></div></section>
-<section class="screen offers" id="offers"><div class="offers-wrap"><div>
-<div class="kicker">Who benefits</div>
-<div class="seg"><button class="on" data-role="students">Students & Alumni</button><button data-role="employers">Employers</button></div>
-<h2 id="ftitle">AI Job Recommendations</h2>
-<p id="fcopy">Personalised ranking from CV, skills and preferences.</p>
-<div class="dots" id="dots"></div></div><div class="stage-panel" id="panels"></div></div></section>
-<section class="screen branding" id="brand"><div class="brand-grid">
-<div><div class="kicker">V-NEX branding</div>
-<h2>V for VTC.<br>NEX for Nexus.</h2>
-<p>Nexus - Next Page - Next Step. The campus cut into the mark.</p></div>
-<div class="subtraction">
-<img class="poster" alt="V-NEX subtraction branding" src="assets/brand-subtraction.png" onerror="this.style.display='none';document.getElementById('fb').style.display='block'"/>
-<div class="fallback" id="fb"><div class="slice"></div><div class="slice"></div><div class="slice"></div><div class="slice"></div>
-<div class="word">V-NEX</div></div>
-</div></div></section>
-<section class="screen close" id="end"><div class="close-wrap"><div class="glass-hero">
-<div class="kicker">Discover V-NEX</div>
-<h3>Official gateway for students, alumni and industry</h3>
-<p>Derived from Nexus - a central connection - V-NEX integrates VTC talent and partners across one shared network.</p>
-<div class="ql"><a href="#">Official Website</a><a href="#">Admission</a><a href="#">SIAP</a><a href="#">Alumni</a><a href="#">Occupation Dictionary</a></div>
-<footer><div>VTC | V-NEX</div><div>2026 VTC V-Nex</div></footer>
-</div></div></section>
-<script>
-const features={students:[['AI Job Recommendations','Personalised ranking from CV, skills and preferences.','jobs'],['AI Resume & CV Builder','Online apply + AI cover letter. History & favorites.','cv'],['Industry Insights','Notify you of Industry Insights.','insights'],['Career Coaching Resources','AI CV score, Coaching Corner, workshops & fairs.','coach'],['Recruitment and Placement','Workshops, fairs and placement activities.','events']],employers:[['AI Job Recommendations','See how VTC talent is ranked against your roles.','jobs'],['AI Resume & CV Builder','Review structured applications on one network.','cv'],['Industry Insights','Share industry signals into the student nexus.','insights'],['Career Coaching Resources','Meet candidates prepared through coaching and fairs.','coach'],['Recruitment and Placement','Run recruitment and placement through one gateway.','events']]};
-const panels={jobs:'<div class="neu"><article class="jcard" style="position:relative;width:100%"><div class="logo l1">F</div><div><h3>Junior UX Designer</h3><small>Studio North</small><span class="pill">96%</span></div><div>+</div><button class="apply">Apply</button></article></div>',cv:'<div class="neu" style="min-height:200px"><strong>CV readiness 82</strong></div>',insights:'<div class="glass"><div class="kicker">Live signal</div><p>FinTech hiring pulse</p></div>',coach:'<div class="neu">Career Toolkit</div>',events:'<div class="neu"><strong>Summer Tech Internship Fair</strong></div>'};
-let role='students',idx=0;const title=document.getElementById('ftitle'),copy=document.getElementById('fcopy'),panelRoot=document.getElementById('panels'),dots=document.getElementById('dots');
-function render(){const list=features[role],cur=list[idx];title.textContent=cur[0];copy.textContent=cur[1];panelRoot.innerHTML='<div class="panel show">'+panels[cur[2]]+'</div>';dots.innerHTML=list.map((_,i)=>'<i class="'+(i===idx?'on':'')+'"></i>').join('');}
-render();
-document.querySelectorAll('.seg button').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.seg button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');role=btn.dataset.role;idx=0;render();});
-dots.addEventListener('click',e=>{const i=[...dots.children].indexOf(e.target);if(i>=0){idx=i;render();}});
-setInterval(()=>{idx=(idx+1)%features[role].length;render();},5200);
-const stage=document.getElementById('stage');
-document.querySelector('.hero').addEventListener('mousemove',e=>{const r=e.currentTarget.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;stage.style.transform='rotateY('+(-18+x*16)+'deg) rotateX('+(8-y*10)+'deg)';});
-window.addEventListener('scroll',()=>{const max=document.body.scrollHeight-innerHeight;document.getElementById('bar').style.width=(scrollY/max*100)+'%';},{passive:true});
-const brand=document.getElementById('brand');
-new IntersectionObserver(([e])=>{if(e.isIntersecting)brand.classList.add('in')},{threshold:.3}).observe(brand);
-</script></body></html>
+
+<main>
+  <section class="section" id="benefits">
+    <div class="container" data-reveal>
+      <div class="section-kicker">Who benefits</div>
+      <section class="benefit-shell" aria-label="Benefit showcase carousel">
+        <div class="benefit-head">
+          <div class="tabs" role="tablist" aria-label="Benefit pages">
+            <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-role="employer">Employer</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-role="student">Students & Alumni</button>
+          </div>
+          <div class="benefit-head-actions benefit-head-actions-top">
+            <a class="benefit-login benefit-login-employer" href="#top" aria-label="Employer Login">Employer Login</a>
+            <button class="benefit-login benefit-login-student is-disabled" type="button" aria-label="Student Login (coming soon)" disabled>Student Login (coming soon)</button>
+          </div>
+        </div>
+
+        <div class="benefit-viewport">
+          <article class="benefit-page active" data-role="employer" data-page="0">
+            <div class="benefit-rows">
+              <div class="benefit-row">
+                <div class="benefit-copy">
+                  <h3>Job <span class="soft">Posting</span></h3>
+                  <p>Create open positions to reach qualified candidates.</p>
+                </div>
+                <figure class="benefit-shot"><img src="assets/Job%20Posting.png" alt="Employer posting preview"/></figure>
+              </div>
+              <div class="benefit-row reverse">
+                <div class="benefit-copy">
+                  <h3>AI Talent <span class="soft">Search & Sourcing</span></h3>
+                  <p>Identify ideal candidates using AI-powered technology.</p>
+                </div>
+                <figure class="benefit-shot" aria-label="Employer sourcing preview">
+                  <img src="assets/AI%20Talent%20Search%20%26%20Sourcing.png" alt="Employer sourcing preview"/>
+                </figure>
+              </div>
+            </div>
+          </article>
+
+          <article class="benefit-page" data-role="employer" data-page="1">
+            <div class="benefit-rows">
+              <div class="benefit-row">
+                <div class="benefit-copy">
+                  <h3>Direct Applicant <span class="soft">Management</span></h3>
+                  <p>Centralized platform for job postings and applicant tracking.</p>
+                </div>
+                <figure class="benefit-shot"><img src="assets/Direct%20Applicant%20Management.png" alt="Employer applicant management preview"/></figure>
+              </div>
+              <div class="benefit-row reverse">
+                <div class="benefit-copy">
+                  <h3>Recruitment Event <span class="soft">Publishing</span></h3>
+                  <p>Connect with potential talent through career fairs and events.</p>
+                </div>
+                <figure class="benefit-shot"><img src="assets/Recruitment%20Event%20Publishing.png" alt="Employer event publishing preview"/></figure>
+              </div>
+            </div>
+          </article>
+
+          <article class="benefit-page" data-role="student" data-page="0">
+            <div class="benefit-rows">
+              <div class="benefit-row">
+                <div class="benefit-copy">
+                  <h3>AI Job <span class="soft">Recommendations</span></h3>
+                  <p>AI-driven job matches tailored to your profile.</p>
+                </div>
+                <figure class="benefit-shot"><img src="assets/AI%20Job%20Recommendations.png" alt="Student recommendation preview"/></figure>
+              </div>
+              <div class="benefit-row reverse">
+                <div class="benefit-copy">
+                  <h3>AI CV & Cover Letter <span class="soft">Builder</span></h3>
+                  <p>Create your portfolio with AI recommendations.</p>
+                </div>
+                <figure class="benefit-shot"><img src="assets/AI%20CV%20%26%20Cover%20Letter%20Builder.png" alt="Student CV builder preview"/></figure>
+              </div>
+            </div>
+          </article>
+
+          <article class="benefit-page" data-role="student" data-page="1">
+            <div class="benefit-rows">
+              <div class="benefit-row">
+                <div class="benefit-copy">
+                  <h3>Industry <span class="soft">Insights</span></h3>
+                  <p>Explore industry and market trends.</p>
+                </div>
+                <figure class="benefit-shot"><img src="assets/Industry%20Insights.png" alt="Student industry insights preview"/></figure>
+              </div>
+              <div class="benefit-row reverse">
+                <div class="benefit-copy">
+                  <h3>Career Coaching <span class="soft">Resources</span></h3>
+                  <p>Master interview techniques and workplace skills.</p>
+                </div>
+                <figure class="benefit-shot"><img src="assets/Career%20Coaching%20Resources.png" alt="Student coaching resources preview"/></figure>
+              </div>
+            </div>
+          </article>
+
+          <article class="benefit-page" data-role="student" data-page="2">
+            <div class="benefit-rows single">
+              <div class="benefit-row">
+                <div class="benefit-copy">
+                  <h3>Recruitment and Placement <span class="soft">Activities</span></h3>
+                  <p>Connect with employers through career fairs and events.</p>
+                </div>
+                <figure class="benefit-shot"><img src="assets/Recruitment%20and%20Placement%20Activities.png" alt="Student recruitment activities preview"/></figure>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="benefit-dots" aria-label="Benefit page indicators"></div>
+        <div class="benefit-head-actions benefit-head-actions-bottom">
+          <a class="benefit-login benefit-login-employer" href="#top" aria-label="Employer Login">Employer Login</a>
+          <button class="benefit-login benefit-login-student is-disabled" type="button" aria-label="Student Login (coming soon)" disabled>Student Login (coming soon)</button>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="section section-discover" id="discover">
+    <div data-reveal>
+      <div class="discover-motion" id="discover-motion">
+        <div class="discover-sticky">
+          <div class="discover-stage" aria-label="Branding story sequence">
+            <article class="discover-panel panel-1 active" id="panel-1">
+              <div class="zigzag-fill" id="fill-screen-1" aria-label="V-NEX naming story line">
+                <p class="fill-line l1 ltr" data-fill="V for VTC">V for VTC</p>
+                <p class="fill-line l2 ltr" data-fill="NEX for Nexus">NEX for Nexus</p>
+              </div>
+              <p class="screen1-foot">Next Page &bull; Next Step</p>
+            </article>
+
+            <article class="discover-panel panel-2" id="panel-2">
+              <figure class="screen2-media" aria-label="Campus mark visual">
+                <img src="assets/brand-subtraction.png" alt="Campus cut into V-NEX mark"/>
+              </figure>
+              <div class="screen2-copy">
+                <div class="screen2-lines" id="fill-screen-2" aria-label="V-NEX full branding definition">
+                  <p class="s2-line title l1"><span class="s2-ghost">Derived from Nexus</span><span class="s2-fill">Derived from Nexus</span></p>
+                  <p class="s2-line title l2"><span class="s2-ghost">a central connection&mdash;V-NEX</span><span class="s2-fill">a central connection&mdash;V-NEX</span></p>
+                  <div class="screen2-gap" aria-hidden="true"></div>
+                  <p class="s2-line body l3"><span class="s2-ghost">serves as the official gateway</span><span class="s2-fill">serves as the official gateway</span></p>
+                  <p class="s2-line body l4"><span class="s2-ghost">integrating VTC students, alumni,</span><span class="s2-fill">integrating VTC students, alumni,</span></p>
+                  <p class="s2-line body l5"><span class="s2-ghost">and industry partners across one</span><span class="s2-fill">and industry partners across one</span></p>
+                  <p class="s2-line body l6"><span class="s2-ghost">shared network.</span><span class="s2-fill">shared network.</span></p>
+                  <div class="screen2-gap" aria-hidden="true"></div>
+                  <p class="s2-line note l7"><span class="s2-ghost">Together, we connect potential</span><span class="s2-fill">Together, we connect potential</span></p>
+                  <p class="s2-line note l8"><span class="s2-ghost">with opportunity for the future.</span><span class="s2-fill">with opportunity for the future.</span></p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quick" id="quick-links">
+    <div class="container" data-reveal>
+      <h3>VTC Quick Links</h3>
+      <div class="quick-grid">
+        <a class="quick-link" href="#"><img src="assets/vtc_official.jpg" alt="VTC Official Website"/><span>VTC Official Website</span></a>
+        <a class="quick-link" href="#"><img src="assets/vtc_admission.png" alt="VTC Admission"/><span>VTC Admission</span></a>
+        <a class="quick-link" href="#"><img src="assets/internship_arrangement.png" alt="Internship Arrangement"/><span>Internship Arrangement</span></a>
+        <a class="quick-link" href="#"><img src="assets/vtc_alumni.png" alt="Alumni Website"/><span>Alumni Website</span></a>
+        <a class="quick-link" href="#"><img src="assets/vtc_occupation_dictionary.png" alt="Occupation Dictionary"/><span>Occupation Dictionary</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/vtc-logo.svg" alt="VTC"/>
+      <span class="footer-divider" aria-hidden="true"></span>
+      <span class="footer-wordmark">V-NEX</span>
+      <small>&middot; your job partner</small>
+    </div>
+    <div class="footer-meta">
+      <div>Accessibility | Privacy Policy | Terms Conditions</div>
+      <div>(c) 2026 VTC V-NEX. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
+
