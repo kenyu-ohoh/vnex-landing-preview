@@ -1541,13 +1541,11 @@ img{max-width:100%;display:block}
     bottom:calc(4px + env(safe-area-inset-bottom, 0px));
     margin-top:0;
     padding-bottom:0;
+    z-index:5;
+    pointer-events:auto;
     transition:none;
   }
-  #benefits .benefit-head-actions-bottom{display:none}
-  body:not(.nav-hidden) #benefits .benefit-head-actions-bottom{
-    display:none;
-  }
-  body.nav-hidden.benefits-focus #benefits .benefit-head-actions-bottom{display:flex}
+  #benefits .benefit-head-actions-bottom{display:flex}
   .benefit-login{min-width:148px;height:40px;font-size:13px}
   .benefit-viewport{
     min-height:0;
