@@ -230,6 +230,11 @@ const discoverMotion = document.getElementById('discover-motion');
 const langDropdown = document.querySelector('.lang-dropdown');
 const langCurrent = document.querySelector('.lang-current');
 const langOptions = document.querySelectorAll('.lang-option');
+const mobileLangOptions = document.querySelectorAll('.mobile-lang-option');
+const navToggle = document.querySelector('.nav-toggle');
+const mobileNavMenu = document.querySelector('.mobile-nav-menu');
+const mobileLogin = document.querySelector('.mobile-login');
+const navWrap = document.querySelector('.nav-wrap');
 const navLoginText = document.querySelector('.login span');
 const heroTitle = document.querySelector('.hero-copy h1');
 const heroSubtitle = document.querySelector('.hero-copy p');
@@ -294,7 +299,7 @@ const i18n = {
     ],
     discoverLine1: 'V for VTC',
     discoverLine2: 'NEX for Nexus',
-    discoverFoot: 'Next Page \u2022 Next Step',
+    discoverFoot: 'Your next career chapter \u2022 Your next life step',
     screen2Lines: [
       'Derived from Nexus',
       'a central connection\u2014V-NEX',
@@ -344,9 +349,9 @@ const i18n = {
       '\u63d0\u5347\u9762\u8a66\u6280\u5de7\u8207\u8077\u5834\u80fd\u529b\u3002',
       '\u900f\u904e\u62db\u8058\u6d3b\u52d5\u8207\u50f1\u4e3b\u5efa\u7acb\u9023\u7d50\u3002'
     ],
-    discoverLine1: 'V \u4ee3\u8868 VTC',
-    discoverLine2: 'NEX \u4ee3\u8868 Nexus',
-    discoverFoot: '\u4e0b\u4e00\u9801 \u2022 \u4e0b\u4e00\u6b65',
+    discoverLine1: 'V \u53d6\u81ea VTC',
+    discoverLine2: 'NEX \u6e90\u81ea Nexus',
+    discoverFoot: '\u8077\u6daf\u4e0b\u4e00\u9801 \u2022 \u4eba\u751f\u4e0b\u4e00\u6b65',
     screen2Lines: [
       '\u6e90\u65bc Nexus',
       '\u9019\u500b\u6838\u5fc3\u9023\u7d50\u2014V-NEX',
@@ -396,9 +401,9 @@ const i18n = {
       '\u63d0\u5347\u9762\u8bd5\u6280\u5de7\u4e0e\u804c\u573a\u80fd\u529b\u3002',
       '\u901a\u8fc7\u62db\u8058\u6d3b\u52a8\u4e0e\u96c7\u4e3b\u5efa\u7acb\u8054\u7cfb\u3002'
     ],
-    discoverLine1: 'V \u4ee3\u8868 VTC',
-    discoverLine2: 'NEX \u4ee3\u8868 Nexus',
-    discoverFoot: '\u4e0b\u4e00\u9875 \u2022 \u4e0b\u4e00\u6b65',
+    discoverLine1: 'V \u53d6\u81ea VTC',
+    discoverLine2: 'NEX \u6e90\u81ea Nexus',
+    discoverFoot: '\u804c\u4e1a\u4e0b\u4e00\u9875 \u2022 \u4eba\u751f\u4e0b\u4e00\u6b65',
     screen2Lines: [
       '\u6e90\u4e8e Nexus',
       '\u8fd9\u4e00\u6838\u5fc3\u8fde\u63a5\u2014V-NEX',
@@ -418,6 +423,7 @@ const i18n = {
   }
 };
 let hasUserScrolled = window.scrollY > 8;
+let lastNavScrollY = window.scrollY;
 
 function markUserScrollIntent(){
   hasUserScrolled = true;
@@ -440,8 +446,12 @@ function applyLanguage(langCode){
   langOptions.forEach((item) => {
     item.setAttribute('aria-selected', String(item.dataset.lang === lang));
   });
+  mobileLangOptions.forEach((item) => {
+    item.setAttribute('aria-selected', String(item.dataset.lang === lang));
+  });
 
   if (navLoginText) navLoginText.textContent = copy.navLogin;
+  if (mobileLogin) mobileLogin.textContent = copy.navLogin;
   if (heroTitle) heroTitle.innerHTML = copy.heroTitle;
   if (heroSubtitle) heroSubtitle.textContent = copy.heroSubtitle;
   if (benefitsKicker) benefitsKicker.textContent = copy.benefitsKicker;
@@ -554,6 +564,38 @@ if (langDropdown && langCurrent && langOptions.length) {
   });
 }
 
+if (mobileLangOptions.length) {
+  mobileLangOptions.forEach((option) => {
+    option.addEventListener('click', (event) => {
+      event.preventDefault();
+      const lang = option.dataset.lang || 'ENG';
+      applyLanguage(lang);
+      if (navWrap) navWrap.classList.remove('mobile-nav-open');
+      if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+      if (mobileNavMenu) mobileNavMenu.setAttribute('aria-hidden', 'true');
+    });
+  });
+}
+
+if (navWrap && navToggle && mobileNavMenu) {
+  navToggle.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const opening = !navWrap.classList.contains('mobile-nav-open');
+    navWrap.classList.toggle('mobile-nav-open', opening);
+    navToggle.setAttribute('aria-expanded', String(opening));
+    mobileNavMenu.setAttribute('aria-hidden', String(!opening));
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!navWrap.contains(event.target)) {
+      navWrap.classList.remove('mobile-nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      mobileNavMenu.setAttribute('aria-hidden', 'true');
+    }
+  });
+}
+
 applyLanguage('ENG');
 
 function triggerBenefitsIntro(){
@@ -627,6 +669,24 @@ function segmentProgress(progress, start, end){
 }
 
 window.addEventListener('scroll', () => {
+  if (navWrap) {
+    const currentY = window.scrollY;
+    const down = currentY > lastNavScrollY + 6;
+    const up = currentY < lastNavScrollY - 6;
+
+    if (currentY <= 12 || up) {
+      navWrap.style.transform = 'translate(-50%, 0)';
+      navWrap.style.opacity = '1';
+      navWrap.style.pointerEvents = 'auto';
+    } else if (down) {
+      navWrap.style.transform = 'translate(-50%, -130%)';
+      navWrap.style.opacity = '0';
+      navWrap.style.pointerEvents = 'none';
+    }
+
+    lastNavScrollY = currentY;
+  }
+
   const offset = Math.min(window.scrollY * 0.02, 10);
   heroArt.style.transform = 'scale(' + (1.01 + offset / 400).toFixed(3) + ') translateY(' + (-offset).toFixed(2) + 'px)';
 

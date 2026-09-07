@@ -10,14 +10,15 @@
 <body>
 <header class="hero" id="top">
   <div class="hero-art" id="hero-art">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/brand-subtraction.png" aria-label="V-NEX hero loop background">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/brand-subtraction.webp" aria-label="V-NEX hero loop background">
+      <source src="assets/hero-loop.webm" type="video/webm"/>
       <source src="assets/hero-loop.mp4" type="video/mp4"/>
     </video>
-    <img class="hero-fallback" src="assets/brand-subtraction.png" alt="V-NEX hero"/>
+    <img class="hero-fallback" src="assets/brand-subtraction.webp" alt="V-NEX hero"/>
   </div>
   <div class="hero-overlay"></div>
 
-  <div class="container nav-wrap" data-reveal>
+  <div class="container nav-wrap">
     <nav class="nav">
       <div class="brand"><img class="brand-logo" src="assets/vtc-logo.svg" alt="VTC"/> <span>V-NEX</span> <small>your job partner</small></div>
       <div class="spacer"></div>
@@ -37,6 +38,19 @@
         </svg>
         <span>Log In</span>
       </a>
+      <button class="nav-toggle" type="button" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-nav-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="mobile-nav-menu" id="mobile-nav-menu" aria-hidden="true">
+        <div class="mobile-nav-lang" role="listbox" aria-label="Mobile language selector">
+          <button class="mobile-lang-option" type="button" role="option" data-lang="ENG" aria-selected="true">English</button>
+          <button class="mobile-lang-option" type="button" role="option" data-lang="TC" aria-selected="false">繁體中文</button>
+          <button class="mobile-lang-option" type="button" role="option" data-lang="SC" aria-selected="false">简体中文</button>
+        </div>
+        <a class="mobile-login" href="#benefits">Log In</a>
+      </div>
     </nav>
   </div>
 
@@ -77,7 +91,7 @@
                   <h3>Job <span class="soft">Posting</span></h3>
                   <p>Create open positions to reach qualified candidates.</p>
                 </div>
-                <figure class="benefit-shot"><img src="assets/Job%20Posting.png" alt="Employer posting preview"/></figure>
+                <figure class="benefit-shot"><img src="assets/Job%20Posting.webp" alt="Employer posting preview"/></figure>
               </div>
               <div class="benefit-row reverse">
                 <div class="benefit-copy">
@@ -85,7 +99,7 @@
                   <p>Identify ideal candidates using AI-powered technology.</p>
                 </div>
                 <figure class="benefit-shot" aria-label="Employer sourcing preview">
-                  <img src="assets/AI%20Talent%20Search%20%26%20Sourcing.png" alt="Employer sourcing preview"/>
+                  <img src="assets/AI%20Talent%20Search%20%26%20Sourcing.webp" alt="Employer sourcing preview"/>
                 </figure>
               </div>
             </div>
@@ -98,14 +112,14 @@
                   <h3>Direct Applicant <span class="soft">Management</span></h3>
                   <p>Centralized platform for job postings and applicant tracking.</p>
                 </div>
-                <figure class="benefit-shot"><img src="assets/Direct%20Applicant%20Management.png" alt="Employer applicant management preview"/></figure>
+                <figure class="benefit-shot"><img src="assets/Direct%20Applicant%20Management.webp" alt="Employer applicant management preview"/></figure>
               </div>
               <div class="benefit-row reverse">
                 <div class="benefit-copy">
                   <h3>Recruitment Event <span class="soft">Publishing</span></h3>
                   <p>Connect with potential talent through career fairs and events.</p>
                 </div>
-                <figure class="benefit-shot"><img src="assets/Recruitment%20Event%20Publishing.png" alt="Employer event publishing preview"/></figure>
+                <figure class="benefit-shot"><img src="assets/Recruitment%20Event%20Publishing.webp" alt="Employer event publishing preview"/></figure>
               </div>
             </div>
           </article>
@@ -117,14 +131,14 @@
                   <h3>AI Job <span class="soft">Recommendations</span></h3>
                   <p>AI-driven job matches tailored to your profile.</p>
                 </div>
-                <figure class="benefit-shot"><img src="assets/AI%20Job%20Recommendations.png" alt="Student recommendation preview"/></figure>
+                <figure class="benefit-shot"><img src="assets/AI%20Job%20Recommendations.webp" alt="Student recommendation preview"/></figure>
               </div>
               <div class="benefit-row reverse">
                 <div class="benefit-copy">
                   <h3>AI CV & Cover Letter <span class="soft">Builder</span></h3>
                   <p>Create your portfolio with AI recommendations.</p>
                 </div>
-                <figure class="benefit-shot"><img src="assets/AI%20CV%20%26%20Cover%20Letter%20Builder.png" alt="Student CV builder preview"/></figure>
+                <figure class="benefit-shot"><img src="assets/AI%20CV%20%26%20Cover%20Letter%20Builder.webp" alt="Student CV builder preview"/></figure>
               </div>
             </div>
           </article>
@@ -136,14 +150,14 @@
                   <h3>Industry <span class="soft">Insights</span></h3>
                   <p>Explore industry and market trends.</p>
                 </div>
-                <figure class="benefit-shot"><img src="assets/Industry%20Insights.png" alt="Student industry insights preview"/></figure>
+                <figure class="benefit-shot"><img src="assets/Industry%20Insights.webp" alt="Student industry insights preview"/></figure>
               </div>
               <div class="benefit-row reverse">
                 <div class="benefit-copy">
                   <h3>Career Coaching <span class="soft">Resources</span></h3>
                   <p>Master interview techniques and workplace skills.</p>
                 </div>
-                <figure class="benefit-shot"><img src="assets/Career%20Coaching%20Resources.png" alt="Student coaching resources preview"/></figure>
+                <figure class="benefit-shot"><img src="assets/Career%20Coaching%20Resources.webp" alt="Student coaching resources preview"/></figure>
               </div>
             </div>
           </article>
@@ -155,7 +169,7 @@
                   <h3>Recruitment and Placement <span class="soft">Activities</span></h3>
                   <p>Connect with employers through career fairs and events.</p>
                 </div>
-                <figure class="benefit-shot"><img src="assets/Recruitment%20and%20Placement%20Activities.png" alt="Student recruitment activities preview"/></figure>
+                <figure class="benefit-shot"><img src="assets/Recruitment%20and%20Placement%20Activities.webp" alt="Student recruitment activities preview"/></figure>
               </div>
             </div>
           </article>
@@ -184,7 +198,7 @@
 
             <article class="discover-panel panel-2" id="panel-2">
               <figure class="screen2-media" aria-label="Campus mark visual">
-                <img src="assets/brand-subtraction.png" alt="Campus cut into V-NEX mark"/>
+                <img src="assets/brand-subtraction.webp" alt="Campus cut into V-NEX mark"/>
               </figure>
               <div class="screen2-copy">
                 <div class="screen2-lines" id="fill-screen-2" aria-label="V-NEX full branding definition">
@@ -211,11 +225,11 @@
     <div class="container" data-reveal>
       <h3>VTC Quick Links</h3>
       <div class="quick-grid">
-        <a class="quick-link" href="#"><img src="assets/vtc_official.jpg" alt="VTC Official Website"/><span>VTC Official Website</span></a>
-        <a class="quick-link" href="#"><img src="assets/vtc_admission.png" alt="VTC Admission"/><span>VTC Admission</span></a>
-        <a class="quick-link" href="#"><img src="assets/internship_arrangement.png" alt="Internship Arrangement"/><span>Internship Arrangement</span></a>
-        <a class="quick-link" href="#"><img src="assets/vtc_alumni.png" alt="Alumni Website"/><span>Alumni Website</span></a>
-        <a class="quick-link" href="#"><img src="assets/vtc_occupation_dictionary.png" alt="Occupation Dictionary"/><span>Occupation Dictionary</span></a>
+        <a class="quick-link" href="#"><img src="assets/vtc_official.webp" alt="VTC Official Website"/><span>VTC Official Website</span></a>
+        <a class="quick-link" href="#"><img src="assets/vtc_admission.webp" alt="VTC Admission"/><span>VTC Admission</span></a>
+        <a class="quick-link" href="#"><img src="assets/internship_arrangement.webp" alt="Internship Arrangement"/><span>Internship Arrangement</span></a>
+        <a class="quick-link" href="#"><img src="assets/vtc_alumni.webp" alt="Alumni Website"/><span>Alumni Website</span></a>
+        <a class="quick-link" href="#"><img src="assets/vtc_occupation_dictionary.webp" alt="Occupation Dictionary"/><span>Occupation Dictionary</span></a>
       </div>
     </div>
   </section>
