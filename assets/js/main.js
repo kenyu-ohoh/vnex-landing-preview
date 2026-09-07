@@ -227,6 +227,9 @@ document.querySelectorAll('[data-reveal]').forEach((node) => {
 const heroArt = document.getElementById('hero-art');
 const heroVideo = document.querySelector('.hero-video');
 const discoverMotion = document.getElementById('discover-motion');
+const desktopLang = document.getElementById('desktop-lang');
+const desktopLangCurrent = document.getElementById('desktop-lang-current');
+const desktopLangTrigger = desktopLang ? desktopLang.querySelector('.lang-dropdown-trigger') : null;
 const langOptions = document.querySelectorAll('.lang-option');
 const mobileLangOptions = document.querySelectorAll('.mobile-lang-option');
 const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
@@ -475,6 +478,10 @@ function applyLanguage(langCode){
   langOptions.forEach((item) => {
     item.setAttribute('aria-selected', String(item.dataset.lang === lang));
   });
+  if (desktopLangCurrent) {
+    const selectedDesktopOption = desktopLang.querySelector('.lang-option[data-lang="' + lang + '"]');
+    desktopLangCurrent.textContent = (selectedDesktopOption && selectedDesktopOption.dataset.label) ? selectedDesktopOption.dataset.label : lang;
+  }
   mobileLangOptions.forEach((item) => {
     item.setAttribute('aria-selected', String(item.dataset.lang === lang));
   });
@@ -576,7 +583,30 @@ if (langOptions.length) {
       event.preventDefault();
       const lang = option.dataset.lang || 'ENG';
       applyLanguage(lang);
+      if (desktopLang) {
+        desktopLang.classList.remove('open');
+      }
+      if (desktopLangTrigger) {
+        desktopLangTrigger.setAttribute('aria-expanded', 'false');
+      }
     });
+  });
+}
+
+if (desktopLang && desktopLangTrigger) {
+  desktopLangTrigger.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const opening = !desktopLang.classList.contains('open');
+    desktopLang.classList.toggle('open', opening);
+    desktopLangTrigger.setAttribute('aria-expanded', String(opening));
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!desktopLang.contains(event.target)) {
+      desktopLang.classList.remove('open');
+      desktopLangTrigger.setAttribute('aria-expanded', 'false');
+    }
   });
 }
 
