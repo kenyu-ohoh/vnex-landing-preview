@@ -227,10 +227,9 @@ document.querySelectorAll('[data-reveal]').forEach((node) => {
 const heroArt = document.getElementById('hero-art');
 const heroVideo = document.querySelector('.hero-video');
 const discoverMotion = document.getElementById('discover-motion');
-const langDropdown = document.querySelector('.lang-dropdown');
-const langCurrent = document.querySelector('.lang-current');
 const langOptions = document.querySelectorAll('.lang-option');
 const mobileLangOptions = document.querySelectorAll('.mobile-lang-option');
+const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
 const navToggle = document.querySelector('.nav-toggle');
 const mobileNavMenu = document.querySelector('.mobile-nav-menu');
 const mobileLogin = document.querySelector('.mobile-login');
@@ -258,16 +257,13 @@ const discoverPanels = [
   document.getElementById('panel-1'),
   document.getElementById('panel-2')
 ];
+const quickLinksSection = document.getElementById('quick-links');
 const screen2FillSpans = Array.from(document.querySelectorAll('#fill-screen-2 .s2-fill'));
-const languageLabels = {
-  ENG: 'English',
-  TC: '\u7e41\u9ad4\u4e2d\u6587',
-  SC: '\u7b80\u4f53\u4e2d\u6587'
-};
 const i18n = {
   ENG: {
     htmlLang: 'en',
     navLogin: 'Log In',
+    mobileMenuHome: 'Home',
     heroTitle: 'Find your next <span class="hero-accent">opportunity</span>',
     heroSubtitle: 'Explore roles, discover possibilities, and move your career forward.',
     benefitsKicker: 'Who benefits',
@@ -299,7 +295,7 @@ const i18n = {
     ],
     discoverLine1: 'V for VTC',
     discoverLine2: 'NEX for Nexus',
-    discoverFoot: 'Your next career chapter \u2022 Your next life step',
+    discoverFoot: 'Next Page \u2022 Next Step',
     screen2Lines: [
       'Derived from Nexus',
       'a central connection\u2014V-NEX',
@@ -320,6 +316,7 @@ const i18n = {
   TC: {
     htmlLang: 'zh-Hant',
     navLogin: '\u767b\u5165',
+    mobileMenuHome: '\u9996\u9801',
     heroTitle: '\u767c\u6398\u4f60\u7684\u4e0b\u4e00\u500b <span class="hero-accent">\u6a5f\u9047</span>',
     heroSubtitle: '\u63a2\u7d22\u8077\u4f4d\u3001\u767c\u6398\u53ef\u80fd\uff0c\u63a8\u9032\u4f60\u7684\u8077\u6daf\u3002',
     benefitsKicker: '\u53d7\u60e0\u5c0d\u8c61',
@@ -372,6 +369,7 @@ const i18n = {
   SC: {
     htmlLang: 'zh-Hans',
     navLogin: '\u767b\u5f55',
+    mobileMenuHome: '\u9996\u9875',
     heroTitle: '\u53d1\u6398\u4f60\u7684\u4e0b\u4e00\u4e2a <span class="hero-accent">\u673a\u9047</span>',
     heroSubtitle: '\u63a2\u7d22\u804c\u4f4d\u3001\u53d1\u73b0\u53ef\u80fd\uff0c\u63a8\u8fdb\u4f60\u7684\u804c\u4e1a\u53d1\u5c55\u3002',
     benefitsKicker: '\u53d7\u76ca\u5bf9\u8c61',
@@ -424,6 +422,38 @@ const i18n = {
 };
 let hasUserScrolled = window.scrollY > 8;
 let lastNavScrollY = window.scrollY;
+let mobileMenuScrollY = 0;
+
+function lockPageScroll(){
+  mobileMenuScrollY = window.scrollY || window.pageYOffset || 0;
+  document.body.style.position = 'fixed';
+  document.body.style.top = '-' + String(mobileMenuScrollY) + 'px';
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+}
+
+function unlockPageScroll(){
+  if (document.body.style.position !== 'fixed') return;
+  const currentTop = document.body.style.top;
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  const restoreY = currentTop ? Math.abs(parseInt(currentTop, 10)) : mobileMenuScrollY;
+  window.scrollTo(0, Number.isFinite(restoreY) ? restoreY : 0);
+}
+
+function closeMobileMenu(){
+  const wasOpen = (navWrap && navWrap.classList.contains('mobile-nav-open')) || document.body.classList.contains('mobile-nav-open');
+  if (navWrap) navWrap.classList.remove('mobile-nav-open');
+  if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+  if (mobileNavMenu) mobileNavMenu.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('mobile-nav-open');
+  document.documentElement.classList.remove('mobile-nav-open');
+  if (wasOpen) unlockPageScroll();
+}
 
 function markUserScrollIntent(){
   hasUserScrolled = true;
@@ -442,7 +472,6 @@ function applyLanguage(langCode){
   const copy = i18n[lang];
 
   document.documentElement.lang = copy.htmlLang;
-  if (langCurrent) langCurrent.textContent = languageLabels[lang] || languageLabels.ENG;
   langOptions.forEach((item) => {
     item.setAttribute('aria-selected', String(item.dataset.lang === lang));
   });
@@ -452,6 +481,12 @@ function applyLanguage(langCode){
 
   if (navLoginText) navLoginText.textContent = copy.navLogin;
   if (mobileLogin) mobileLogin.textContent = copy.navLogin;
+  mobileMenuLinks.forEach((link) => {
+    if (link.dataset.menu === 'home') {
+      const label = link.querySelector('span');
+      if (label) label.textContent = copy.mobileMenuHome;
+    }
+  });
   if (heroTitle) heroTitle.innerHTML = copy.heroTitle;
   if (heroSubtitle) heroSubtitle.textContent = copy.heroSubtitle;
   if (benefitsKicker) benefitsKicker.textContent = copy.benefitsKicker;
@@ -535,32 +570,13 @@ if (heroVideo) {
   }, { once: true, passive: true });
 }
 
-if (langDropdown && langCurrent && langOptions.length) {
-  const onLanguageSelect = (option, event) => {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    const lang = option.dataset.lang || 'ENG';
-    applyLanguage(lang);
-    langDropdown.removeAttribute('open');
-  };
-
+if (langOptions.length) {
   langOptions.forEach((option) => {
     option.addEventListener('click', (event) => {
-      onLanguageSelect(option, event);
+      event.preventDefault();
+      const lang = option.dataset.lang || 'ENG';
+      applyLanguage(lang);
     });
-    option.addEventListener('pointerup', (event) => {
-      if (event.pointerType === 'touch') {
-        onLanguageSelect(option, event);
-      }
-    });
-  });
-
-  document.addEventListener('click', (event) => {
-    if (!langDropdown.contains(event.target)) {
-      langDropdown.removeAttribute('open');
-    }
   });
 }
 
@@ -570,28 +586,46 @@ if (mobileLangOptions.length) {
       event.preventDefault();
       const lang = option.dataset.lang || 'ENG';
       applyLanguage(lang);
-      if (navWrap) navWrap.classList.remove('mobile-nav-open');
-      if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-      if (mobileNavMenu) mobileNavMenu.setAttribute('aria-hidden', 'true');
+      closeMobileMenu();
     });
   });
 }
+
+if (mobileLogin) {
+  mobileLogin.addEventListener('click', () => {
+    closeMobileMenu();
+  });
+}
+
+mobileMenuLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    closeMobileMenu();
+  });
+});
 
 if (navWrap && navToggle && mobileNavMenu) {
   navToggle.addEventListener('click', (event) => {
     event.preventDefault();
     event.stopPropagation();
     const opening = !navWrap.classList.contains('mobile-nav-open');
+    if (opening) {
+      document.body.classList.remove('nav-hidden');
+      lockPageScroll();
+    }
     navWrap.classList.toggle('mobile-nav-open', opening);
     navToggle.setAttribute('aria-expanded', String(opening));
     mobileNavMenu.setAttribute('aria-hidden', String(!opening));
+    document.body.classList.toggle('mobile-nav-open', opening);
+    document.documentElement.classList.toggle('mobile-nav-open', opening);
+    if (!opening) {
+      unlockPageScroll();
+    }
   });
 
   document.addEventListener('click', (event) => {
     if (!navWrap.contains(event.target)) {
-      navWrap.classList.remove('mobile-nav-open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      mobileNavMenu.setAttribute('aria-hidden', 'true');
+      closeMobileMenu();
     }
   });
 }
@@ -668,20 +702,33 @@ function segmentProgress(progress, start, end){
   return (progress - start) / (end - start);
 }
 
+const DISCOVER_HOLDS = [
+  // Hold after screen 1 fill completes.
+  { point: 0.44, durationMs: 500 },
+  // Hold after screen 2 fill completes.
+  { point: 1.00, durationMs: 500 }
+];
+const DISCOVER_MAX_PROGRESS_STEP_DOWN = 0.02;
+const DISCOVER_HOLD_EPSILON = 0.0005;
+const DISCOVER_HOLD_CANCEL_DELTA = 0.06;
+const DISCOVER_PANEL_ENTER_POINT = 0.62;
+const DISCOVER_PANEL_EXIT_POINT = 0.56;
+let discoverFillHoldUntil = 0;
+let discoverActiveHoldPoint = null;
+let lastDiscoverNaturalProgress = 0;
+let lastDiscoverRenderedProgress = 0;
+let discoverPanelIndex = 0;
+
 window.addEventListener('scroll', () => {
   if (navWrap) {
     const currentY = window.scrollY;
     const down = currentY > lastNavScrollY + 6;
     const up = currentY < lastNavScrollY - 6;
 
-    if (currentY <= 12 || up) {
-      navWrap.style.transform = 'translate(-50%, 0)';
-      navWrap.style.opacity = '1';
-      navWrap.style.pointerEvents = 'auto';
+    if (navWrap.classList.contains('mobile-nav-open') || currentY <= 12 || up) {
+      document.body.classList.remove('nav-hidden');
     } else if (down) {
-      navWrap.style.transform = 'translate(-50%, -130%)';
-      navWrap.style.opacity = '0';
-      navWrap.style.pointerEvents = 'none';
+      document.body.classList.add('nav-hidden');
     }
 
     lastNavScrollY = currentY;
@@ -696,14 +743,65 @@ window.addEventListener('scroll', () => {
     const sectionEnd = sectionStart + rect.height - window.innerHeight;
     const track = Math.max(1, sectionEnd - sectionStart);
     const progressRaw = (window.scrollY - sectionStart) / track;
-    const progress = Math.max(0, Math.min(1, progressRaw));
+    const naturalProgress = Math.max(0, Math.min(1, progressRaw));
+    let progress = naturalProgress;
+
+    if (window.innerWidth <= 820) {
+      const now = performance.now();
+      const movingDown = naturalProgress > lastDiscoverNaturalProgress + 0.0005;
+      const movingUp = naturalProgress < lastDiscoverNaturalProgress - 0.0005;
+
+      // Cancel hold only when user intentionally scrolls back enough.
+      if (
+        movingUp &&
+        discoverActiveHoldPoint !== null &&
+        naturalProgress < discoverActiveHoldPoint - DISCOVER_HOLD_CANCEL_DELTA
+      ) {
+        discoverFillHoldUntil = 0;
+        discoverActiveHoldPoint = null;
+      }
+
+      if (movingDown && now >= discoverFillHoldUntil) {
+        const nextHold = DISCOVER_HOLDS.find((hold) => {
+          return lastDiscoverRenderedProgress < hold.point && naturalProgress >= hold.point;
+        });
+        if (nextHold) {
+          discoverActiveHoldPoint = nextHold.point;
+          discoverFillHoldUntil = now + nextHold.durationMs;
+        }
+      }
+
+      const holdActive = (
+        now < discoverFillHoldUntil &&
+        discoverActiveHoldPoint !== null
+      );
+
+      if (
+        holdActive
+      ) {
+        progress = discoverActiveHoldPoint;
+      }
+
+      // Keep downward fill speed readable even on fast swipe momentum.
+      // Do not cap while hold is active, otherwise hold points can feel stuck.
+      if (!holdActive && movingDown && progress > lastDiscoverRenderedProgress + DISCOVER_MAX_PROGRESS_STEP_DOWN) {
+        progress = lastDiscoverRenderedProgress + DISCOVER_MAX_PROGRESS_STEP_DOWN;
+      }
+
+      if (now >= discoverFillHoldUntil) {
+        discoverActiveHoldPoint = null;
+      }
+    }
+
+    lastDiscoverNaturalProgress = naturalProgress;
+    lastDiscoverRenderedProgress = progress;
     discoverMotion.style.setProperty('--discover-progress', progress.toFixed(3));
 
     // Two-screen timeline with hold states:
-    // screen1 fill: 0.04-0.44, hold: 0.44-0.52
-    // screen2 fill: 0.52-0.90
+    // screen1 fill: 0.04-0.44, then hold 0.5s
+    // screen2 fill: 0.62-1.00, then hold 0.5s
     const p1 = segmentProgress(progress, 0.04, 0.44);
-    const p2 = segmentProgress(progress, 0.52, 0.90);
+    const p2 = segmentProgress(progress, 0.62, 1.00);
 
     // Screen 1: fill line by line, top to bottom.
     const s1l1 = segmentProgress(p1, 0.00, 0.50);
@@ -741,11 +839,91 @@ window.addEventListener('scroll', () => {
       line.textContent = full.slice(0, charCount);
     });
 
-    const activeIndex = progress >= 0.52 ? 1 : 0;
+    if (discoverPanelIndex === 0 && progress >= DISCOVER_PANEL_ENTER_POINT - DISCOVER_HOLD_EPSILON) {
+      discoverPanelIndex = 1;
+    } else if (discoverPanelIndex === 1 && progress <= DISCOVER_PANEL_EXIT_POINT) {
+      discoverPanelIndex = 0;
+    }
+
+    const activeIndex = discoverPanelIndex;
+    // Screen 1 third line reveals near the end of screen 1 fill, driven by scroll progress.
+    const footReveal = activeIndex === 0 ? segmentProgress(p1, 0.72, 1.00) : 0;
+    discoverMotion.style.setProperty('--foot-reveal', footReveal.toFixed(3));
 
     discoverPanels.forEach((panel, index) => {
       if (panel) panel.classList.toggle('active', index === activeIndex);
     });
   }
+
+  if (benefitsSection && window.innerWidth <= 820) {
+    const rect = benefitsSection.getBoundingClientRect();
+    const inFocus = rect.top < window.innerHeight * 0.2 && rect.bottom > window.innerHeight * 0.9;
+    document.body.classList.toggle('benefits-focus', inFocus);
+  } else {
+    document.body.classList.remove('benefits-focus');
+  }
 }, { passive: true });
+
+const softSnapSections = [
+  document.getElementById('top'),
+  benefitsSection,
+  discoverSection,
+  quickLinksSection
+].filter(Boolean);
+
+let softSnapTimer = null;
+let lastSnapAt = 0;
+
+function runMobileSoftSnap(){
+  if (window.innerWidth > 820) return;
+  if (!softSnapSections.length) return;
+  if (navWrap && navWrap.classList.contains('mobile-nav-open')) return;
+  if (document.body.style.position === 'fixed') return;
+
+  // Do not auto-snap while user is inside the Discover scroll story.
+  if (discoverMotion) {
+    const discoverTop = discoverMotion.getBoundingClientRect().top + window.scrollY;
+    const discoverBottom = discoverTop + discoverMotion.offsetHeight;
+    const currentY = window.scrollY || 0;
+    if (currentY >= discoverTop - 8 && currentY <= discoverBottom - window.innerHeight * 0.4) {
+      return;
+    }
+  }
+
+  const now = Date.now();
+  if (now - lastSnapAt < 420) return;
+
+  const currentY = window.scrollY || 0;
+  let nearestTop = null;
+  let nearestDistance = Infinity;
+
+  softSnapSections.forEach((section) => {
+    const sectionTop = section.getBoundingClientRect().top + currentY;
+    const distance = Math.abs(sectionTop - currentY);
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestTop = sectionTop;
+    }
+  });
+
+  // Gentle snap only when user stops close to a section start.
+  if (nearestTop !== null && nearestDistance > 8 && nearestDistance < 120) {
+    lastSnapAt = now;
+    window.scrollTo({ top: nearestTop, behavior: 'smooth' });
+  }
+}
+
+window.addEventListener('scroll', () => {
+  if (window.innerWidth > 820) return;
+  if (softSnapTimer) window.clearTimeout(softSnapTimer);
+  softSnapTimer = window.setTimeout(runMobileSoftSnap, 140);
+}, { passive: true });
+
+window.addEventListener('hashchange', () => {
+  window.dispatchEvent(new Event('scroll'));
+});
+
+window.requestAnimationFrame(() => {
+  window.dispatchEvent(new Event('scroll'));
+});
 
