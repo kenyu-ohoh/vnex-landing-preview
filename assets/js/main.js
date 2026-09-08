@@ -240,6 +240,7 @@ const navWrap = document.querySelector('.nav-wrap');
 const navLoginText = document.querySelector('.login span');
 const heroTitle = document.querySelector('.hero-copy h1');
 const heroSubtitle = document.querySelector('.hero-copy p');
+const heroCta = document.querySelector('.hero-cta');
 const benefitsKicker = document.querySelector('#benefits .section-kicker');
 const benefitTabEmployer = document.querySelector('.tab-btn[data-role="employer"]');
 const benefitTabStudent = document.querySelector('.tab-btn[data-role="student"]');
@@ -269,6 +270,7 @@ const i18n = {
     mobileMenuHome: 'Home',
     heroTitle: 'Find your next <span class="hero-accent">opportunity</span>',
     heroSubtitle: 'Explore roles, discover possibilities, and move your career forward.',
+    heroCta: 'Apply Job Now',
     benefitsKicker: 'Who benefits',
     tabEmployer: 'Employer',
     tabStudent: 'Students & Alumni',
@@ -322,6 +324,7 @@ const i18n = {
     mobileMenuHome: '\u9996\u9801',
     heroTitle: '\u767c\u6398\u4f60\u7684\u4e0b\u4e00\u500b <span class="hero-accent">\u6a5f\u9047</span>',
     heroSubtitle: '\u63a2\u7d22\u8077\u4f4d\u3001\u767c\u6398\u53ef\u80fd\uff0c\u63a8\u9032\u4f60\u7684\u8077\u6daf\u3002',
+    heroCta: '\u7acb\u5373\u7533\u8acb\u8077\u4f4d',
     benefitsKicker: '\u53d7\u60e0\u5c0d\u8c61',
     tabEmployer: '\u50f1\u4e3b',
     tabStudent: '\u5b78\u751f\u53ca\u6821\u53cb',
@@ -375,6 +378,7 @@ const i18n = {
     mobileMenuHome: '\u9996\u9875',
     heroTitle: '\u53d1\u6398\u4f60\u7684\u4e0b\u4e00\u4e2a <span class="hero-accent">\u673a\u9047</span>',
     heroSubtitle: '\u63a2\u7d22\u804c\u4f4d\u3001\u53d1\u73b0\u53ef\u80fd\uff0c\u63a8\u8fdb\u4f60\u7684\u804c\u4e1a\u53d1\u5c55\u3002',
+    heroCta: '\u7acb\u5373\u7533\u8bf7\u804c\u4f4d',
     benefitsKicker: '\u53d7\u76ca\u5bf9\u8c61',
     tabEmployer: '\u96c7\u4e3b',
     tabStudent: '\u5b66\u751f\u53ca\u6821\u53cb',
@@ -496,6 +500,10 @@ function applyLanguage(langCode){
   });
   if (heroTitle) heroTitle.innerHTML = copy.heroTitle;
   if (heroSubtitle) heroSubtitle.textContent = copy.heroSubtitle;
+  if (heroCta) {
+    heroCta.textContent = copy.heroCta;
+    heroCta.setAttribute('aria-label', copy.heroCta);
+  }
   if (benefitsKicker) benefitsKicker.textContent = copy.benefitsKicker;
   if (benefitTabEmployer) benefitTabEmployer.textContent = copy.tabEmployer;
   if (benefitTabStudent) benefitTabStudent.textContent = copy.tabStudent;
