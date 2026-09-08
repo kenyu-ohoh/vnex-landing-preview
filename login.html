@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>V-NEX | Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/login.css?v=20260908k33"/>
+</head>
+<body data-role="student" data-view="roles" data-lang="ENG">
+  <div class="login-bg" aria-hidden="true">
+    <div class="bg-layer bg-current" id="bg-current"></div>
+    <div class="bg-layer bg-next" id="bg-next"></div>
+  </div>
+
+  <main class="login-shell" id="login-shell">
+    <section class="media-pane">
+      <div class="media-fallback" id="media-fallback" aria-hidden="true"></div>
+      <div class="media-brand">
+        <img class="media-logo" src="assets/vtc-logo.svg" alt="VTC"/>
+        <span class="media-divider" aria-hidden="true"></span>
+        <span class="media-wordmark">V-NEX</span>
+        <small>&middot; your job partner</small>
+      </div>
+      <div class="media-stack" aria-hidden="true">
+        <video class="role-video current" id="role-video-a" muted loop playsinline preload="metadata"></video>
+        <video class="role-video" id="role-video-b" muted loop playsinline preload="metadata"></video>
+      </div>
+    </section>
+
+    <section class="glass-pane">
+      <div class="glass-sheet">
+        <header class="top-chrome">
+          <a class="home-pill" href="index.html#top" id="home-pill">&larr; Back to Home</a>
+          <div class="lang-dropdown" id="lang-dropdown">
+            <button class="lang-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" id="lang-trigger">EN <span class="chev" aria-hidden="true"></span></button>
+            <div class="lang-menu" id="lang-menu" role="listbox" aria-label="Language selector">
+              <button class="lang-item" type="button" role="option" data-lang="ENG" data-short="EN" aria-selected="true">English</button>
+              <button class="lang-item" type="button" role="option" data-lang="TC" data-short="繁" aria-selected="false">繁體中文</button>
+              <button class="lang-item" type="button" role="option" data-lang="SC" data-short="簡" aria-selected="false">简体中文</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="stage" id="stage-root">
+          <section class="view view-roles" id="view-roles">
+            <h1 id="roles-title">Who are you?</h1>
+            <p class="roles-subtitle" id="roles-subtitle">Select a role - only that login method is shown.</p>
+
+            <div class="role-list" id="role-list" role="radiogroup" aria-label="Role selection">
+              <div class="role-pill" role="radio" aria-checked="true" data-role="student" tabindex="0">
+                <span class="role-icon student" aria-hidden="true"></span>
+                <span class="role-text">
+                  <strong data-role-title="student">Student</strong>
+                  <small data-role-meta="student">Jobs · CV · Events · Alerts</small>
+                </span>
+                <button class="role-login-chip" type="button" data-role-login="student">Login &rarr;</button>
+              </div>
+
+              <div class="role-pill" role="radio" aria-checked="false" data-role="staff" tabindex="-1">
+                <span class="role-icon staff" aria-hidden="true"></span>
+                <span class="role-text">
+                  <strong data-role-title="staff">Staff / Admin</strong>
+                  <small data-role-meta="staff">Manage · Insights · Approvals</small>
+                </span>
+                <button class="role-login-chip" type="button" data-role-login="staff">Login &rarr;</button>
+              </div>
+
+              <div class="role-pill" role="radio" aria-checked="false" data-role="alumni" tabindex="-1">
+                <span class="role-icon alumni" aria-hidden="true"></span>
+                <span class="role-text">
+                  <strong data-role-title="alumni">Alumni</strong>
+                  <small data-role-meta="alumni">Career · Network · Jobs</small>
+                </span>
+                <button class="role-login-chip" type="button" data-role-login="alumni">Login &rarr;</button>
+              </div>
+
+              <div class="role-pill" role="radio" aria-checked="false" data-role="employer" tabindex="-1">
+                <span class="role-icon employer" aria-hidden="true"></span>
+                <span class="role-text">
+                  <strong data-role-title="employer">Employer</strong>
+                  <small data-role-meta="employer">Post jobs · Hire talent</small>
+                </span>
+                <button class="role-login-chip" type="button" data-role-login="employer">Login &rarr;</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="view view-signin" id="view-signin" hidden>
+            <article class="summary-bar">
+              <div class="summary-left">
+                <span class="role-icon" id="summary-icon" aria-hidden="true"></span>
+                <div>
+                  <strong id="summary-title">Employer</strong>
+                  <small id="summary-meta">Post jobs · Hire talent</small>
+                </div>
+              </div>
+              <button class="summary-back" type="button" id="summary-back">&uarr; Back</button>
+            </article>
+
+            <form class="form-card" id="signin-form" novalidate>
+              <h2 id="signin-title">Employer sign-in</h2>
+              <label for="signin-email" id="label-email">Email</label>
+              <input id="signin-email" name="email" type="email" placeholder="name@company.com"/>
+              <p class="field-error" id="error-email" aria-live="polite"></p>
+
+              <label for="signin-password" id="label-password">Password</label>
+              <input id="signin-password" name="password" type="password" placeholder="********"/>
+              <p class="field-error" id="error-password" aria-live="polite"></p>
+
+              <label class="captcha-row" id="captcha-row">
+                <input type="checkbox" id="signin-captcha"/>
+                <span id="captcha-label">CAPTCHA</span>
+              </label>
+              <p class="field-error" id="error-captcha" aria-live="polite"></p>
+
+              <p class="hint-2fa" id="hint-2fa">2FA: OTP via email or mobile after password</p>
+              <button class="primary-btn" type="submit" id="signin-submit">Sign in as Employer</button>
+              <p class="register-line" id="register-line">New company? <button type="button" class="inline-link" id="register-link">Register with BR</button> - Admin approval required.</p>
+            </form>
+          </section>
+
+          <section class="view view-register" id="view-register" hidden>
+            <article class="summary-bar">
+              <div class="summary-left">
+                <span class="role-icon employer" aria-hidden="true"></span>
+                <div>
+                  <strong id="register-summary-title">Employer</strong>
+                  <small id="register-summary-meta">Post jobs · Hire talent</small>
+                </div>
+              </div>
+              <button class="summary-back" type="button" id="register-back">&larr; Back to Login</button>
+            </article>
+
+            <form class="form-card register-card" id="register-form" novalidate>
+              <h2 id="register-title">Employer Register For VTC Career Center</h2>
+
+              <section class="reg-section">
+                <h3 id="sec-account">Account Information</h3>
+                <div class="reg-grid cols-2">
+                  <label>User Account Email*<input type="email" name="accountEmail" aria-required="true"/></label>
+                  <label>First Name*<input type="text" name="firstName" aria-required="true"/></label>
+                  <label>Last Name*<input type="text" name="lastName" aria-required="true"/></label>
+                </div>
+              </section>
+
+              <section class="reg-section">
+                <h3 id="sec-profile">Employer Profile</h3>
+                <div class="reg-grid cols-2">
+                  <label>Company Name*<input type="text" name="companyName" aria-required="true"/></label>
+                  <label>Industry*<select name="industry" aria-required="true"><option value="">- Select -</option><option>Technology</option><option>Finance</option><option>Education</option></select></label>
+                  <label>Region*<select name="region" aria-required="true"><option value="">- Select -</option><option>Hong Kong</option><option>Greater Bay Area</option><option>Overseas</option></select></label>
+                  <label>Company Size*<select name="companySize" aria-required="true"><option value="">- Select -</option><option>1-10</option><option>11-50</option><option>51-200</option><option>200+</option></select></label>
+                  <label class="span-2">Company Description<textarea name="companyDesc" rows="4"></textarea></label>
+                  <label class="span-2">Company Website<input type="url" name="companyWebsite" placeholder="https://"/></label>
+                </div>
+              </section>
+
+              <section class="reg-section">
+                <h3 id="sec-doc">Document Upload (BR / Equivalent Certificate)</h3>
+                <div class="reg-grid cols-2">
+                  <label>BR / Equivalent Certificate No.*<input type="text" name="brNo" aria-required="true"/></label>
+                  <label>Date of BR Expiry*<input type="date" name="brExpiry" aria-required="true"/></label>
+                  <label class="span-2">BR / Equivalent Certificate*<input type="file" name="brFile" id="br-file" accept=".jpg,.jpeg,.png,.gif,.pdf" aria-required="true"/></label>
+                </div>
+                <p class="helper" id="file-helper">Please use file &lt;5MB, with format in jpg, jpeg, png, gif, and pdf. Please do not use any special characters in file name.</p>
+                <p class="field-error" id="error-br-file" aria-live="polite"></p>
+              </section>
+
+              <section class="reg-section">
+                <h3 id="sec-contact">Contact Person Details (For university's contact purpose)</h3>
+                <div class="reg-grid cols-2">
+                  <label>Salutation*<select name="salutation" aria-required="true"><option value="">- Select -</option><option>Mr.</option><option>Ms.</option><option>Mrs.</option><option>Dr.</option></select></label>
+                  <label>Contact Name*<input type="text" name="contactName" aria-required="true"/></label>
+                  <label>Job Title*<input type="text" name="jobTitle" aria-required="true"/></label>
+                  <label>Contact Number*<input type="tel" name="contactNumber" aria-required="true"/></label>
+                  <label class="span-2">Contact Email*<input type="email" name="contactEmail" aria-required="true"/></label>
+                </div>
+              </section>
+
+              <button class="primary-btn" type="submit" id="register-submit">Submit for admin approval</button>
+            </form>
+          </section>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/login.js?v=20260908b"></script>
+</body>
+</html>

@@ -312,8 +312,8 @@ const i18n = {
       'with opportunity for the future.'
     ],
     quickTitle: 'VTC Quick Links',
-    quickLabels: ['VTC Official Website', 'VTC Admission', 'Internship Arrangement', 'Alumni Website', 'Occupation Dictionary'],
-    quickAlts: ['VTC Official Website', 'VTC Admission', 'Internship Arrangement', 'Alumni Website', 'Occupation Dictionary'],
+    quickLabels: ['VTC Official Website', 'VTC Admission', 'Internship Arrangement', 'Alumni Portal', 'Occupation Dictionary'],
+    quickAlts: ['VTC Official Website', 'VTC Admission', 'Internship Arrangement', 'Alumni Portal', 'Occupation Dictionary'],
     footerTagline: '&middot; your job partner',
     footerMeta1: 'Accessibility | Privacy Policy | Terms Conditions',
     footerMeta2: '(c) 2026 VTC V-NEX. All rights reserved.'
@@ -366,8 +366,8 @@ const i18n = {
       '\u5171\u5275\u672a\u4f86\u3002'
     ],
     quickTitle: 'VTC \u5feb\u901f\u9023\u7d50',
-    quickLabels: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u7db2\u7ad9', '\u8077\u696d\u8fad\u5178'],
-    quickAlts: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u7db2\u7ad9', '\u8077\u696d\u8fad\u5178'],
+    quickLabels: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8fad\u5178'],
+    quickAlts: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8fad\u5178'],
     footerTagline: '&middot; \u4f60\u7684\u6c42\u8077\u5925\u4f34',
     footerMeta1: '\u7121\u969c\u7919 | \u79c1\u96b1\u653f\u7b56 | \u4f7f\u7528\u689d\u6b3e',
     footerMeta2: '(c) 2026 VTC V-NEX. \u7248\u6b0a\u6240\u6709\u3002'
@@ -420,8 +420,8 @@ const i18n = {
       '\u5171\u521b\u672a\u6765\u3002'
     ],
     quickTitle: 'VTC \u5feb\u901f\u94fe\u63a5',
-    quickLabels: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u7f51\u7ad9', '\u804c\u4e1a\u8bcd\u5178'],
-    quickAlts: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u7f51\u7ad9', '\u804c\u4e1a\u8bcd\u5178'],
+    quickLabels: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8bcd\u5178'],
+    quickAlts: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8bcd\u5178'],
     footerTagline: '&middot; \u4f60\u7684\u6c42\u804c\u4f19\u4f34',
     footerMeta1: '\u65e0\u969c\u788d | \u9690\u79c1\u653f\u7b56 | \u4f7f\u7528\u6761\u6b3e',
     footerMeta2: '(c) 2026 VTC V-NEX. \u7248\u6743\u6240\u6709\u3002'
@@ -509,7 +509,15 @@ function applyLanguage(langCode){
   if (benefitTabStudent) benefitTabStudent.textContent = copy.tabStudent;
 
   benefitEmployerLogins.forEach((node) => {
-    node.textContent = copy.employerLogin;
+    const hasIcon = !!node.querySelector('.benefit-login-icon');
+    let label = node.querySelector('.benefit-login-label');
+
+    if (!hasIcon || !label) {
+      node.innerHTML = '<svg class="benefit-login-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h7a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3h-7"></path><path d="M4 12h10"></path><path d="M10 8l4 4-4 4"></path></svg><span class="benefit-login-label"></span>';
+      label = node.querySelector('.benefit-login-label');
+    }
+
+    if (label) label.textContent = copy.employerLogin;
     node.setAttribute('aria-label', copy.employerLogin);
   });
   benefitStudentLogins.forEach((node) => {
