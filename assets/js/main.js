@@ -69,6 +69,7 @@ const benefitTabs = Array.from(document.querySelectorAll('.tab-btn[data-role]'))
 const benefitDotsWrap = document.querySelector('.benefit-dots');
 const benefitHeadActions = Array.from(document.querySelectorAll('.benefit-head-actions'));
 const benefitViewport = document.querySelector('.benefit-viewport');
+const benefitTabsWrap = document.querySelector('.tabs');
 const benefitPagesByRole = {
   employer: Array.from(document.querySelectorAll('.benefit-page[data-role="employer"]')),
   student: Array.from(document.querySelectorAll('.benefit-page[data-role="student"]'))
@@ -116,6 +117,20 @@ let activeBenefitRole = 'employer';
 const benefitPageState = { employer: 0, student: 0 };
 let benefitAutoplayId = null;
 let benefitTransitionTimer = null;
+let benefitTabSwitchTimer = null;
+
+function triggerBenefitTabSwitchAnimation(){
+  if (!benefitTabsWrap) return;
+  benefitTabsWrap.classList.remove('is-switching');
+  void benefitTabsWrap.offsetWidth;
+  benefitTabsWrap.classList.add('is-switching');
+
+  if (benefitTabSwitchTimer) window.clearTimeout(benefitTabSwitchTimer);
+  benefitTabSwitchTimer = window.setTimeout(() => {
+    benefitTabsWrap.classList.remove('is-switching');
+    benefitTabSwitchTimer = null;
+  }, 340);
+}
 
 function normalizePageIndex(role, index){
   const pages = benefitPagesByRole[role] || [];
@@ -147,8 +162,19 @@ function animateBenefitPage(role, fromIndex, toIndex, direction){
   const toPage = pages[toIndex];
   if (!toPage) return;
 
+  if (benefitTransitionTimer) {
+    clearTimeout(benefitTransitionTimer);
+    benefitTransitionTimer = null;
+  }
+
   pages.forEach((page) => {
     page.classList.remove('enter-next', 'enter-prev', 'exit-next', 'exit-prev');
+
+    // If a previous animation was interrupted, force a single clean visible pair.
+    if (page !== fromPage && page !== toPage) {
+      page.classList.remove('active');
+      page.style.visibility = 'hidden';
+    }
   });
 
   if (!fromPage || fromIndex === toIndex) {
@@ -161,15 +187,17 @@ function animateBenefitPage(role, fromIndex, toIndex, direction){
     return;
   }
 
+  fromPage.classList.add('active');
+  fromPage.style.visibility = 'visible';
   fromPage.classList.add(direction === 'prev' ? 'exit-prev' : 'exit-next');
   toPage.classList.add('active', direction === 'prev' ? 'enter-prev' : 'enter-next');
   toPage.style.visibility = 'visible';
 
-  if (benefitTransitionTimer) clearTimeout(benefitTransitionTimer);
   benefitTransitionTimer = setTimeout(() => {
     fromPage.classList.remove('active', 'exit-prev', 'exit-next');
     fromPage.style.visibility = 'hidden';
     toPage.classList.remove('enter-next', 'enter-prev');
+    benefitTransitionTimer = null;
   }, 640);
 }
 
@@ -219,6 +247,7 @@ function startBenefitAutoplay(){
 benefitTabs.forEach((btn) => {
   btn.addEventListener('click', () => {
     const role = btn.dataset.role || 'employer';
+    triggerBenefitTabSwitchAnimation();
     setBenefitPage(role, benefitPageState[role], 'next');
     startBenefitAutoplay();
   });
