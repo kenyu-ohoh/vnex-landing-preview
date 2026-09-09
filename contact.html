@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact Us | V-NEX</title>
+  <style>
+    :root {
+      --bg: #f3f6fc;
+      --panel: #ffffff;
+      --ink: #1a2f57;
+      --muted: #4e6692;
+      --line: #dbe5f5;
+      --accent: #2b4f90;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(1200px 460px at 50% -20%, #e4ecfa 0%, transparent 60%), var(--bg);
+      line-height: 1.7;
+    }
+    .wrap {
+      width: min(900px, 92vw);
+      margin: 52px auto;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 34px 30px;
+      box-shadow: 0 16px 34px rgba(22, 49, 98, 0.08);
+    }
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      color: #163b77;
+      text-decoration: none;
+    }
+    .brand-lockup-logo {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+    .brand-lockup-divider {
+      width: 2px;
+      height: 42px;
+      border-radius: 2px;
+      background: #d6e0f0;
+      flex: 0 0 auto;
+    }
+    .brand-lockup-wordmark {
+      font-size: clamp(24px, 3vw, 30px);
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #1f3868;
+    }
+    .brand-lockup-tagline {
+      font-size: clamp(12px, 1.4vw, 15px);
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: #4d6894;
+    }
+    .top-links {
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    h1 {
+      margin: 0 0 20px;
+      font-size: clamp(26px, 4vw, 36px);
+      letter-spacing: 0.02em;
+      color: var(--accent);
+    }
+    h2 {
+      margin: 28px 0 10px;
+      font-size: clamp(20px, 2.8vw, 26px);
+      color: #24477f;
+    }
+    p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      white-space: pre-line;
+    }
+    a {
+      color: var(--accent);
+      text-underline-offset: 2px;
+    }
+    @media (max-width: 680px) {
+      .wrap { margin: 28px auto; }
+      .card { padding: 24px 18px; border-radius: 14px; }
+      .brand-lockup { flex-wrap: wrap; gap: 10px; }
+      .brand-lockup-divider { display: none; }
+      .brand-lockup-wordmark { font-size: 24px; }
+      .top-links { margin-bottom: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card" aria-label="Contact information">
+      <a class="brand-lockup" href="index.html" aria-label="Back to V-NEX home">
+        <img class="brand-lockup-logo" src="assets/vtc-logo.svg" alt="VTC" />
+        <span class="brand-lockup-divider" aria-hidden="true"></span>
+        <span class="brand-lockup-wordmark">VNEX</span>
+        <span class="brand-lockup-tagline">&middot; your job partner</span>
+      </a>
+
+      <div class="top-links">
+        <a href="index.html">&lt; Back to Home</a>
+      </div>
+
+      <h1>Contact Us</h1>
+      <p>Graduate Placement Services,
+Headquarters (Academic Services)
+14/F, VTC Tower, 27 Wood Road, Wanchai, H.K.
+Tel: (852) 2836 1228 Fax: (852) 2574 3705
+E-mail: <a href="mailto:jis@vtc.edu.hk">jis@vtc.edu.hk</a></p>
+
+      <h2>聯絡我們</h2>
+      <p>總辦事處（教務） 畢業生就業服務
+灣仔活道二十七號職業訓練局大樓十四樓
+查詢電話：(852) 2836 1228 傳真：(852) 2574 3705
+電郵地址：<a href="mailto:jis@vtc.edu.hk">jis@vtc.edu.hk</a></p>
+    </section>
+  </main>
+</body>
+</html>

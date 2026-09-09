@@ -458,7 +458,7 @@ const i18n = {
     contactEmail: 'jis@vtc.edu.hk',
     contactPhone: '(852) 2836 1228',
     footerTagline: '&middot; your job partner',
-    footerMeta1: '<a href="https://www.vtc.edu.hk/home/en/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a> | <a href="disclaimer.html">Disclaimer</a>',
+    footerMeta1: '<a href="contact.html">Contact Us</a> | <a href="disclaimer.html">Disclaimer</a> | <a href="https://www.vtc.edu.hk/home/en/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>',
     footerMeta2: '(c) 2026 VTC V-NEX. All rights reserved.'
   },
   TC: {
@@ -520,7 +520,7 @@ const i18n = {
     contactEmail: 'jis@vtc.edu.hk',
     contactPhone: '(852) 2836 1228',
     footerTagline: '&middot; \u4f60\u7684\u6c42\u8077\u5925\u4f34',
-    footerMeta1: '<a href="https://www.vtc.edu.hk/home/en/privacy.html" target="_blank" rel="noopener noreferrer">\u79c1\u96b1\u653f\u7b56</a> | <a href="disclaimer.html">\u514d\u8cac\u8072\u660e</a>',
+    footerMeta1: '<a href="contact.html">\u806f\u7d61\u6211\u5011</a> | <a href="disclaimer.html">\u514d\u8cac\u8072\u660e</a> | <a href="https://www.vtc.edu.hk/home/en/privacy.html" target="_blank" rel="noopener noreferrer">\u79c1\u96b1\u653f\u7b56</a>',
     footerMeta2: '(c) 2026 VTC V-NEX. \u7248\u6b0a\u6240\u6709\u3002'
   },
   SC: {
@@ -582,7 +582,7 @@ const i18n = {
     contactEmail: 'jis@vtc.edu.hk',
     contactPhone: '(852) 2836 1228',
     footerTagline: '&middot; \u4f60\u7684\u6c42\u804c\u4f19\u4f34',
-    footerMeta1: '<a href="https://www.vtc.edu.hk/home/en/privacy.html" target="_blank" rel="noopener noreferrer">\u9690\u79c1\u653f\u7b56</a> | <a href="disclaimer.html">\u514d\u8d23\u58f0\u660e</a>',
+    footerMeta1: '<a href="contact.html">\u8054\u7cfb\u6211\u4eec</a> | <a href="disclaimer.html">\u514d\u8d23\u58f0\u660e</a> | <a href="https://www.vtc.edu.hk/home/en/privacy.html" target="_blank" rel="noopener noreferrer">\u9690\u79c1\u653f\u7b56</a>',
     footerMeta2: '(c) 2026 VTC V-NEX. \u7248\u6743\u6240\u6709\u3002'
   }
 };
