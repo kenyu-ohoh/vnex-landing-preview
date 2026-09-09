@@ -13,6 +13,15 @@ const benefitPagesByRole = {
 const mainNode = document.querySelector('main');
 const discoverSection = document.getElementById('discover');
 const benefitsSection = document.getElementById('benefits');
+
+const urlParams = new URLSearchParams(window.location.search);
+const benefitVariant = urlParams.get('ab') === 'v2' ? 'v2' : 'v1';
+document.body.classList.remove('ab-v1', 'ab-v2');
+document.body.classList.add('ab-' + benefitVariant);
+if (benefitsSection) {
+  benefitsSection.setAttribute('data-ab', benefitVariant);
+}
+
 if (mainNode && discoverSection && benefitsSection && mainNode.firstElementChild !== discoverSection) {
   mainNode.insertBefore(discoverSection, benefitsSection);
 }
@@ -255,6 +264,16 @@ const screen2LineNodes = Array.from(document.querySelectorAll('#fill-screen-2 .s
 const quickTitle = document.querySelector('#quick-links h3');
 const quickLinkSpans = Array.from(document.querySelectorAll('#quick-links .quick-link span'));
 const quickLinkImages = Array.from(document.querySelectorAll('#quick-links .quick-link img'));
+const contactTitle = document.querySelector('#contact-us .contact-title');
+const contactCopy = document.querySelector('#contact-us .contact-copy');
+const contactMailCta = document.querySelector('#contact-us .contact-mail-cta');
+const contactMailCtaLabel = document.querySelector('#contact-us .contact-mail-cta-label');
+const contactMailBtn = document.querySelector('#contact-us .contact-btn-mail');
+const contactPhoneBtn = document.querySelector('#contact-us .contact-btn-phone');
+const contactMailLabel = document.querySelector('#contact-us .contact-btn-mail .contact-btn-label');
+const contactPhoneLabel = document.querySelector('#contact-us .contact-btn-phone .contact-btn-label');
+const contactEmailNode = document.querySelector('#contact-us .contact-email');
+const contactPhoneNode = document.querySelector('#contact-us .contact-phone');
 const footerTagline = document.querySelector('.footer-brand small');
 const footerMetaLine1 = document.querySelector('.footer-meta div:first-child');
 const footerMetaLine2 = document.querySelector('.footer-meta div:last-child');
@@ -313,9 +332,16 @@ const i18n = {
       'Together, we connect potential',
       'with opportunity for the future.'
     ],
-    quickTitle: 'VTC Quick Links',
+    quickTitle: 'Quick Links',
     quickLabels: ['VTC Official Website', 'VTC Admission', 'Internship Arrangement', 'Alumni Portal', 'Occupation Dictionary'],
     quickAlts: ['VTC Official Website', 'VTC Admission', 'Internship Arrangement', 'Alumni Portal', 'Occupation Dictionary'],
+    contactTitle: 'Contact Us',
+    contactCopy: 'Need support for account access or partnership inquiries? Reach the V-NEX team directly.',
+    contactMailCta: 'Email Us',
+    contactMailLabel: 'Email',
+    contactPhoneLabel: 'Phone',
+    contactEmail: 'vnex@vtc.edu.hk',
+    contactPhone: '+852 2836 1000',
     footerTagline: '&middot; your job partner',
     footerMeta1: 'Accessibility | Privacy Policy | Terms Conditions',
     footerMeta2: '(c) 2026 VTC V-NEX. All rights reserved.'
@@ -368,9 +394,16 @@ const i18n = {
       '\u6211\u5011\u628a\u6f5b\u80fd\u9023\u63a5\u6a5f\u9047\uff0c',
       '\u5171\u5275\u672a\u4f86\u3002'
     ],
-    quickTitle: 'VTC \u5feb\u901f\u9023\u7d50',
+    quickTitle: '\u5feb\u901f\u9023\u7d50',
     quickLabels: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8fad\u5178'],
     quickAlts: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8fad\u5178'],
+    contactTitle: '\u806f\u7d61\u6211\u5011',
+    contactCopy: '\u5982\u9700\u5354\u52a9\u5e33\u6236\u767b\u5165\u6216\u5408\u4f5c\u67e5\u8a62\uff0c\u8acb\u76f4\u63a5\u806f\u7d61 V-NEX \u5718\u968a\u3002',
+    contactMailCta: '\u96fb\u90f5\u806f\u7d61\u6211\u5011',
+    contactMailLabel: '\u96fb\u90f5',
+    contactPhoneLabel: '\u96fb\u8a71',
+    contactEmail: 'vnex@vtc.edu.hk',
+    contactPhone: '+852 2836 1000',
     footerTagline: '&middot; \u4f60\u7684\u6c42\u8077\u5925\u4f34',
     footerMeta1: '\u7121\u969c\u7919 | \u79c1\u96b1\u653f\u7b56 | \u4f7f\u7528\u689d\u6b3e',
     footerMeta2: '(c) 2026 VTC V-NEX. \u7248\u6b0a\u6240\u6709\u3002'
@@ -423,9 +456,16 @@ const i18n = {
       '\u6211\u4eec\u628a\u6f5c\u80fd\u8fde\u63a5\u673a\u9047\uff0c',
       '\u5171\u521b\u672a\u6765\u3002'
     ],
-    quickTitle: 'VTC \u5feb\u901f\u94fe\u63a5',
+    quickTitle: '\u5feb\u901f\u94fe\u63a5',
     quickLabels: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8bcd\u5178'],
     quickAlts: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8bcd\u5178'],
+    contactTitle: '\u8054\u7cfb\u6211\u4eec',
+    contactCopy: '\u5982\u9700\u8d26\u53f7\u767b\u5f55\u652f\u6301\u6216\u5408\u4f5c\u54a8\u8be2\uff0c\u8bf7\u76f4\u63a5\u8054\u7cfb V-NEX \u56e2\u961f\u3002',
+    contactMailCta: '\u7535\u90ae\u8054\u7cfb\u6211\u4eec',
+    contactMailLabel: '\u90ae\u7bb1',
+    contactPhoneLabel: '\u7535\u8bdd',
+    contactEmail: 'vnex@vtc.edu.hk',
+    contactPhone: '+852 2836 1000',
     footerTagline: '&middot; \u4f60\u7684\u6c42\u804c\u4f19\u4f34',
     footerMeta1: '\u65e0\u969c\u788d | \u9690\u79c1\u653f\u7b56 | \u4f7f\u7528\u6761\u6b3e',
     footerMeta2: '(c) 2026 VTC V-NEX. \u7248\u6743\u6240\u6709\u3002'
@@ -573,6 +613,27 @@ function applyLanguage(langCode){
   quickLinkImages.forEach((node, index) => {
     if (copy.quickAlts[index]) node.alt = copy.quickAlts[index];
   });
+
+  if (contactTitle) contactTitle.textContent = copy.contactTitle;
+  if (contactCopy) contactCopy.textContent = copy.contactCopy;
+  if (contactMailCtaLabel) contactMailCtaLabel.textContent = copy.contactMailCta;
+  if (contactMailLabel) contactMailLabel.textContent = copy.contactMailLabel;
+  if (contactPhoneLabel) contactPhoneLabel.textContent = copy.contactPhoneLabel;
+  if (contactEmailNode) contactEmailNode.textContent = copy.contactEmail;
+  if (contactPhoneNode) contactPhoneNode.textContent = copy.contactPhone;
+  if (contactMailBtn) {
+    contactMailBtn.setAttribute('href', 'mailto:' + copy.contactEmail);
+    contactMailBtn.setAttribute('aria-label', copy.contactMailLabel + ' ' + copy.contactEmail);
+  }
+  if (contactMailCta) {
+    contactMailCta.setAttribute('href', 'mailto:' + copy.contactEmail);
+    contactMailCta.setAttribute('aria-label', copy.contactMailCta + ' ' + copy.contactEmail);
+  }
+  if (contactPhoneBtn) {
+    const tel = copy.contactPhone.replace(/[^+\d]/g, '');
+    contactPhoneBtn.setAttribute('href', 'tel:' + tel);
+    contactPhoneBtn.setAttribute('aria-label', copy.contactPhoneLabel + ' ' + copy.contactPhone);
+  }
 
   if (footerTagline) footerTagline.innerHTML = copy.footerTagline;
   if (footerMetaLine1) footerMetaLine1.textContent = copy.footerMeta1;
