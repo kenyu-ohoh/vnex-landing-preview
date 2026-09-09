@@ -79,8 +79,29 @@ const mainNode = document.querySelector('main');
 const discoverSection = document.getElementById('discover');
 const benefitsSection = document.getElementById('benefits');
 
-const urlParams = new URLSearchParams(window.location.search);
-const benefitVariant = urlParams.get('ab') === 'v2' ? 'v2' : 'v1';
+function getBenefitVariantFromLocation(){
+  const urlParams = new URLSearchParams(window.location.search);
+  const directAb = (urlParams.get('ab') || '').toLowerCase();
+  if (directAb === 'v1' || directAb === 'v2') return directAb;
+
+  // htmlpreview wraps the target URL in its own query string, so `ab` may only
+  // exist inside the full href (for example: ...index.html?ab=v2#benefits).
+  const href = String(window.location.href || '');
+  const match = href.match(/[?&]ab=(v1|v2)(?:[&#]|$)/i);
+  if (match) return match[1].toLowerCase();
+
+  try {
+    const decodedHref = decodeURIComponent(href);
+    const decodedMatch = decodedHref.match(/[?&]ab=(v1|v2)(?:[&#]|$)/i);
+    if (decodedMatch) return decodedMatch[1].toLowerCase();
+  } catch (_error) {
+    // Ignore malformed URI sequence and fall back to default.
+  }
+
+  return 'v1';
+}
+
+const benefitVariant = getBenefitVariantFromLocation();
 document.body.classList.remove('ab-v1', 'ab-v2');
 document.body.classList.add('ab-' + benefitVariant);
 if (benefitsSection) {
