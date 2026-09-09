@@ -451,14 +451,14 @@ const i18n = {
     quickLabels: ['VTC Official Website', 'VTC Admission', 'Internship Arrangement', 'Alumni Portal', 'Occupation Dictionary'],
     quickAlts: ['VTC Official Website', 'VTC Admission', 'Internship Arrangement', 'Alumni Portal', 'Occupation Dictionary'],
     contactTitle: 'Contact Us',
-    contactCopy: 'Need support for account access or partnership inquiries? Reach the V-NEX team directly.',
+    contactCopy: 'Graduate Placement Services,\nHeadquarters (Academic Services)\n14/F, VTC Tower, 27 Wood Road, Wanchai, H.K.\nTel: (852) 2836 1228 Fax: (852) 2574 3705\nE-mail: jis@vtc.edu.hk',
     contactMailCta: 'Email Us',
-    contactMailLabel: 'Email',
-    contactPhoneLabel: 'Phone',
-    contactEmail: 'vnex@vtc.edu.hk',
-    contactPhone: '+852 2836 1000',
+    contactMailLabel: 'E-mail',
+    contactPhoneLabel: 'Tel',
+    contactEmail: 'jis@vtc.edu.hk',
+    contactPhone: '(852) 2836 1228',
     footerTagline: '&middot; your job partner',
-    footerMeta1: 'Accessibility | Privacy Policy | Terms Conditions',
+    footerMeta1: '<a href="https://www.vtc.edu.hk/home/en/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a> | <a href="disclaimer.html">Disclaimer</a>',
     footerMeta2: '(c) 2026 VTC V-NEX. All rights reserved.'
   },
   TC: {
@@ -513,14 +513,14 @@ const i18n = {
     quickLabels: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8fad\u5178'],
     quickAlts: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8fad\u5178'],
     contactTitle: '\u806f\u7d61\u6211\u5011',
-    contactCopy: '\u5982\u9700\u5354\u52a9\u5e33\u6236\u767b\u5165\u6216\u5408\u4f5c\u67e5\u8a62\uff0c\u8acb\u76f4\u63a5\u806f\u7d61 V-NEX \u5718\u968a\u3002',
+    contactCopy: '\u7e3d\u8fa6\u4e8b\u8655\uff08\u6559\u52d9\uff09 \u7562\u696d\u751f\u5c31\u696d\u670d\u52d9\n\u7063\u4ed4\u6d3b\u9053\u4e8c\u5341\u4e03\u865f\u8077\u696d\u8a13\u7df4\u5c40\u5927\u6a13\u5341\u56db\u6a13\n\u67e5\u8a62\u96fb\u8a71\uff1a(852) 2836 1228 \u50b3\u771f\uff1a(852) 2574 3705\n\u96fb\u90f5\u5730\u5740\uff1ajis@vtc.edu.hk',
     contactMailCta: '\u96fb\u90f5\u806f\u7d61\u6211\u5011',
     contactMailLabel: '\u96fb\u90f5',
-    contactPhoneLabel: '\u96fb\u8a71',
-    contactEmail: 'vnex@vtc.edu.hk',
-    contactPhone: '+852 2836 1000',
+    contactPhoneLabel: '\u67e5\u8a62\u96fb\u8a71',
+    contactEmail: 'jis@vtc.edu.hk',
+    contactPhone: '(852) 2836 1228',
     footerTagline: '&middot; \u4f60\u7684\u6c42\u8077\u5925\u4f34',
-    footerMeta1: '\u7121\u969c\u7919 | \u79c1\u96b1\u653f\u7b56 | \u4f7f\u7528\u689d\u6b3e',
+    footerMeta1: '<a href="https://www.vtc.edu.hk/home/en/privacy.html" target="_blank" rel="noopener noreferrer">\u79c1\u96b1\u653f\u7b56</a> | <a href="disclaimer.html">\u514d\u8cac\u8072\u660e</a>',
     footerMeta2: '(c) 2026 VTC V-NEX. \u7248\u6b0a\u6240\u6709\u3002'
   },
   SC: {
@@ -575,14 +575,14 @@ const i18n = {
     quickLabels: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8bcd\u5178'],
     quickAlts: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8bcd\u5178'],
     contactTitle: '\u8054\u7cfb\u6211\u4eec',
-    contactCopy: '\u5982\u9700\u8d26\u53f7\u767b\u5f55\u652f\u6301\u6216\u5408\u4f5c\u54a8\u8be2\uff0c\u8bf7\u76f4\u63a5\u8054\u7cfb V-NEX \u56e2\u961f\u3002',
+    contactCopy: '\u603b\u529e\u4e8b\u5904\uff08\u6559\u52a1\uff09 \u6bd5\u4e1a\u751f\u5c31\u4e1a\u670d\u52a1\n\u6e7e\u4ed4\u6d3b\u9053\u4e8c\u5341\u4e03\u53f7\u804c\u4e1a\u8bad\u7ec3\u5c40\u5927\u697c\u5341\u56db\u697c\n\u67e5\u8be2\u7535\u8bdd\uff1a(852) 2836 1228 \u4f20\u771f\uff1a(852) 2574 3705\n\u7535\u90ae\u5730\u5740\uff1ajis@vtc.edu.hk',
     contactMailCta: '\u7535\u90ae\u8054\u7cfb\u6211\u4eec',
     contactMailLabel: '\u90ae\u7bb1',
-    contactPhoneLabel: '\u7535\u8bdd',
-    contactEmail: 'vnex@vtc.edu.hk',
-    contactPhone: '+852 2836 1000',
+    contactPhoneLabel: '\u67e5\u8be2\u7535\u8bdd',
+    contactEmail: 'jis@vtc.edu.hk',
+    contactPhone: '(852) 2836 1228',
     footerTagline: '&middot; \u4f60\u7684\u6c42\u804c\u4f19\u4f34',
-    footerMeta1: '\u65e0\u969c\u788d | \u9690\u79c1\u653f\u7b56 | \u4f7f\u7528\u6761\u6b3e',
+    footerMeta1: '<a href="https://www.vtc.edu.hk/home/en/privacy.html" target="_blank" rel="noopener noreferrer">\u9690\u79c1\u653f\u7b56</a> | <a href="disclaimer.html">\u514d\u8d23\u58f0\u660e</a>',
     footerMeta2: '(c) 2026 VTC V-NEX. \u7248\u6743\u6240\u6709\u3002'
   }
 };
@@ -795,7 +795,7 @@ function applyLanguage(langCode){
   }
 
   if (footerTagline) footerTagline.innerHTML = copy.footerTagline;
-  if (footerMetaLine1) footerMetaLine1.textContent = copy.footerMeta1;
+  if (footerMetaLine1) footerMetaLine1.innerHTML = copy.footerMeta1;
   if (footerMetaLine2) footerMetaLine2.textContent = copy.footerMeta2;
 
   window.dispatchEvent(new Event('scroll'));

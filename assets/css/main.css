@@ -1435,6 +1435,7 @@ html.from-login-return .nav-wrap{
   line-height:1.5;
   font-weight:600;
   font-family:var(--font-geist);
+  white-space:pre-line;
 }
 .contact-mail-cta{
   align-self:flex-start;
@@ -1508,6 +1509,14 @@ html.from-login-return .nav-wrap{
   color:#1f2f56;
 }
 .footer-meta{font-size:12px;line-height:1.6;color:#7488ad;text-align:right}
+.footer-meta a{
+  color:#516f9d;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.footer-meta a:hover{
+  color:#2a4f8e;
+}
 
 [data-reveal]{opacity:1;transform:none;transition:transform .52s ease,opacity .4s ease}
 .js-motion [data-reveal].in{opacity:1;transform:none}
