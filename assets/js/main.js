@@ -238,6 +238,7 @@ const mobileNavMenu = document.querySelector('.mobile-nav-menu');
 const mobileLogin = document.querySelector('.mobile-login');
 const navWrap = document.querySelector('.nav-wrap');
 const navLoginText = document.querySelector('.login span');
+const navBrandSubtitle = document.querySelector('.brand small');
 const heroTitle = document.querySelector('.hero-copy h1');
 const heroSubtitle = document.querySelector('.hero-copy p');
 const heroCta = document.querySelector('.hero-cta');
@@ -267,15 +268,16 @@ const i18n = {
   ENG: {
     htmlLang: 'en',
     navLogin: 'Log In',
+    navBrandSubtitle: 'your job partner',
     mobileMenuHome: 'Home',
     heroTitle: 'Find your next <span class="hero-accent">opportunity</span>',
     heroSubtitle: 'Explore roles, discover possibilities, and move your career forward.',
     heroCta: 'Apply Job Now',
     benefitsKicker: 'Who benefits',
     tabEmployer: 'Employer',
-    tabStudent: 'Students & Alumni',
+    tabStudent: 'Student & Alumni',
     employerLogin: 'Employer Login',
-    studentLogin: 'Student Login (coming soon)',
+    studentLogin: 'Student Login (Coming soon)',
     benefitTitles: [
       'Job <span class="soft">Posting</span>',
       'AI Talent <span class="soft">Search & Sourcing</span>',
@@ -321,6 +323,7 @@ const i18n = {
   TC: {
     htmlLang: 'zh-Hant',
     navLogin: '\u767b\u5165',
+    navBrandSubtitle: '\u4f60\u7684\u6c42\u8077\u5925\u4f34',
     mobileMenuHome: '\u9996\u9801',
     heroTitle: '\u767c\u6398\u4f60\u7684\u4e0b\u4e00\u500b <span class="hero-accent">\u6a5f\u9047</span>',
     heroSubtitle: '\u63a2\u7d22\u8077\u4f4d\u3001\u767c\u6398\u53ef\u80fd\uff0c\u63a8\u9032\u4f60\u7684\u8077\u6daf\u3002',
@@ -375,6 +378,7 @@ const i18n = {
   SC: {
     htmlLang: 'zh-Hans',
     navLogin: '\u767b\u5f55',
+    navBrandSubtitle: '\u4f60\u7684\u6c42\u804c\u4f19\u4f34',
     mobileMenuHome: '\u9996\u9875',
     heroTitle: '\u53d1\u6398\u4f60\u7684\u4e0b\u4e00\u4e2a <span class="hero-accent">\u673a\u9047</span>',
     heroSubtitle: '\u63a2\u7d22\u804c\u4f4d\u3001\u53d1\u73b0\u53ef\u80fd\uff0c\u63a8\u8fdb\u4f60\u7684\u804c\u4e1a\u53d1\u5c55\u3002',
@@ -491,6 +495,7 @@ function applyLanguage(langCode){
   });
 
   if (navLoginText) navLoginText.textContent = copy.navLogin;
+  if (navBrandSubtitle) navBrandSubtitle.textContent = copy.navBrandSubtitle;
   if (mobileLogin) mobileLogin.textContent = copy.navLogin;
   mobileMenuLinks.forEach((link) => {
     if (link.dataset.menu === 'home') {
@@ -521,7 +526,15 @@ function applyLanguage(langCode){
     node.setAttribute('aria-label', copy.employerLogin);
   });
   benefitStudentLogins.forEach((node) => {
-    node.textContent = copy.studentLogin;
+    const hasIcon = !!node.querySelector('.benefit-login-icon');
+    let label = node.querySelector('.benefit-login-label');
+
+    if (!hasIcon || !label) {
+      node.innerHTML = '<svg class="benefit-login-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h7a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3h-7"></path><path d="M4 12h10"></path><path d="M10 8l4 4-4 4"></path></svg><span class="benefit-login-label"></span>';
+      label = node.querySelector('.benefit-login-label');
+    }
+
+    if (label) label.textContent = copy.studentLogin;
     node.setAttribute('aria-label', copy.studentLogin);
   });
 

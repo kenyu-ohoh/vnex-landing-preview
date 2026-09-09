@@ -297,7 +297,7 @@ body[data-view="employer-register"] .login-shell{grid-template-columns:38% 62%}
 .role-pill[aria-checked="true"]{background:var(--pill-selected)}
 .role-text strong{display:block;font-size:var(--role-font-title-size);font-weight:var(--role-font-title-weight);line-height:var(--role-font-title-line)}
 .role-text small{display:block;font-size:var(--role-font-meta-size);margin-top:2px;opacity:.92}
-.role-login-chip{display:none;min-width:94px;height:32px;border-radius:999px;background:rgba(173,194,223,.92);color:#183566;font-size:12px;font-weight:600;align-items:center;justify-content:center;padding:0 12px}
+.role-login-chip{display:none;min-width:94px;height:32px;border-radius:999px;background:rgba(173,194,223,.92);color:#183566;font-size:13px;font-weight:700;line-height:1;letter-spacing:.01em;align-items:center;justify-content:center;padding:0 12px}
 .role-login-chip{border:none;cursor:pointer}
 .role-pill[aria-checked="true"] .role-login-chip{display:inline-flex}
 
@@ -319,12 +319,12 @@ body[data-view="employer-register"] .login-shell{grid-template-columns:38% 62%}
 .summary-left{display:flex;align-items:center;gap:12px;min-width:0}
 .summary-left strong{display:block;font-size:var(--role-font-title-size);font-weight:var(--role-font-title-weight);line-height:var(--role-font-title-line)}
 .summary-left small{display:block;font-size:var(--role-font-meta-size);margin-top:3px;opacity:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.summary-back{height:40px;border:none;border-radius:999px;background:#a5b9d8;color:#183566;padding:0 16px;font-weight:700;cursor:pointer}
+.summary-back{height:40px;border:none;border-radius:999px;background:#a5b9d8;color:#183566;padding:0 16px;font-size:13px;font-weight:700;line-height:1;letter-spacing:.01em;cursor:pointer}
 
 .form-card{margin-top:12px;background:var(--card);border:1px solid rgba(255,255,255,.72);border-radius:32px;padding:18px 24px 18px;box-shadow:0 8px 20px rgba(88,102,139,.14)}
 .view-signin .form-card{width:100%;margin-left:auto;margin-right:auto}
 .view-register .form-card{width:min(var(--register-rail),100%);margin-left:auto;margin-right:auto}
-.form-card h2{margin:0 0 12px;color:#123269;font-size:clamp(21px,1.55vw,30px);text-align:center;line-height:1.14}
+.form-card h2{margin:0 0 12px;color:#123269;font-size:clamp(17px,1.22vw,23px);text-align:center;line-height:1.16}
 .form-card label{display:block;color:#273a5f;font-weight:var(--role-font-title-weight);font-size:var(--role-font-title-size);line-height:var(--role-font-title-line);margin:8px 0 6px}
 .form-card input,.form-card select,.form-card textarea{width:100%;border:1px solid rgba(215,223,238,.9);border-radius:999px;background:rgba(255,255,255,.82);padding:9px 14px;color:#21385f;font-size:var(--role-font-title-size);font-weight:var(--role-font-title-weight);line-height:var(--role-font-title-line)}
 .form-card textarea{border-radius:16px;resize:vertical}
@@ -444,15 +444,15 @@ body[data-view="employer-signin"] .view-roles .role-pill[data-role="employer"]{
   .role-pill{height:74px;padding:8px 12px}
   .role-text strong{font-size:16px}
   .role-text small{font-size:11px}
-  .role-login-chip{min-width:92px;height:34px;font-size:14px}
+  .role-login-chip{min-width:92px;height:34px;font-size:13px}
   .summary-bar{height:auto;min-height:56px;padding:7px 10px;border-radius:16px}
   .summary-bar .role-icon{width:34px;height:34px}
   .summary-left{gap:10px}
   .summary-left strong{font-size:clamp(14px,5vw,19px)}
   .summary-left small{font-size:clamp(10px,3.2vw,12px)}
-  .summary-back{height:34px;padding:0 14px;font-size:11px}
+  .summary-back{height:34px;padding:0 14px;font-size:13px}
   .form-card{padding:18px 14px;border-radius:24px}
-  .form-card h2{font-size:clamp(18px,5.6vw,24px)}
+  .form-card h2{font-size:clamp(15px,4.4vw,20px)}
   .form-card label{font-size:clamp(11px,3.5vw,13px)}
   .form-card input,.form-card select,.form-card textarea{padding:8px 12px;font-size:clamp(11px,3.2vw,13px)}
   .captcha-row{height:40px}

@@ -46,19 +46,19 @@ img{max-width:100%;display:block}
 }
 .hero-video{
   z-index:1;
-  filter:brightness(.64) saturate(1.08) contrast(1.05);
+  filter:brightness(.78) saturate(1.04) contrast(1.02);
 }
 .hero-fallback{
   z-index:0;
-  filter:brightness(.6) saturate(1.06);
+  filter:brightness(.74) saturate(1.03);
 }
 .hero-overlay{
   position:absolute;
   inset:0;
   z-index:2;
   background:
-    linear-gradient(95deg,rgba(12,19,38,.9) 0%,rgba(13,24,48,.82) 42%,rgba(13,24,48,.46) 72%,rgba(13,24,48,.28) 100%),
-    radial-gradient(520px 300px at 70% 18%,rgba(135,218,255,.18),transparent 72%);
+    linear-gradient(95deg,rgba(12,19,38,.58) 0%,rgba(13,24,48,.46) 42%,rgba(13,24,48,.24) 72%,rgba(13,24,48,.12) 100%),
+    radial-gradient(520px 300px at 70% 18%,rgba(135,218,255,.2),transparent 72%);
 }
 .nav-wrap{
   position:fixed;
@@ -121,7 +121,7 @@ img{max-width:100%;display:block}
   pointer-events:none;
 }
 .brand{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:800;color:#14356c;white-space:nowrap}
-.brand-logo{height:28px;width:auto;display:block}
+.brand-logo{height:34px;width:auto;display:block}
 .brand small{font-size:11px;font-weight:600;color:#6b7da2}
 .spacer{margin-left:auto}
 .lang-dropdown{
@@ -200,7 +200,7 @@ img{max-width:100%;display:block}
   font-weight:620;
 }
 .login{
-  border:1px solid rgba(17,42,88,.08);
+  border:1px solid rgba(17,57,115,.56);
   border-radius:999px;
   height:40px;
   padding:0 16px;
@@ -208,10 +208,17 @@ img{max-width:100%;display:block}
   font-weight:700;
   line-height:1;
   color:#fff;
-  background:var(--blue);
+  background:linear-gradient(140deg,#1f4c95 0%,#183d7d 58%,#14366f 100%);
   display:inline-flex;
   align-items:center;
   gap:8px;
+  box-shadow:0 8px 18px rgba(16,42,92,.24), inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .2s ease,filter .2s ease,box-shadow .2s ease;
+}
+.login:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.04);
+  box-shadow:0 10px 22px rgba(16,42,92,.3), inset 0 1px 0 rgba(255,255,255,.28);
 }
 .login span{line-height:1}
 .nav-toggle{
@@ -529,18 +536,49 @@ img{max-width:100%;display:block}
   position:relative;
   gap:8px;
   padding:0 22px;
-  border:1px solid rgba(17,45,97,.52);
-  background:linear-gradient(140deg,#173d82 0%,#133469 56%,#0d2a53 100%);
+  border:1px solid rgba(106,137,255,.46);
+  background:linear-gradient(100deg,#6a89ff 0%,#d368db 100%);
   color:#f2f6ff;
-  box-shadow:12px 12px 24px rgba(21,32,58,.18), inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(5,18,44,.24);
+  box-shadow:12px 12px 24px rgba(82,72,170,.24), inset 0 1px 0 rgba(255,255,255,.28);
   backdrop-filter:blur(6px) saturate(1.08);
   -webkit-backdrop-filter:blur(6px) saturate(1.08);
   transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
 }
 .benefit-login-employer:hover{
   transform:translateY(-1px);
-  filter:brightness(1.06);
-  box-shadow:14px 14px 26px rgba(21,32,58,.24), inset 0 1px 0 rgba(255,255,255,.24), inset 0 -1px 0 rgba(5,18,44,.3);
+  filter:brightness(1.08);
+  box-shadow:14px 14px 26px rgba(82,72,170,.3), inset 0 1px 0 rgba(255,255,255,.34);
+}
+.benefit-login-student{
+  display:none;
+  position:relative;
+  gap:8px;
+  padding:0 22px;
+  border:1px solid rgba(106,137,255,.46);
+  background:linear-gradient(100deg,#6a89ff 0%,#d368db 100%);
+  color:#f2f6ff;
+  box-shadow:12px 12px 24px rgba(82,72,170,.24), inset 0 1px 0 rgba(255,255,255,.28);
+  backdrop-filter:blur(6px) saturate(1.08);
+  -webkit-backdrop-filter:blur(6px) saturate(1.08);
+  transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
+}
+.benefit-login-student.is-coming-soon::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.36) 0%,rgba(255,255,255,.24) 100%);
+}
+.benefit-login-student.is-coming-soon .benefit-login-icon,
+.benefit-login-student.is-coming-soon .benefit-login-label{
+  position:relative;
+  z-index:1;
+}
+.benefit-login-student:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.08);
+  box-shadow:14px 14px 26px rgba(82,72,170,.3), inset 0 1px 0 rgba(255,255,255,.34);
 }
 .benefit-login-icon{
   width:14px;
@@ -562,7 +600,6 @@ img{max-width:100%;display:block}
   opacity:.85;
   border:none;
 }
-.benefit-login-student{display:none;padding-inline:20px}
 .benefit-head-actions.student-active .benefit-login-employer{display:none}
 .benefit-head-actions.student-active .benefit-login-student{display:inline-flex}
 .benefit-dots{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px}
@@ -1240,7 +1277,7 @@ img{max-width:100%;display:block}
   }
   .nav{padding:8px 10px}
   .brand{font-size:14px}
-  .brand-logo{height:22px}
+  .brand-logo{height:26px}
   .brand small{display:none}
   .lang-dropdown,
   .login{

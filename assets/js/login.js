@@ -38,10 +38,10 @@ const roles = {
 
 const i18n = {
   ENG: {
-    backHome: '<- Back to Home',
+    backHome: '← Back to Home',
     who: 'Who are you?',
     subtitle: 'Select a role - only that login method is shown.',
-    login: 'Login ->',
+    login: 'Login →',
     roles: {
       student: { title: 'Student', meta: 'Jobs · CV · Events · Alerts' },
       staff: { title: 'Staff / Admin', meta: 'Manage · Insights · Approvals' },
@@ -49,8 +49,8 @@ const i18n = {
       employer: { title: 'Employer', meta: 'Post jobs · Hire talent' }
     },
     employerRoleLoginMeta: 'S00 — Login · employer role',
-    back: '^ Back',
-    backToLogin: '<- Back to Login',
+    back: '← Back',
+    backToLogin: '← Back to Login',
     email: 'Email',
     password: 'Password',
     captcha: 'CAPTCHA',
@@ -75,10 +75,10 @@ const i18n = {
     }
   },
   TC: {
-    backHome: '<- 返回主頁',
+    backHome: '← 返回主頁',
     who: '你是誰？',
     subtitle: '請先選擇身份，只會顯示對應登入方式。',
-    login: '登入 ->',
+    login: '登入 →',
     roles: {
       student: { title: '學生', meta: '職位 · 履歷 · 活動 · 提醒' },
       staff: { title: '教職員 / 管理員', meta: '管理 · 洞察 · 審批' },
@@ -87,7 +87,7 @@ const i18n = {
     },
     employerRoleLoginMeta: 'S00 — Login · employer role',
     back: '^ 返回',
-    backToLogin: '<- 返回登入',
+    backToLogin: '← 返回登入',
     email: '電郵',
     password: '密碼',
     captcha: '驗證碼',
@@ -112,10 +112,10 @@ const i18n = {
     }
   },
   SC: {
-    backHome: '<- 返回首页',
+    backHome: '← 返回首页',
     who: '你是谁？',
     subtitle: '请选择身份，只显示对应登录方式。',
-    login: '登录 ->',
+    login: '登录 →',
     roles: {
       student: { title: '学生', meta: '职位 · 简历 · 活动 · 提醒' },
       staff: { title: '教职员 / 管理员', meta: '管理 · 洞察 · 审批' },
@@ -124,7 +124,7 @@ const i18n = {
     },
     employerRoleLoginMeta: 'S00 — Login · employer role',
     back: '^ 返回',
-    backToLogin: '<- 返回登录',
+    backToLogin: '← 返回登录',
     email: '邮箱',
     password: '密码',
     captcha: '验证码',
