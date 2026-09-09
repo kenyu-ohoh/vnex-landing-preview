@@ -4,14 +4,35 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>V-NEX | Career Nexus Landing</title>
+<script>
+(function(){
+  try {
+    if (sessionStorage.getItem('vnexLandingReturnFromLogin') !== '1') return;
+    var role = sessionStorage.getItem('vnexLandingReturnRole') || 'student';
+    var colorMap = {
+      student: '#9fb7d4',
+      staff: '#bce1e3',
+      alumni: '#d4c2e4',
+      employer: '#f7d6b4'
+    };
+    document.documentElement.style.setProperty('--landing-return-color', colorMap[role] || colorMap.student);
+    document.documentElement.setAttribute('data-landing-return-role', role);
+    document.documentElement.classList.add('from-login-return');
+    sessionStorage.removeItem('vnexLandingReturnFromLogin');
+    sessionStorage.removeItem('vnexLandingReturnRole');
+  } catch (_error) {
+    // Ignore storage access errors.
+  }
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/geist-font@latest/style.css" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/css/main.css?v=20260909ab20"/>
+<link rel="stylesheet" href="assets/css/main.css?v=20260909ab60"/>
 </head>
 <body>
 <header class="hero" id="top">
   <div class="hero-art" id="hero-art">
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/brand-subtraction.webp" aria-label="V-NEX hero loop background">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/brand-subtraction.webp" aria-label="V-NEX hero loop background">
       <source src="assets/hero-loop.webm" type="video/webm"/>
       <source src="assets/hero-loop.mp4" type="video/mp4"/>
     </video>
@@ -21,7 +42,7 @@
 
   <div class="container nav-wrap">
     <nav class="nav">
-      <div class="brand"><img class="brand-logo" src="assets/vtc-logo.svg" alt="VTC"/> <span>V-NEX</span> <small>your job partner</small></div>
+      <div class="brand"><img class="brand-logo" src="assets/vtc-logo.svg" alt="VTC"/> <span>VNEX</span> <small>your job partner</small></div>
       <div class="spacer"></div>
       <div class="lang-dropdown" id="desktop-lang" aria-label="Language selector for preview">
         <button class="lang-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="desktop-lang-list">
@@ -280,9 +301,6 @@
         <section class="quick-panel quick-panel-contact" id="contact-us" aria-label="Contact us">
           <h3 class="contact-title">Contact Us</h3>
           <p class="contact-copy">Need support for account access or partnership inquiries? Reach the V-NEX team directly.</p>
-          <a class="contact-mail-cta" href="mailto:vnex@vtc.edu.hk" aria-label="Email Us">
-            <span class="contact-mail-cta-label">Email Us</span>
-          </a>
           <div class="contact-actions">
             <a class="contact-btn contact-btn-mail" href="mailto:vnex@vtc.edu.hk" aria-label="Email V-NEX support">
               <span class="contact-btn-label">Email</span>
@@ -304,7 +322,7 @@
     <div class="footer-brand">
       <img class="footer-logo" src="assets/vtc-logo.svg" alt="VTC"/>
       <span class="footer-divider" aria-hidden="true"></span>
-      <span class="footer-wordmark">V-NEX</span>
+      <span class="footer-wordmark">VNEX</span>
       <small>&middot; your job partner</small>
     </div>
     <div class="footer-meta">
@@ -314,7 +332,7 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260909ab20"></script>
+<script src="assets/js/main.js?v=20260909ab60"></script>
 </body>
 </html>
 

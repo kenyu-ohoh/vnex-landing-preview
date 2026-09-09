@@ -1,5 +1,70 @@
 ﻿document.documentElement.classList.add('js-motion');
 
+const LOGIN_INTRO_FLAG_KEY = 'vnexLoginIntroFromLanding';
+const LOGIN_INTRO_TONE_KEY = 'vnexLoginIntroTone';
+const LANDING_RETURN_FLAG_KEY = 'vnexLandingReturnFromLogin';
+const LANDING_RETURN_ROLE_KEY = 'vnexLandingReturnRole';
+const landingReturnRoleColorMap = {
+  student: '#9fb7d4',
+  staff: '#bce1e3',
+  alumni: '#d4c2e4',
+  employer: '#f7d6b4'
+};
+
+function getLandingIntroTone(){
+  const hero = document.querySelector('.hero');
+  if (!hero) return 'dark';
+  const rect = hero.getBoundingClientRect();
+  const probeY = window.innerHeight * 0.36;
+  const heroVisibleAtProbe = rect.top <= probeY && rect.bottom >= probeY;
+  return heroVisibleAtProbe ? 'dark' : 'light';
+}
+
+document.querySelectorAll('a[href^="login.html"]').forEach((link) => {
+  link.addEventListener('click', () => {
+    try {
+      sessionStorage.setItem(LOGIN_INTRO_FLAG_KEY, '1');
+      sessionStorage.setItem(LOGIN_INTRO_TONE_KEY, getLandingIntroTone());
+    } catch (_error) {
+      // Ignore storage access issues; referrer fallback still supports intro animation.
+    }
+  });
+});
+
+function playLandingReturnIntroIfNeeded(){
+  const root = document.documentElement;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let shouldPlay = root.classList.contains('from-login-return');
+  let role = root.getAttribute('data-landing-return-role') || 'student';
+  try {
+    const flagged = sessionStorage.getItem(LANDING_RETURN_FLAG_KEY) === '1';
+    const storedRole = sessionStorage.getItem(LANDING_RETURN_ROLE_KEY);
+    shouldPlay = shouldPlay || flagged;
+    if (storedRole) role = storedRole;
+    sessionStorage.removeItem(LANDING_RETURN_FLAG_KEY);
+    sessionStorage.removeItem(LANDING_RETURN_ROLE_KEY);
+  } catch (_error) {
+    // Keep prewarmed class/role path if storage is unavailable.
+  }
+
+  if (!shouldPlay) return;
+
+  const returnColor = landingReturnRoleColorMap[role] || landingReturnRoleColorMap.student;
+  document.body.classList.remove('nav-hidden');
+  root.style.setProperty('--landing-return-color', returnColor);
+  root.classList.add('from-login-return');
+
+  window.setTimeout(() => {
+    root.classList.remove('from-login-return');
+    root.style.removeProperty('--landing-return-color');
+    root.removeAttribute('data-landing-return-role');
+  }, 860);
+}
+
+// Run this immediately so return transition starts before heavier page scripts initialize.
+playLandingReturnIntroIfNeeded();
+
 const benefitTabs = Array.from(document.querySelectorAll('.tab-btn[data-role]'));
 const benefitDotsWrap = document.querySelector('.benefit-dots');
 const benefitHeadActions = Array.from(document.querySelectorAll('.benefit-head-actions'));
@@ -474,6 +539,49 @@ const i18n = {
 let hasUserScrolled = window.scrollY > 8;
 let lastNavScrollY = window.scrollY;
 let mobileMenuScrollY = 0;
+let navIdleHideTimer = null;
+const NAV_IDLE_HIDE_MS = 2000;
+let lastNavScrollAt = Date.now();
+const NAV_SCROLL_DIRECTION_DELTA = 2;
+let lastTouchY = null;
+
+function clearNavIdleHideTimer(){
+  if (!navIdleHideTimer) return;
+  window.clearTimeout(navIdleHideTimer);
+  navIdleHideTimer = null;
+}
+
+function scheduleNavIdleHideTimer(){
+  clearNavIdleHideTimer();
+  navIdleHideTimer = window.setTimeout(() => {
+    if (!navWrap) return;
+    if (navWrap.classList.contains('mobile-nav-open')) return;
+    if ((window.scrollY || 0) <= 12) return;
+    const elapsed = Date.now() - lastNavScrollAt;
+    if (elapsed < NAV_IDLE_HIDE_MS) {
+      scheduleNavIdleHideTimer();
+      return;
+    }
+    document.body.classList.add('nav-hidden');
+  }, NAV_IDLE_HIDE_MS);
+}
+
+function shouldBypassNavAutoToggle(){
+  if (!navWrap) return true;
+  if (navWrap.classList.contains('mobile-nav-open')) return true;
+  if ((window.scrollY || 0) <= 12) return true;
+  return false;
+}
+
+function showNavWithIdleTimer(){
+  document.body.classList.remove('nav-hidden');
+  scheduleNavIdleHideTimer();
+}
+
+function hideNavImmediate(){
+  document.body.classList.add('nav-hidden');
+  clearNavIdleHideTimer();
+}
 
 function lockPageScroll(){
   mobileMenuScrollY = window.scrollY || window.pageYOffset || 0;
@@ -504,6 +612,7 @@ function closeMobileMenu(){
   document.body.classList.remove('mobile-nav-open');
   document.documentElement.classList.remove('mobile-nav-open');
   if (wasOpen) unlockPageScroll();
+  if ((window.scrollY || 0) > 12) scheduleNavIdleHideTimer();
 }
 
 function markUserScrollIntent(){
@@ -659,12 +768,18 @@ if (heroVideo) {
   };
 
   heroVideo.addEventListener('loadeddata', tryPlayHeroVideo, { once: true });
+  window.addEventListener('pageshow', () => {
+    if (heroVideo.paused) tryPlayHeroVideo();
+  });
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden && heroVideo.paused) tryPlayHeroVideo();
   });
   window.addEventListener('pointerdown', () => {
     if (heroVideo.paused) tryPlayHeroVideo();
   }, { once: true, passive: true });
+
+  // Try immediately on initial script run so return navigation does not sit on a still frame.
+  tryPlayHeroVideo();
 }
 
 if (langOptions.length) {
@@ -731,6 +846,7 @@ if (navWrap && navToggle && mobileNavMenu) {
     const opening = !navWrap.classList.contains('mobile-nav-open');
     if (opening) {
       document.body.classList.remove('nav-hidden');
+      clearNavIdleHideTimer();
       lockPageScroll();
     }
     navWrap.classList.toggle('mobile-nav-open', opening);
@@ -740,6 +856,7 @@ if (navWrap && navToggle && mobileNavMenu) {
     document.documentElement.classList.toggle('mobile-nav-open', opening);
     if (!opening) {
       unlockPageScroll();
+      if ((window.scrollY || 0) > 12) scheduleNavIdleHideTimer();
     }
   });
 
@@ -842,13 +959,17 @@ let discoverPanelIndex = 0;
 window.addEventListener('scroll', () => {
   if (navWrap) {
     const currentY = window.scrollY;
-    const down = currentY > lastNavScrollY + 6;
-    const up = currentY < lastNavScrollY - 6;
+    const down = currentY > lastNavScrollY + NAV_SCROLL_DIRECTION_DELTA;
+    const up = currentY < lastNavScrollY - NAV_SCROLL_DIRECTION_DELTA;
+    if (down || up) lastNavScrollAt = Date.now();
 
-    if (navWrap.classList.contains('mobile-nav-open') || currentY <= 12 || up) {
+    if (navWrap.classList.contains('mobile-nav-open') || currentY <= 12) {
       document.body.classList.remove('nav-hidden');
+      clearNavIdleHideTimer();
     } else if (down) {
-      document.body.classList.add('nav-hidden');
+      hideNavImmediate();
+    } else if (up) {
+      showNavWithIdleTimer();
     }
 
     lastNavScrollY = currentY;
@@ -982,6 +1103,38 @@ window.addEventListener('scroll', () => {
   } else {
     document.body.classList.remove('benefits-focus');
   }
+}, { passive: true });
+
+window.addEventListener('wheel', (event) => {
+  if (shouldBypassNavAutoToggle()) return;
+  if (event.deltaY > 0) {
+    lastNavScrollAt = Date.now();
+    hideNavImmediate();
+  } else if (event.deltaY < 0) {
+    lastNavScrollAt = Date.now();
+    showNavWithIdleTimer();
+  }
+}, { passive: true });
+
+window.addEventListener('touchstart', (event) => {
+  const touch = event.changedTouches && event.changedTouches[0];
+  if (!touch) return;
+  lastTouchY = touch.clientY;
+}, { passive: true });
+
+window.addEventListener('touchmove', (event) => {
+  if (shouldBypassNavAutoToggle()) return;
+  const touch = event.changedTouches && event.changedTouches[0];
+  if (!touch || lastTouchY === null) return;
+  const deltaY = touch.clientY - lastTouchY;
+  if (Math.abs(deltaY) < 4) return;
+  lastNavScrollAt = Date.now();
+  if (deltaY < 0) {
+    hideNavImmediate();
+  } else {
+    showNavWithIdleTimer();
+  }
+  lastTouchY = touch.clientY;
 }, { passive: true });
 
 const softSnapSections = [

@@ -205,6 +205,40 @@ body[data-view="employer-register"] .login-shell{grid-template-columns:38% 62%}
   box-shadow:0 0 14px rgba(255,255,255,.4);
 }
 
+body.landing-intro-enter .media-pane{
+  animation:landingMediaReveal 1.02s cubic-bezier(.2,.74,.2,1) both;
+}
+
+body.landing-intro-enter .media-pane::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:var(--landing-intro-start,#171f35);
+  animation:landingToneToRole .88s cubic-bezier(.22,.72,.2,1) .06s both;
+}
+
+body.landing-intro-enter .media-stack{
+  opacity:0;
+  will-change:opacity;
+  animation:landingVideoLayerIn 1s ease 0s both;
+}
+
+body.landing-intro-enter .glass-sheet{
+  animation:landingSheetRise 1.06s cubic-bezier(.18,.76,.2,1) .04s both;
+}
+
+body.landing-intro-enter .top-chrome{
+  animation:landingChromeFade 0.72s ease .26s both;
+}
+
+body.landing-intro-enter .view.active .role-pill,
+body.landing-intro-enter .view.active h1,
+body.landing-intro-enter .view.active .roles-subtitle{
+  animation:landingContentSoftIn 0.62s cubic-bezier(.2,.72,.2,1) .34s both;
+}
+
 @media (min-width:1081px){
   .login-shell{
     display:block;
@@ -366,8 +400,84 @@ body[data-view="employer-signin"] .view-roles .role-pill[data-role="employer"]{
   border-width:0;
 }
 
+.role-to-signin-animating .view-roles .role-list{
+  pointer-events:none;
+}
+
+.role-to-signin-animating .view-roles h1,
+.role-to-signin-animating .view-roles .roles-subtitle,
+.role-to-signin-animating .view-roles .role-text strong,
+.role-to-signin-animating .view-roles .role-text small,
+.role-to-signin-animating .view-roles .role-login-chip{
+  animation:textFadeOutSoft .34s cubic-bezier(.2,.72,.2,1) both;
+  will-change:opacity,transform,filter;
+}
+
+.role-to-signin-animating .view-roles .role-text strong,
+.role-to-signin-animating .view-roles .role-text small,
+.role-to-signin-animating .view-roles .role-login-chip{animation-delay:.04s}
+
+.role-to-signin-animating .view-roles .role-pill{
+  transform-origin:50% 0%;
+  animation:roleCardFoldUp .48s cubic-bezier(.22,.74,.2,1) both;
+  will-change:transform,opacity;
+}
+
+.role-to-signin-animating .view-roles .role-pill:nth-child(1){animation-delay:.00s}
+.role-to-signin-animating .view-roles .role-pill:nth-child(2){animation-delay:.05s}
+.role-to-signin-animating .view-roles .role-pill:nth-child(3){animation-delay:.10s}
+.role-to-signin-animating .view-roles .role-pill:nth-child(4){animation:roleCardLeadFoldUp .52s cubic-bezier(.2,.76,.2,1) .12s both}
+
+.role-from-signin-animating .view-roles .role-pill{
+  transform-origin:50% 0%;
+  animation:roleCardUnfoldDown .46s cubic-bezier(.2,.7,.2,1) both;
+  will-change:transform,opacity;
+}
+
+.role-from-signin-animating .view-roles h1,
+.role-from-signin-animating .view-roles .roles-subtitle,
+.role-from-signin-animating .view-roles .role-text strong,
+.role-from-signin-animating .view-roles .role-text small,
+.role-from-signin-animating .view-roles .role-login-chip{
+  animation:textFadeInSoft .42s cubic-bezier(.2,.7,.2,1) both;
+  will-change:opacity,transform,filter;
+}
+
+.role-from-signin-animating .view-roles h1,
+.role-from-signin-animating .view-roles .roles-subtitle{animation-delay:.08s}
+
+.role-from-signin-animating .view-roles .role-text strong,
+.role-from-signin-animating .view-roles .role-text small,
+.role-from-signin-animating .view-roles .role-login-chip{animation-delay:.12s}
+
+.role-from-signin-animating .view-roles .role-pill:nth-child(1){animation-delay:.10s}
+.role-from-signin-animating .view-roles .role-pill:nth-child(2){animation-delay:.06s}
+.role-from-signin-animating .view-roles .role-pill:nth-child(3){animation-delay:.03s}
+.role-from-signin-animating .view-roles .role-pill:nth-child(4){animation-delay:.00s}
+
 @media (prefers-reduced-motion:reduce){
   .bg-layer,.role-video,.view,.role-pill,.role-login-chip,.primary-btn,.home-pill,.lang-trigger{transition:none !important}
+  .view-signin.active .summary-bar,
+  .view-signin.active .form-card{animation:none !important}
+  .role-to-signin-animating .view-roles .role-pill{animation:none !important}
+  .role-from-signin-animating .view-roles .role-pill{animation:none !important}
+  .role-to-signin-animating .view-roles h1,
+  .role-to-signin-animating .view-roles .roles-subtitle,
+  .role-to-signin-animating .view-roles .role-text strong,
+  .role-to-signin-animating .view-roles .role-text small,
+  .role-to-signin-animating .view-roles .role-login-chip,
+  .role-from-signin-animating .view-roles h1,
+  .role-from-signin-animating .view-roles .roles-subtitle,
+  .role-from-signin-animating .view-roles .role-text strong,
+  .role-from-signin-animating .view-roles .role-text small,
+  .role-from-signin-animating .view-roles .role-login-chip{animation:none !important}
+  body.landing-intro-enter .media-pane,
+  body.landing-intro-enter .media-pane::before,
+  body.landing-intro-enter .glass-sheet,
+  body.landing-intro-enter .top-chrome,
+  body.landing-intro-enter .view.active .role-pill,
+  body.landing-intro-enter .view.active h1,
+  body.landing-intro-enter .view.active .roles-subtitle{animation:none !important}
 }
 
 @media (max-width:1080px){
@@ -376,6 +486,9 @@ body[data-view="employer-signin"] .view-roles .role-pill[data-role="employer"]{
     --grad-staff:linear-gradient(180deg,#A7CFD4 0%,#ACD2D7 6%,#B0D6DB 11%,#B7DDE0 19%,#C8EAEB 36%,#D2F3F5 53%,#D5F2F5 68%,#D1F0F2 78%,#CFEEF0 87%,#CDEDEF 100%);
     --grad-alumni:linear-gradient(180deg,#B9A3CF 0%,#C4AED5 11%,#D2C0DF 24%,#DECDE8 38%,#EADDEF 61%,#EAE0F0 71%,#F4E8F0 73%,#F6EDED 77%,#F5EBED 85%,#F6EDEF 100%);
     --grad-employer:linear-gradient(180deg,#FCC095 0%,#FCC79A 8%,#FDCFA7 17%,#FCE8CC 53%,#FDEDD5 69%,#FEF0DA 78%,#FCF4E5 79%,#FCEFE2 86%,#F9EFE0 91%,#F7EBDE 100%);
+    --role-font-title-size:16px;
+    --role-font-meta-size:11px;
+    --signin-mobile-title-size:16px;
   }
   body{
     overflow:auto;
@@ -436,33 +549,187 @@ body[data-view="employer-signin"] .view-roles .role-pill[data-role="employer"]{
   .view-roles,
   .view-signin,
   .view-register{padding-inline:14px}
+  .view-signin,
+  .view-register{
+    position:relative;
+    left:5px;
+    justify-self:center;
+    width:min(var(--signin-rail),calc(100% - 28px));
+  }
   .view-signin{align-self:start}
   .top-chrome{margin:6px 0 8px;width:100%}
+  body[data-view="roles"] .top-chrome{
+    width:100%;
+    margin:6px 0 8px;
+    padding-inline:14px;
+    box-sizing:border-box;
+  }
+  body[data-view="employer-signin"] .top-chrome{
+    margin:6px auto 8px;
+    width:min(var(--signin-rail),calc(100% - 56px));
+    position:relative;
+    left:5px;
+  }
+  body[data-view="employer-signin"] .view-signin.active .summary-bar{
+    animation:mobileSignInBarIn .44s cubic-bezier(.2,.7,.2,1) both;
+  }
+  body[data-view="employer-signin"] .view-signin.active .form-card{
+    animation:mobileSignInFormIn .56s cubic-bezier(.2,.7,.2,1) .08s both;
+  }
   .home-pill,.lang-trigger{height:30px;padding:0 12px;font-size:11px}
   .view-roles h1{margin:10px 0 6px;font-size:32px}
   .roles-subtitle{font-size:13px;margin-bottom:14px}
   .role-pill{height:74px;padding:8px 12px}
-  .role-text strong{font-size:16px}
-  .role-text small{font-size:11px}
+  .role-to-signin-animating .view-roles .role-list{
+    pointer-events:none;
+  }
+  .role-to-signin-animating .view-roles h1,
+  .role-to-signin-animating .view-roles .roles-subtitle,
+  .role-to-signin-animating .view-roles .role-text strong,
+  .role-to-signin-animating .view-roles .role-text small,
+  .role-to-signin-animating .view-roles .role-login-chip{
+    animation:textFadeOutSoft .34s cubic-bezier(.2,.72,.2,1) both;
+    will-change:opacity,transform,filter;
+  }
+  .role-to-signin-animating .view-roles .role-text strong,
+  .role-to-signin-animating .view-roles .role-text small,
+  .role-to-signin-animating .view-roles .role-login-chip{animation-delay:.04s}
+  .role-to-signin-animating .view-roles .role-pill{
+    transform-origin:50% 0%;
+    animation:roleCardFoldUp .48s cubic-bezier(.22,.74,.2,1) both;
+    will-change:transform,opacity;
+  }
+  .role-to-signin-animating .view-roles .role-pill:nth-child(1){animation-delay:.00s}
+  .role-to-signin-animating .view-roles .role-pill:nth-child(2){animation-delay:.05s}
+  .role-to-signin-animating .view-roles .role-pill:nth-child(3){animation-delay:.10s}
+  .role-to-signin-animating .view-roles .role-pill:nth-child(4){animation:roleCardLeadFoldUp .52s cubic-bezier(.2,.76,.2,1) .12s both}
+  .role-from-signin-animating .view-roles .role-pill{
+    transform-origin:50% 0%;
+    animation:roleCardUnfoldDown .46s cubic-bezier(.2,.7,.2,1) both;
+    will-change:transform,opacity;
+  }
+  .role-from-signin-animating .view-roles h1,
+  .role-from-signin-animating .view-roles .roles-subtitle,
+  .role-from-signin-animating .view-roles .role-text strong,
+  .role-from-signin-animating .view-roles .role-text small,
+  .role-from-signin-animating .view-roles .role-login-chip{
+    animation:textFadeInSoft .42s cubic-bezier(.2,.7,.2,1) both;
+    will-change:opacity,transform,filter;
+  }
+  .role-from-signin-animating .view-roles h1,
+  .role-from-signin-animating .view-roles .roles-subtitle{animation-delay:.08s}
+  .role-from-signin-animating .view-roles .role-text strong,
+  .role-from-signin-animating .view-roles .role-text small,
+  .role-from-signin-animating .view-roles .role-login-chip{animation-delay:.12s}
+  .role-from-signin-animating .view-roles .role-pill:nth-child(1){animation-delay:.10s}
+  .role-from-signin-animating .view-roles .role-pill:nth-child(2){animation-delay:.06s}
+  .role-from-signin-animating .view-roles .role-pill:nth-child(3){animation-delay:.03s}
+  .role-from-signin-animating .view-roles .role-pill:nth-child(4){animation-delay:.00s}
+  .role-text strong{font-size:var(--role-font-title-size)}
+  .role-text small{font-size:var(--role-font-meta-size)}
   .role-login-chip{min-width:92px;height:34px;font-size:13px}
   .summary-bar{height:auto;min-height:56px;padding:7px 10px;border-radius:16px}
-  .summary-bar .role-icon{width:34px;height:34px}
+  .summary-bar .role-icon{width:42px;height:42px}
+  .summary-bar .role-icon.student::before,.summary-bar .role-icon.student::after{top:10px;width:7px;height:22px}
+  .summary-bar .role-icon.student::before{left:13px}
+  .summary-bar .role-icon.student::after{right:13px}
+  .summary-bar .role-icon.staff::before{left:11px;top:12px;width:20px;height:3px;box-shadow:0 7px 0 #fff,0 14px 0 #fff}
+  .summary-bar .role-icon.alumni::before{left:13px;top:13px;width:16px;height:16px}
+  .summary-bar .role-icon.employer::before{left:11px;top:11px;width:8px;height:8px;box-shadow:12px 0 0 #fff,0 12px 0 #fff,12px 12px 0 #fff}
   .summary-left{gap:10px}
-  .summary-left strong{font-size:clamp(14px,5vw,19px)}
+  .summary-left strong{font-size:var(--role-font-title-size);font-weight:var(--role-font-title-weight);line-height:var(--role-font-title-line)}
   .summary-left small{font-size:clamp(10px,3.2vw,12px)}
   .summary-back{height:34px;padding:0 14px;font-size:13px}
-  .form-card{padding:18px 14px;border-radius:24px}
-  .form-card h2{font-size:clamp(15px,4.4vw,20px)}
+  .form-card{
+    padding:12px 12px;
+    border-radius:20px;
+    background:linear-gradient(180deg,rgba(255,255,255,.52) 0%,rgba(255,255,255,.3) 56%,rgba(255,255,255,.2) 100%);
+    border:1px solid rgba(255,255,255,.62);
+    backdrop-filter:blur(14px) saturate(1.1);
+    -webkit-backdrop-filter:blur(14px) saturate(1.1);
+    box-shadow:0 8px 20px rgba(70,88,126,.14), inset 0 1px 0 rgba(255,255,255,.62);
+  }
+  .form-card h2{font-size:var(--signin-mobile-title-size);margin:0 0 8px}
   .form-card label{font-size:clamp(11px,3.5vw,13px)}
-  .form-card input,.form-card select,.form-card textarea{padding:8px 12px;font-size:clamp(11px,3.2vw,13px)}
-  .captcha-row{height:40px}
-  .primary-btn{height:44px;font-size:clamp(14px,4.2vw,18px)}
+  .form-card input,.form-card select,.form-card textarea{height:40px;padding:0 12px;font-size:clamp(11px,3.2vw,13px)}
+  .form-card textarea{height:auto;min-height:92px;padding:8px 12px}
+  .field-error{min-height:12px;margin-top:2px;font-size:11px}
+  .captcha-row{height:36px;margin-top:8px}
+  .hint-2fa{margin:8px 0;padding:7px 10px;font-size:11px}
+  .primary-btn{height:40px;font-size:var(--signin-mobile-title-size);font-weight:var(--role-font-title-weight);line-height:var(--role-font-title-line)}
   .register-line{font-size:clamp(10px,3.2vw,12px)}
   .register-card h2{font-size:clamp(16px,4.8vw,20px)}
   .reg-section h3{font-size:clamp(12px,3.4vw,14px)}
   .reg-grid label{font-size:clamp(10px,3.1vw,12px)}
   .register-card{max-height:none;overflow:visible}
   .reg-grid.cols-2{grid-template-columns:1fr}
+}
+
+@keyframes mobileSignInBarIn{
+  0%{opacity:0;transform:translateY(14px) scale(.985)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@keyframes mobileSignInFormIn{
+  0%{opacity:0;transform:translateY(18px) scale(.99)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@keyframes roleCardFoldUp{
+  0%{opacity:1;transform:translateY(0) rotateX(0deg) scale(1)}
+  100%{opacity:0;transform:translateY(-66px) rotateX(68deg) scale(.96)}
+}
+
+@keyframes roleCardLeadFoldUp{
+  0%{opacity:1;transform:translateY(0) rotateX(0deg) scale(1)}
+  45%{opacity:1;transform:translateY(-12px) rotateX(24deg) scale(1.01)}
+  100%{opacity:0;transform:translateY(-78px) rotateX(74deg) scale(.97)}
+}
+
+@keyframes roleCardUnfoldDown{
+  0%{opacity:0;transform:translateY(-64px) rotateX(72deg) scale(.97)}
+  68%{opacity:1;transform:translateY(6px) rotateX(-4deg) scale(1.01)}
+  100%{opacity:1;transform:translateY(0) rotateX(0deg) scale(1)}
+}
+
+@keyframes landingMediaReveal{
+  0%{opacity:.72;transform:translateY(-16px) scale(1.03);filter:saturate(.92)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:saturate(1)}
+}
+
+@keyframes landingToneToRole{
+  0%{opacity:1}
+  100%{opacity:0}
+}
+
+@keyframes landingVideoLayerIn{
+  0%{opacity:0}
+  100%{opacity:1}
+}
+
+@keyframes landingSheetRise{
+  0%{opacity:0;transform:translateY(44px) scale(.985);filter:blur(1px)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+
+@keyframes landingChromeFade{
+  0%{opacity:0;transform:translateY(8px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+@keyframes landingContentSoftIn{
+  0%{opacity:0;transform:translateY(10px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+@keyframes textFadeOutSoft{
+  0%{opacity:1;transform:translateY(0);filter:blur(0)}
+  100%{opacity:0;transform:translateY(-8px);filter:blur(1px)}
+}
+
+@keyframes textFadeInSoft{
+  0%{opacity:0;transform:translateY(8px);filter:blur(1px)}
+  100%{opacity:1;transform:translateY(0);filter:blur(0)}
 }
 
 @media (min-width:768px) and (max-width:1080px){

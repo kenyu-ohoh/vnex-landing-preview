@@ -1,5 +1,9 @@
 const ROLE_STORAGE_KEY = 'vnexLoginRole';
 const LANG_STORAGE_KEY = 'vnexLoginLang';
+const LOGIN_INTRO_FLAG_KEY = 'vnexLoginIntroFromLanding';
+const LOGIN_INTRO_TONE_KEY = 'vnexLoginIntroTone';
+const LANDING_RETURN_FLAG_KEY = 'vnexLandingReturnFromLogin';
+const LANDING_RETURN_ROLE_KEY = 'vnexLandingReturnRole';
 
 const roles = {
   student: {
@@ -216,6 +220,72 @@ let state = {
   employerRoleLoginHint: false
 };
 
+function shouldPlayLandingIntro(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('from') === 'landing') return true;
+
+  let viaFlag = false;
+  try {
+    viaFlag = sessionStorage.getItem(LOGIN_INTRO_FLAG_KEY) === '1';
+  } catch (_error) {
+    viaFlag = false;
+  }
+
+  const fromIndexReferrer = /\/index\.html(?:$|[?#])/i.test(document.referrer || '');
+  return viaFlag || fromIndexReferrer;
+}
+
+function playLandingIntroIfNeeded(){
+  if (!shouldPlayLandingIntro()) return;
+
+  let introTone = 'dark';
+  try {
+    introTone = sessionStorage.getItem(LOGIN_INTRO_TONE_KEY) || 'dark';
+  } catch (_error) {
+    introTone = 'dark';
+  }
+
+  const introStartColor = introTone === 'light' ? '#f6f8fc' : '#171f35';
+  body.style.setProperty('--landing-intro-start', introStartColor);
+
+  try {
+    sessionStorage.removeItem(LOGIN_INTRO_FLAG_KEY);
+    sessionStorage.removeItem(LOGIN_INTRO_TONE_KEY);
+  } catch (_error) {
+    // Ignore storage access issues.
+  }
+
+  body.classList.add('landing-intro-enter');
+  window.setTimeout(() => {
+    body.classList.remove('landing-intro-enter');
+    body.style.removeProperty('--landing-intro-start');
+  }, 1150);
+}
+
+function markLandingReturnAnimation(){
+  try {
+    sessionStorage.setItem(LANDING_RETURN_FLAG_KEY, '1');
+    sessionStorage.setItem(LANDING_RETURN_ROLE_KEY, state.role);
+  } catch (_error) {
+    // Ignore storage access issues.
+  }
+}
+
+function canUseHistoryBackToLanding(){
+  if (window.history.length <= 1) return false;
+  const ref = document.referrer || '';
+  if (!ref) return false;
+
+  try {
+    const refUrl = new URL(ref, window.location.href);
+    if (refUrl.origin !== window.location.origin) return false;
+    return /\/index\.html(?:$|[?#])/i.test(refUrl.pathname + refUrl.search + refUrl.hash);
+  } catch (_error) {
+    return false;
+  }
+}
+
 function getText(){
   return i18n[state.lang] || i18n.ENG;
 }
@@ -338,7 +408,51 @@ function showView(view){
   views.signin.classList.add('active');
 }
 
+function shouldUseRoleToSigninAnimation(role){
+  if (role !== 'employer') return false;
+  if (state.view !== 'roles') return false;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  return true;
+}
+
+function playRoleToSigninAnimation(onDone){
+  body.classList.add('role-to-signin-animating');
+  window.setTimeout(() => {
+    if (typeof onDone === 'function') onDone();
+    window.setTimeout(() => {
+      body.classList.remove('role-to-signin-animating');
+    }, 60);
+  }, 640);
+}
+
+function shouldUseSigninToRoleAnimation(){
+  if (state.view !== 'employer-signin') return false;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  return true;
+}
+
+function playSigninToRoleAnimation(){
+  showView('roles');
+  applyLanguage(state.lang);
+  body.classList.add('role-from-signin-animating');
+  window.setTimeout(() => {
+    body.classList.remove('role-from-signin-animating');
+  }, 560);
+}
+
 function openSigninForRole(role){
+  if (shouldUseRoleToSigninAnimation(role)) {
+    body.dataset.employerHint = '0';
+    setRole(role);
+    playRoleToSigninAnimation(() => {
+      showView('employer-signin');
+      applyLanguage(state.lang);
+      clearSignInErrors();
+      signinForm.reset();
+    });
+    return;
+  }
+
   body.dataset.employerHint = '0';
   setRole(role);
   if (role === 'employer') {
@@ -346,6 +460,7 @@ function openSigninForRole(role){
   } else {
     showView('signin');
   }
+  applyLanguage(state.lang);
   clearSignInErrors();
   signinForm.reset();
 }
@@ -439,7 +554,9 @@ function applyLanguage(lang){
 
   const text = getText();
 
-  homePill.textContent = text.backHome;
+  const isEmployerSigninView = state.view === 'employer-signin';
+  homePill.textContent = isEmployerSigninView ? text.back : text.backHome;
+  homePill.setAttribute('href', isEmployerSigninView ? '#view-roles' : 'index.html#top');
   rolesTitle.textContent = text.who;
   rolesSubtitle.textContent = text.subtitle;
 
@@ -580,6 +697,10 @@ summaryBack.addEventListener('click', () => {
     state.employerRoleLoginHint = true;
     body.dataset.employerHint = '1';
   }
+  if (shouldUseSigninToRoleAnimation()) {
+    playSigninToRoleAnimation();
+    return;
+  }
   showView('roles');
   applyLanguage(state.lang);
 });
@@ -587,6 +708,30 @@ summaryBack.addEventListener('click', () => {
 registerBack.addEventListener('click', () => {
   showView('employer-signin');
   applyLanguage(state.lang);
+});
+
+homePill.addEventListener('click', (event) => {
+  if (state.view !== 'employer-signin') return;
+  event.preventDefault();
+  if (shouldUseSigninToRoleAnimation()) {
+    playSigninToRoleAnimation();
+    return;
+  }
+  showView('roles');
+  applyLanguage(state.lang);
+});
+
+homePill.addEventListener('click', () => {
+  if (state.view === 'employer-signin') return;
+  markLandingReturnAnimation();
+});
+
+homePill.addEventListener('click', (event) => {
+  if (state.view === 'employer-signin') return;
+  if (!canUseHistoryBackToLanding()) return;
+
+  event.preventDefault();
+  window.history.back();
 });
 
 signinForm.addEventListener('submit', (event) => {
@@ -644,6 +789,8 @@ window.addEventListener('pointerdown', () => {
 function init(){
   if (!roles[state.role]) state.role = 'student';
   if (!i18n[state.lang]) state.lang = 'ENG';
+
+  playLandingIntroIfNeeded();
 
   setBodyRole(state.role);
   body.dataset.employerHint = '0';
