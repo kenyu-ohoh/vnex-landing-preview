@@ -15,6 +15,7 @@ Variant links:
 
 - V1: https://kenyu-ohoh.github.io/vnex-landing-preview/?ab=v1#benefits
 - V2: https://kenyu-ohoh.github.io/vnex-landing-preview/?ab=v2#benefits
+- V3: https://kenyu-ohoh.github.io/vnex-landing-preview/?ab=v3#benefits
 
 Instant preview without Pages:
 
@@ -22,3 +23,4 @@ https://htmlpreview.github.io/?https://github.com/kenyu-ohoh/vnex-landing-previe
 
 - V1: https://htmlpreview.github.io/?https://github.com/kenyu-ohoh/vnex-landing-preview/blob/main/index.html?ab=v1#benefits
 - V2: https://htmlpreview.github.io/?https://github.com/kenyu-ohoh/vnex-landing-preview/blob/main/index.html?ab=v2#benefits
+- V3: https://htmlpreview.github.io/?https://github.com/kenyu-ohoh/vnex-landing-preview/blob/main/index.html?ab=v3#benefits

@@ -25,6 +25,10 @@ document.querySelectorAll('a[href^="login.html"]').forEach((link) => {
     try {
       sessionStorage.setItem(LOGIN_INTRO_FLAG_KEY, '1');
       sessionStorage.setItem(LOGIN_INTRO_TONE_KEY, getLandingIntroTone());
+      const targetRole = (link.getAttribute('data-login-role') || '').trim();
+      if (targetRole) {
+        sessionStorage.setItem(LANDING_RETURN_ROLE_KEY, targetRole);
+      }
     } catch (_error) {
       // Ignore storage access issues; referrer fallback still supports intro animation.
     }
@@ -83,17 +87,17 @@ const benefitsSection = document.getElementById('benefits');
 function getBenefitVariantFromLocation(){
   const urlParams = new URLSearchParams(window.location.search);
   const directAb = (urlParams.get('ab') || '').toLowerCase();
-  if (directAb === 'v1' || directAb === 'v2') return directAb;
+  if (directAb === 'v1' || directAb === 'v2' || directAb === 'v3') return directAb;
 
   // htmlpreview wraps the target URL in its own query string, so `ab` may only
   // exist inside the full href (for example: ...index.html?ab=v2#benefits).
   const href = String(window.location.href || '');
-  const match = href.match(/[?&]ab=(v1|v2)(?:[&#]|$)/i);
+  const match = href.match(/[?&]ab=(v1|v2|v3)(?:[&#]|$)/i);
   if (match) return match[1].toLowerCase();
 
   try {
     const decodedHref = decodeURIComponent(href);
-    const decodedMatch = decodedHref.match(/[?&]ab=(v1|v2)(?:[&#]|$)/i);
+    const decodedMatch = decodedHref.match(/[?&]ab=(v1|v2|v3)(?:[&#]|$)/i);
     if (decodedMatch) return decodedMatch[1].toLowerCase();
   } catch (_error) {
     // Ignore malformed URI sequence and fall back to default.
@@ -103,7 +107,7 @@ function getBenefitVariantFromLocation(){
 }
 
 const benefitVariant = getBenefitVariantFromLocation();
-document.body.classList.remove('ab-v1', 'ab-v2');
+document.body.classList.remove('ab-v1', 'ab-v2', 'ab-v3');
 document.body.classList.add('ab-' + benefitVariant);
 if (benefitsSection) {
   benefitsSection.setAttribute('data-ab', benefitVariant);
@@ -350,6 +354,11 @@ document.querySelectorAll('[data-reveal]').forEach((node) => {
 
 const heroArt = document.getElementById('hero-art');
 const heroVideo = document.querySelector('.hero-video');
+const heroVideoWebmSource = document.getElementById('hero-video-source-webm');
+const heroVideoMp4Source = document.getElementById('hero-video-source-mp4');
+const hero3d = document.getElementById('hero-3d');
+const heroJobScene = document.getElementById('hero-job-scene');
+const heroJobItems = Array.from(document.querySelectorAll('.hero-job-item'));
 const discoverMotion = document.getElementById('discover-motion');
 const desktopLang = document.getElementById('desktop-lang');
 const desktopLangCurrent = document.getElementById('desktop-lang-current');
@@ -808,6 +817,37 @@ screen2FillSpans.forEach((line) => {
 });
 
 if (heroVideo) {
+  const defaultSources = {
+    webm: 'assets/hero-loop_o.webm',
+    mp4: 'assets/hero-loop_o.mp4'
+  };
+  const v3Sources = {
+    webm: 'assets/hero-loop.webm',
+    mp4: 'assets/hero-loop.mp4'
+  };
+
+  const applyHeroMediaByVariant = () => {
+    const targetSources = benefitVariant === 'v3' ? v3Sources : defaultSources;
+    const currentKey = targetSources.webm + '|' + targetSources.mp4;
+
+    if (heroVideo.dataset.clipKey === currentKey) return;
+
+    if (heroVideoWebmSource) {
+      if (targetSources.webm) heroVideoWebmSource.setAttribute('src', targetSources.webm);
+      else heroVideoWebmSource.removeAttribute('src');
+    }
+    if (heroVideoMp4Source) {
+      heroVideoMp4Source.setAttribute('src', targetSources.mp4);
+    }
+
+    heroVideo.dataset.clipKey = currentKey;
+    heroVideo.setAttribute(
+      'aria-label',
+      benefitVariant === 'v3' ? 'V-NEX hero loop background alternate clip' : 'V-NEX hero loop background'
+    );
+    heroVideo.load();
+  };
+
   const tryPlayHeroVideo = () => {
     const playPromise = heroVideo.play();
     if (playPromise && typeof playPromise.catch === 'function') {
@@ -816,6 +856,8 @@ if (heroVideo) {
       });
     }
   };
+
+  applyHeroMediaByVariant();
 
   heroVideo.addEventListener('loadeddata', tryPlayHeroVideo, { once: true });
   window.addEventListener('pageshow', () => {
@@ -830,6 +872,198 @@ if (heroVideo) {
 
   // Try immediately on initial script run so return navigation does not sit on a still frame.
   tryPlayHeroVideo();
+}
+
+if (hero3d) {
+  let hero3dFrameId = null;
+
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+  const cardStates = heroJobItems.map((node, index) => {
+    return {
+      node,
+      depth: index,
+      targetTiltX: 0,
+      targetTiltY: 0,
+      currentTiltX: 0,
+      currentTiltY: 0,
+      targetShiftX: 0,
+      targetShiftY: 0,
+      currentShiftX: 0,
+      currentShiftY: 0
+    };
+  });
+
+  const fakeRoles = [
+    'Junior UX Designer',
+    'Product Designer',
+    'UI Designer',
+    'Frontend Intern',
+    'Visual Storyteller',
+    'Motion Designer',
+    'Experience Designer',
+    'Design System Intern'
+  ];
+  const fakeCompanies = [
+    'Northstar Atelier',
+    'Orbit Foundry',
+    'Aster Harbor',
+    'Finwell Studio',
+    'Pixel Grove Lab',
+    'Brightlane Works',
+    'Cobalt Kite House',
+    'Lumen Trail Co'
+  ];
+
+  let editMode = false;
+
+  const editToggleBtn = document.getElementById('hero-edit-toggle');
+  const regenerateBtn = document.getElementById('hero-regenerate');
+
+  const toggleEditMode = () => {
+    editMode = !editMode;
+    if (editToggleBtn) {
+      editToggleBtn.classList.toggle('active', editMode);
+      editToggleBtn.textContent = editMode ? 'Done' : 'Edit';
+    }
+
+    heroJobItems.forEach((card) => {
+      const fields = card.querySelectorAll('[data-field="title"], [data-field="company"], [data-field="score"]');
+      fields.forEach((field) => {
+        field.setAttribute('contenteditable', String(editMode));
+        field.setAttribute('spellcheck', 'false');
+      });
+    });
+  };
+
+  const regenerateFakePosts = () => {
+    const usedRoles = new Set();
+    const usedCompanies = new Set();
+
+    const pickUnique = (pool, usedSet) => {
+      const available = pool.filter((item) => !usedSet.has(item));
+      const source = available.length ? available : pool;
+      const value = source[Math.floor(Math.random() * source.length)];
+      usedSet.add(value);
+      return value;
+    };
+
+    heroJobItems.forEach((card, index) => {
+      const titleNode = card.querySelector('[data-field="title"]');
+      const companyNode = card.querySelector('[data-field="company"]');
+      const scoreNode = card.querySelector('[data-field="score"]');
+
+      if (titleNode) titleNode.textContent = pickUnique(fakeRoles, usedRoles);
+      if (companyNode) companyNode.textContent = pickUnique(fakeCompanies, usedCompanies);
+      if (scoreNode) {
+        const score = Math.max(72, 96 - index * 4 - Math.floor(Math.random() * 3));
+        scoreNode.textContent = String(score) + '%';
+      }
+    });
+  };
+
+  if (editToggleBtn) {
+    editToggleBtn.addEventListener('click', () => {
+      toggleEditMode();
+    });
+  }
+
+  if (regenerateBtn) {
+    regenerateBtn.addEventListener('click', () => {
+      regenerateFakePosts();
+    });
+  }
+
+  const setSceneGlossFromPoint = (clientX, clientY) => {
+    if (!heroJobScene) return;
+    const rect = heroJobScene.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const px = clamp(((clientX - rect.left) / rect.width) * 100, 0, 100);
+    const py = clamp(((clientY - rect.top) / rect.height) * 100, 0, 100);
+    hero3d.style.setProperty('--hero-gloss-x', px.toFixed(1) + '%');
+    hero3d.style.setProperty('--hero-gloss-y', py.toFixed(1) + '%');
+  };
+
+  const setCardTargetsFromPointer = (clientX, clientY) => {
+    cardStates.forEach((state) => {
+      const rect = state.node.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const nx = clamp((clientX - cx) / (rect.width * 0.62), -1, 1);
+      const ny = clamp((clientY - cy) / (rect.height * 0.92), -1, 1);
+      const weight = 1 - state.depth * 0.12;
+
+      state.targetTiltY = nx * 7 * weight;
+      state.targetTiltX = -ny * 5 * weight;
+      state.targetShiftX = nx * 13 * weight;
+      state.targetShiftY = ny * 8 * weight;
+    });
+  };
+
+  const resetCardTargets = () => {
+    cardStates.forEach((state) => {
+      state.targetTiltX = 0;
+      state.targetTiltY = 0;
+      state.targetShiftX = 0;
+      state.targetShiftY = 0;
+    });
+  };
+
+  const animateCards = () => {
+    const t = performance.now() * 0.001;
+    cardStates.forEach((state) => {
+      state.currentTiltX += (state.targetTiltX - state.currentTiltX) * 0.16;
+      state.currentTiltY += (state.targetTiltY - state.currentTiltY) * 0.16;
+      state.currentShiftX += (state.targetShiftX - state.currentShiftX) * 0.16;
+      state.currentShiftY += (state.targetShiftY - state.currentShiftY) * 0.16;
+
+      const floatY = Math.sin(t * 0.85 + state.depth * 0.42) * 1.2;
+      state.node.style.setProperty('--card-tilt-x', state.currentTiltX.toFixed(2) + 'deg');
+      state.node.style.setProperty('--card-tilt-y', state.currentTiltY.toFixed(2) + 'deg');
+      state.node.style.setProperty('--card-shift-x', state.currentShiftX.toFixed(2) + 'px');
+      state.node.style.setProperty('--card-shift-y', (state.currentShiftY + floatY).toFixed(2) + 'px');
+    });
+
+    hero3dFrameId = window.requestAnimationFrame(animateCards);
+  };
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && benefitVariant === 'v3') {
+    if (heroArt) {
+      heroArt.addEventListener('pointermove', (event) => {
+        setCardTargetsFromPointer(event.clientX, event.clientY);
+        setSceneGlossFromPoint(event.clientX, event.clientY);
+      }, { passive: true });
+
+      heroArt.addEventListener('pointerleave', () => {
+        resetCardTargets();
+        if (heroJobScene) heroJobScene.classList.remove('is-engaged');
+      }, { passive: true });
+    }
+
+    if (heroJobScene) {
+      heroJobScene.addEventListener('pointerenter', () => {
+        heroJobScene.classList.add('is-engaged');
+      });
+
+      heroJobScene.addEventListener('pointerleave', () => {
+        heroJobScene.classList.remove('is-engaged');
+      });
+
+      heroJobScene.addEventListener('pointermove', (event) => {
+        setCardTargetsFromPointer(event.clientX, event.clientY);
+        setSceneGlossFromPoint(event.clientX, event.clientY);
+      }, { passive: true });
+    }
+
+    hero3dFrameId = window.requestAnimationFrame(animateCards);
+  }
+
+  window.addEventListener('beforeunload', () => {
+    if (hero3dFrameId) {
+      window.cancelAnimationFrame(hero3dFrameId);
+      hero3dFrameId = null;
+    }
+  });
 }
 
 if (langOptions.length) {
@@ -917,7 +1151,7 @@ if (navWrap && navToggle && mobileNavMenu) {
   });
 }
 
-applyLanguage('ENG');
+applyLanguage('TC');
 
 function triggerBenefitsIntro(){
   if (!benefitsSection || benefitsSection.classList.contains('benefits-in-view')) return;

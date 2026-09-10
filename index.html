@@ -27,16 +27,68 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/geist-font@latest/style.css" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/css/main.css?v=20260910ab63"/>
+<link rel="stylesheet" href="assets/css/main.css?v=20260910ab94"/>
 </head>
 <body>
 <header class="hero" id="top">
   <div class="hero-art" id="hero-art">
     <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/brand-subtraction.webp" aria-label="V-NEX hero loop background">
-      <source src="assets/hero-loop.webm" type="video/webm"/>
-      <source src="assets/hero-loop.mp4" type="video/mp4"/>
+      <source id="hero-video-source-webm" src="assets/hero-loop.webm" type="video/webm"/>
+      <source id="hero-video-source-mp4" src="assets/hero-loop.mp4" type="video/mp4"/>
     </video>
     <img class="hero-fallback" src="assets/brand-subtraction.webp" alt="V-NEX hero"/>
+    <div class="hero-3d" id="hero-3d" aria-hidden="true">
+      <div class="hero-job-scene" id="hero-job-scene">
+        <div class="hero-job-head">
+          <div class="hero-job-head-row">
+            <div class="hero-job-head-title">AI Recommended Job</div>
+            <div class="hero-job-head-note">updated recently</div>
+          </div>
+          <a class="hero-job-head-search" href="login.html" data-login-role="student" aria-label="Student Login">Job Quick Search</a>
+        </div>
+        <div class="hero-job-stack" id="hero-job-stack">
+          <article class="hero-job-item is-primary" data-depth="0">
+            <div class="hero-job-logo logo-a" aria-hidden="true"></div>
+            <div class="hero-job-main">
+              <h4 data-field="title">Spatial Interaction Designer</h4>
+              <p data-field="company">Prism Forge Labs</p>
+              <div class="hero-job-meta">
+                <span class="hero-job-score" data-field="score">96%</span>
+                <span class="hero-job-apply">Apply &#8250;</span>
+              </div>
+            </div>
+            <span class="hero-job-like" aria-hidden="true">&#9825;</span>
+          </article>
+
+          <article class="hero-job-item" data-depth="1">
+            <div class="hero-job-logo logo-b" aria-hidden="true"></div>
+            <div class="hero-job-main">
+              <h4 data-field="title">Immersive UX Strategist</h4>
+              <p data-field="company">Vector Harbor Studio</p>
+              <div class="hero-job-meta">
+                <span class="hero-job-score" data-field="score">91%</span>
+                <span class="hero-job-apply">Apply &#8250;</span>
+              </div>
+            </div>
+            <span class="hero-job-like" aria-hidden="true">&#9825;</span>
+          </article>
+
+          <article class="hero-job-item" data-depth="2">
+            <div class="hero-job-logo logo-c" aria-hidden="true"></div>
+            <div class="hero-job-main">
+              <h4 data-field="title">Real-time UI Engineer</h4>
+              <p data-field="company">Neon Drift Works</p>
+              <div class="hero-job-meta">
+                <span class="hero-job-score" data-field="score">88%</span>
+                <span class="hero-job-apply">Apply &#8250;</span>
+              </div>
+            </div>
+            <span class="hero-job-like" aria-hidden="true">&#9825;</span>
+          </article>
+
+        </div>
+      </div>
+    </div>
   </div>
   <div class="hero-overlay"></div>
 
@@ -47,12 +99,12 @@
       <div class="lang-dropdown" id="desktop-lang" aria-label="Language selector for preview">
         <button class="lang-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="desktop-lang-list">
           <span class="lang-dropdown-glyph" aria-hidden="true">文</span>
-          <span class="lang-dropdown-current" id="desktop-lang-current">EN</span>
+          <span class="lang-dropdown-current" id="desktop-lang-current">繁</span>
           <span class="lang-dropdown-chevron" aria-hidden="true"></span>
         </button>
         <div class="lang-dropdown-menu" id="desktop-lang-list" role="listbox" aria-label="Desktop language options">
-          <button class="lang-option" type="button" role="option" data-lang="ENG" data-label="EN" aria-selected="true">English</button>
-          <button class="lang-option" type="button" role="option" data-lang="TC" data-label="繁" aria-selected="false">繁體中文</button>
+          <button class="lang-option" type="button" role="option" data-lang="ENG" data-label="EN" aria-selected="false">English</button>
+          <button class="lang-option" type="button" role="option" data-lang="TC" data-label="繁" aria-selected="true">繁體中文</button>
           <button class="lang-option" type="button" role="option" data-lang="SC" data-label="簡" aria-selected="false">简体中文</button>
         </div>
       </div>
@@ -78,8 +130,8 @@
         </div>
         <div class="mobile-menu-bottom">
         <div class="mobile-nav-lang" role="tablist" aria-label="Mobile language selector">
-          <button class="mobile-lang-option" type="button" role="tab" data-lang="ENG" aria-selected="true">ENG</button>
-          <button class="mobile-lang-option" type="button" role="tab" data-lang="TC" aria-selected="false">繁</button>
+          <button class="mobile-lang-option" type="button" role="tab" data-lang="ENG" aria-selected="false">ENG</button>
+          <button class="mobile-lang-option" type="button" role="tab" data-lang="TC" aria-selected="true">繁</button>
           <button class="mobile-lang-option" type="button" role="tab" data-lang="SC" aria-selected="false">簡</button>
         </div>
         <a class="mobile-login" href="login.html">Log In</a>
@@ -336,7 +388,7 @@ E-mail: jis@vtc.edu.hk</p>
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260909ab64"></script>
+<script src="assets/js/main.js?v=20260910ab77"></script>
 </body>
 </html>
 
