@@ -48,6 +48,12 @@ img{max-width:100%;display:block}
 .hero-video{
   z-index:1;
   filter:brightness(.78) saturate(1.04) contrast(1.02);
+  opacity:0;
+  transition:opacity .28s ease;
+}
+
+.hero-video.is-ready{
+  opacity:1;
 }
 .hero-fallback{
   z-index:0;
@@ -1438,23 +1444,27 @@ html.from-login-return .nav-wrap{
   }
 
   .ab-v1 .benefit-login-icon,
-  .ab-v2 .benefit-login-icon{
+  .ab-v2 .benefit-login-icon,
+  .benefits-v2 .benefit-login-icon{
     width:18px;
     height:18px;
     flex-basis:18px;
     stroke-width:2.2;
   }
 
-  .ab-v2 .benefit-shell{
+  .ab-v2 .benefit-shell,
+  .benefits-v2 .benefit-shell{
     position:relative;
     padding-bottom:74px;
   }
 
-  .ab-v2 .benefit-head-actions-top{
+  .ab-v2 .benefit-head-actions-top,
+  .benefits-v2 .benefit-head-actions-top{
     display:none;
   }
 
-  .ab-v2 .benefit-head-actions-bottom{
+  .ab-v2 .benefit-head-actions-bottom,
+  .benefits-v2 .benefit-head-actions-bottom{
     display:flex;
     justify-content:center;
     position:absolute;
@@ -1466,7 +1476,8 @@ html.from-login-return .nav-wrap{
     box-sizing:border-box;
   }
 
-  .ab-v2 .benefit-login{
+  .ab-v2 .benefit-login,
+  .benefits-v2 .benefit-login{
     width:clamp(320px,40%,520px) !important;
     flex:0 0 auto;
     min-width:320px;
@@ -1477,7 +1488,8 @@ html.from-login-return .nav-wrap{
     font-size:16px;
   }
 
-  .ab-v2 .benefit-dots{
+  .ab-v2 .benefit-dots,
+  .benefits-v2 .benefit-dots{
     position:absolute;
     top:8px;
     right:10px;

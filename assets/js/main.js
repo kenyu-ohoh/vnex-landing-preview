@@ -1,5 +1,11 @@
 ﻿document.documentElement.classList.add('js-motion');
 
+function revealBootScreen(){
+  document.documentElement.classList.remove('vnex-boot');
+}
+
+window.setTimeout(revealBootScreen, 1800);
+
 const LOGIN_INTRO_FLAG_KEY = 'vnexLoginIntroFromLanding';
 const LOGIN_INTRO_TONE_KEY = 'vnexLoginIntroTone';
 const LANDING_RETURN_FLAG_KEY = 'vnexLandingReturnFromLogin';
@@ -109,8 +115,12 @@ function getBenefitVariantFromLocation(){
 const benefitVariant = getBenefitVariantFromLocation();
 document.body.classList.remove('ab-v1', 'ab-v2', 'ab-v3');
 document.body.classList.add('ab-' + benefitVariant);
+document.body.classList.remove('benefits-v2');
+if (benefitVariant === 'v3') {
+  document.body.classList.add('benefits-v2');
+}
 if (benefitsSection) {
-  benefitsSection.setAttribute('data-ab', benefitVariant);
+  benefitsSection.setAttribute('data-ab', benefitVariant === 'v3' ? 'v2' : benefitVariant);
 }
 
 if (mainNode && discoverSection && benefitsSection && mainNode.firstElementChild !== discoverSection) {
@@ -841,6 +851,7 @@ if (heroVideo) {
     }
 
     heroVideo.dataset.clipKey = currentKey;
+    heroVideo.classList.remove('is-ready');
     heroVideo.setAttribute(
       'aria-label',
       benefitVariant === 'v3' ? 'V-NEX hero loop background alternate clip' : 'V-NEX hero loop background'
@@ -859,7 +870,10 @@ if (heroVideo) {
 
   applyHeroMediaByVariant();
 
-  heroVideo.addEventListener('loadeddata', tryPlayHeroVideo, { once: true });
+  heroVideo.addEventListener('loadeddata', () => {
+    heroVideo.classList.add('is-ready');
+    tryPlayHeroVideo();
+  }, { once: true });
   window.addEventListener('pageshow', () => {
     if (heroVideo.paused) tryPlayHeroVideo();
   });
@@ -1152,6 +1166,7 @@ if (navWrap && navToggle && mobileNavMenu) {
 }
 
 applyLanguage('TC');
+revealBootScreen();
 
 function triggerBenefitsIntro(){
   if (!benefitsSection || benefitsSection.classList.contains('benefits-in-view')) return;

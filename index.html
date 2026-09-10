@@ -4,8 +4,16 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>V-NEX | Career Nexus Landing</title>
+<style>
+html.vnex-boot body{
+  opacity:0;
+  visibility:hidden;
+  background:#0e1730;
+}
+</style>
 <script>
 (function(){
+  document.documentElement.classList.add('vnex-boot');
   try {
     if (sessionStorage.getItem('vnexLandingReturnFromLogin') !== '1') return;
     var role = sessionStorage.getItem('vnexLandingReturnRole') || 'student';
@@ -27,7 +35,7 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/geist-font@latest/style.css" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/css/main.css?v=20260910ab94"/>
+<link rel="stylesheet" href="assets/css/main.css?v=20260910ab96"/>
 </head>
 <body>
 <header class="hero" id="top">
@@ -388,7 +396,7 @@ E-mail: jis@vtc.edu.hk</p>
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260910ab77"></script>
+<script src="assets/js/main.js?v=20260910ab79"></script>
 </body>
 </html>
 
