@@ -1040,8 +1040,11 @@ html.from-login-return .nav-wrap{
   }
 
   .ab-v2 .benefit-login{
-    width:100%;
-    min-width:0;
+    width:clamp(320px,40%,520px) !important;
+    flex:0 0 auto;
+    min-width:320px;
+    max-width:520px;
+    margin-inline:auto;
     height:44px;
     padding:0 28px;
     font-size:16px;

@@ -4,10 +4,10 @@
   --pill-unselected:rgba(70,73,79,.78);
   --pill-selected:#16315f;
   --card:#ffffffd4;
-  --grad-student:linear-gradient(180deg,#8aa4c0 0%,#a6c2d9 52%,#c7d9e7 66%,#e4eef6 100%);
+  --grad-student:linear-gradient(180deg,#304968 0%,#394f6f 5%,#4a6584 13%,#557390 19%,#607d9b 24%,#708fac 29%,#82a2bd 36%,#94b4cc 43%,#a6c2d9 52%,#b9d0e4 59%,#c7d9e7 66%,#e4eef6 100%);
   --grad-staff:linear-gradient(180deg,#A7CFD4 0%,#ACD2D7 6%,#B0D6DB 11%,#B7DDE0 19%,#C8EAEB 36%,#D2F3F5 53%,#D5F2F5 68%,#D1F0F2 78%,#CFEEF0 87%,#CDEDEF 100%);
   --grad-alumni:linear-gradient(180deg,#B9A3CF 0%,#C4AED5 11%,#D2C0DF 24%,#DECDE8 38%,#EADDEF 61%,#EAE0F0 71%,#F4E8F0 73%,#F6EDED 77%,#F5EBED 85%,#F6EDEF 100%);
-  --grad-employer:linear-gradient(180deg,#FCC095 0%,#FCC79A 8%,#FDCFA7 17%,#FCE8CC 53%,#FDEDD5 69%,#FEF0DA 78%,#FCF4E5 79%,#FCEFE2 86%,#F9EFE0 91%,#F7EBDE 100%);
+  --grad-employer:linear-gradient(180deg,#fcc095 0%,#fcc79a 8%,#fdcfa7 17%,#fce8cc 53%,#fdedd5 69%,#fef0da 78%,#fcf4e5 79%,#fbf3e2 79%,#fcefe2 86%,#f9efe0 91%,#f7ebde 100%);
   --role-grad:var(--grad-student);
   --role-rail:620px;
   --signin-rail:620px;
@@ -123,9 +123,10 @@ a{text-decoration:none;color:inherit}
 body[data-view="employer-register"] .login-shell{grid-template-columns:38% 62%}
 
 .media-pane{position:relative;min-height:100svh;overflow:hidden}
-.media-fallback{position:absolute;inset:0;z-index:0;opacity:.88;transition:background .55s ease}
-.media-stack{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,var(--ext-warm) 0%,var(--ext-mid) 52%,var(--ext-cool) 100%)}
-.role-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;opacity:0;transition:opacity .55s ease}
+.media-fallback{position:absolute;inset:0;z-index:2;opacity:1;transition:opacity .55s ease,background .55s ease}
+.video-ready .media-fallback{opacity:0}
+.media-stack{position:absolute;inset:0;z-index:1;background:var(--role-grad)}
+.role-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left center;opacity:0;transition:opacity .55s ease}
 .role-video.current{opacity:1}
 
 .media-brand{position:absolute;left:48px;top:44px;z-index:2;display:flex;align-items:center;gap:12px;color:#12336d}
@@ -213,10 +214,15 @@ body.landing-intro-enter .media-pane::before{
   content:"";
   position:absolute;
   inset:0;
-  z-index:2;
+  z-index:4;
   pointer-events:none;
   background:var(--landing-intro-start,#171f35);
   animation:landingToneToRole .88s cubic-bezier(.22,.72,.2,1) .06s both;
+}
+
+body.landing-intro-enter .media-brand{
+  opacity:0;
+  animation:landingChromeFade .72s ease .26s both;
 }
 
 body.landing-intro-enter .media-stack{
@@ -276,7 +282,7 @@ body.landing-intro-enter .view.active .roles-subtitle{
   }
 }
 
-.top-chrome{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:0 auto 22px;width:min(var(--signin-rail),100%)}
+.top-chrome{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:0 auto 22px;width:min(var(--role-rail),100%)}
 .home-pill,.lang-trigger{height:34px;padding:0 20px;border-radius:999px;border:1px solid rgba(255,255,255,.62);background:rgba(255,255,255,.28);color:#13376f;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:12px}
 .home-pill:hover,.lang-trigger:hover{filter:brightness(1.05)}
 .lang-dropdown{position:relative}
@@ -370,6 +376,50 @@ body.landing-intro-enter .view.active .roles-subtitle{
 .primary-btn:hover{filter:brightness(1.06)}
 .register-line{text-align:center;margin:12px 0 0;color:#233a61;font-size:clamp(10px,.64vw,12px)}
 .inline-link{border:none;background:none;color:#16315f;font-weight:700;cursor:pointer;padding:0}
+
+body[data-view="employer-signin"] .view-signin,
+body[data-view="roles"] .view-roles{
+  width:min(var(--role-rail),100%);
+}
+
+body[data-view="employer-signin"] .view-signin .summary-bar,
+body[data-view="employer-signin"] .view-signin .form-card,
+body[data-view="employer-signin"] .top-chrome{
+  width:100%;
+}
+
+body[data-view="employer-signin"] .view-signin .form-card{
+  margin-top:10px;
+  padding:14px 18px 12px;
+  border-radius:30px;
+  background:linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.34) 58%,rgba(255,255,255,.24) 100%);
+  border:1px solid rgba(255,255,255,.78);
+  backdrop-filter:blur(14px) saturate(1.08);
+  -webkit-backdrop-filter:blur(14px) saturate(1.08);
+  box-shadow:0 12px 24px rgba(76,92,130,.16), inset 0 1px 0 rgba(255,255,255,.74);
+}
+
+body[data-view="employer-signin"] .view-signin .form-card h2{
+  margin:0 0 10px;
+}
+
+body[data-view="employer-signin"] .view-signin .form-card label{
+  margin:6px 0 5px;
+}
+
+body[data-view="employer-signin"] .view-signin .form-card input,
+body[data-view="employer-signin"] .view-signin .captcha-row{
+  height:48px;
+}
+
+body[data-view="employer-signin"] .view-signin .hint-2fa{
+  margin:8px 0;
+  padding:8px 11px;
+}
+
+body[data-view="employer-signin"] .view-signin .register-line{
+  margin-top:10px;
+}
 
 .register-card{max-height:calc(100svh - 170px);overflow:auto;scrollbar-gutter:stable}
 .register-card h2{font-size:clamp(18px,1.2vw,24px);line-height:1.2;max-width:840px;margin-left:auto;margin-right:auto}
@@ -482,10 +532,10 @@ body[data-view="employer-signin"] .view-roles .role-pill[data-role="employer"]{
 
 @media (max-width:1080px){
   :root{
-    --grad-student:linear-gradient(180deg,#8aa4c0 0%,#a6c2d9 52%,#c7d9e7 66%,#e4eef6 100%);
+    --grad-student:linear-gradient(180deg,#304968 0%,#394f6f 5%,#4a6584 13%,#557390 19%,#607d9b 24%,#708fac 29%,#82a2bd 36%,#94b4cc 43%,#a6c2d9 52%,#b9d0e4 59%,#c7d9e7 66%,#e4eef6 100%);
     --grad-staff:linear-gradient(180deg,#A7CFD4 0%,#ACD2D7 6%,#B0D6DB 11%,#B7DDE0 19%,#C8EAEB 36%,#D2F3F5 53%,#D5F2F5 68%,#D1F0F2 78%,#CFEEF0 87%,#CDEDEF 100%);
     --grad-alumni:linear-gradient(180deg,#B9A3CF 0%,#C4AED5 11%,#D2C0DF 24%,#DECDE8 38%,#EADDEF 61%,#EAE0F0 71%,#F4E8F0 73%,#F6EDED 77%,#F5EBED 85%,#F6EDEF 100%);
-    --grad-employer:linear-gradient(180deg,#FCC095 0%,#FCC79A 8%,#FDCFA7 17%,#FCE8CC 53%,#FDEDD5 69%,#FEF0DA 78%,#FCF4E5 79%,#FCEFE2 86%,#F9EFE0 91%,#F7EBDE 100%);
+    --grad-employer:linear-gradient(180deg,#fcc095 0%,#fcc79a 8%,#fdcfa7 17%,#fce8cc 53%,#fdedd5 69%,#fef0da 78%,#fcf4e5 79%,#fbf3e2 79%,#fcefe2 86%,#f9efe0 91%,#f7ebde 100%);
     --role-font-title-size:16px;
     --role-font-meta-size:11px;
     --signin-mobile-title-size:16px;
@@ -566,7 +616,7 @@ body[data-view="employer-signin"] .view-roles .role-pill[data-role="employer"]{
   }
   body[data-view="employer-signin"] .top-chrome{
     margin:6px auto 8px;
-    width:min(var(--signin-rail),calc(100% - 56px));
+    width:min(var(--role-rail),calc(100% - 56px));
     position:relative;
     left:5px;
   }

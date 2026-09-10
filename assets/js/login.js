@@ -219,6 +219,33 @@ let state = {
   activeVideo: 'a',
   employerRoleLoginHint: false
 };
+let videoReadyTimer = null;
+
+function clearVideoReadyTimer(){
+  if (!videoReadyTimer) return;
+  window.clearTimeout(videoReadyTimer);
+  videoReadyTimer = null;
+}
+
+function markVideoPending(){
+  body.classList.remove('video-ready');
+  body.classList.add('video-pending');
+  if (mediaFallback) mediaFallback.style.opacity = '1';
+  clearVideoReadyTimer();
+  videoReadyTimer = window.setTimeout(() => {
+    body.classList.remove('video-pending');
+    body.classList.add('video-ready');
+    if (mediaFallback) mediaFallback.style.opacity = '0';
+    videoReadyTimer = null;
+  }, 1400);
+}
+
+function markVideoReady(){
+  clearVideoReadyTimer();
+  body.classList.remove('video-pending');
+  body.classList.add('video-ready');
+  if (mediaFallback) mediaFallback.style.opacity = '0';
+}
 
 function shouldPlayLandingIntro(){
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
@@ -297,7 +324,7 @@ function roleCopy(role){
 
 function setBodyRole(role){
   body.dataset.role = role;
-  mediaFallback.style.background = roles[role].fallback;
+  mediaFallback.style.background = roles[role].grad;
 }
 
 function setGradient(role, animate = true){
@@ -316,9 +343,18 @@ function setGradient(role, animate = true){
   }, 520);
 }
 
-function setVideoSource(videoEl, role){
+function setVideoSource(videoEl, role, onReady){
   const media = roles[role].media;
+  let handled = false;
+  const finishReady = () => {
+    if (handled) return;
+    handled = true;
+    if (typeof onReady === 'function') onReady();
+  };
+
   videoEl.innerHTML = '';
+  videoEl.addEventListener('loadeddata', finishReady, { once: true });
+  videoEl.addEventListener('canplay', finishReady, { once: true });
 
   const sourceMp4 = document.createElement('source');
   sourceMp4.src = media.mp4;
@@ -330,6 +366,9 @@ function setVideoSource(videoEl, role){
   if (promise && typeof promise.catch === 'function') {
     promise.catch(() => {});
   }
+
+  // If events are missed on very fast cache hits, ensure UI can still continue.
+  window.setTimeout(finishReady, 420);
 }
 
 function setVideo(role, animate = true){
@@ -337,16 +376,30 @@ function setVideo(role, animate = true){
   const next = state.activeVideo === 'a' ? videoB : videoA;
 
   if (!animate) {
-    setVideoSource(current, role);
+    markVideoPending();
+    setVideoSource(current, role, () => {
+      markVideoReady();
+    });
     current.classList.add('current');
     next.classList.remove('current');
     return;
   }
 
-  setVideoSource(next, role);
-  next.classList.add('current');
-  current.classList.remove('current');
-  state.activeVideo = state.activeVideo === 'a' ? 'b' : 'a';
+  markVideoPending();
+  let swapped = false;
+  const swapWhenReady = () => {
+    if (swapped) return;
+    swapped = true;
+    next.classList.add('current');
+    current.classList.remove('current');
+    state.activeVideo = state.activeVideo === 'a' ? 'b' : 'a';
+    markVideoReady();
+  };
+
+  setVideoSource(next, role, swapWhenReady);
+
+  // Safety fallback: never stay in pending if media decode is delayed.
+  window.setTimeout(swapWhenReady, 760);
 }
 
 function applyRoleUI(){
