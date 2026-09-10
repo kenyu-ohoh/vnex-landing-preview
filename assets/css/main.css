@@ -1350,6 +1350,13 @@ html.from-login-return .nav-wrap{
   gap:14px;
   align-items:stretch;
 }
+.quick-panels.contact-hidden{
+  grid-template-columns:1fr;
+  grid-template-rows:1fr;
+}
+.quick-panels.contact-hidden .quick-panel-contact{
+  display:none !important;
+}
 .quick-panel{
   border:none;
   border-radius:0;
@@ -1573,6 +1580,10 @@ html.from-login-return .nav-wrap{
     grid-template-columns:minmax(0,1.65fr) minmax(320px,.85fr);
     gap:22px;
     align-items:stretch;
+  }
+  .quick-panels.contact-hidden{
+    grid-template-columns:1fr;
+    grid-template-rows:1fr;
   }
 
   .quick-panel-links{
@@ -1960,6 +1971,10 @@ html.from-login-return .nav-wrap{
     grid-template-rows:minmax(0,.2fr) minmax(0,.8fr);
     gap:8px;
   }
+  .quick-panels.contact-hidden{
+    grid-template-rows:1fr;
+    gap:0;
+  }
   .quick-panel-links{min-height:0;display:flex;flex-direction:column}
   .quick-panel-links{padding-top:6px}
   .quick-panel-contact{
@@ -2165,6 +2180,10 @@ html.from-login-return .nav-wrap{
     grid-template-columns:1fr;
     grid-template-rows:minmax(0,.24fr) minmax(0,.76fr);
     gap:10px;
+  }
+  .quick-panels.contact-hidden{
+    grid-template-rows:1fr;
+    gap:0;
   }
   .quick-panel{padding:0;border-radius:0}
   .quick-panel-links{padding-top:10px}
