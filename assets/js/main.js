@@ -1041,7 +1041,12 @@ if (hero3d) {
     hero3dFrameId = window.requestAnimationFrame(animateCards);
   };
 
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && benefitVariant === 'v3') {
+  const enableHero3DMotion =
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+    !window.matchMedia('(max-width: 820px)').matches &&
+    benefitVariant === 'v3';
+
+  if (enableHero3DMotion) {
     if (heroArt) {
       heroArt.addEventListener('pointermove', (event) => {
         setCardTargetsFromPointer(event.clientX, event.clientY);
