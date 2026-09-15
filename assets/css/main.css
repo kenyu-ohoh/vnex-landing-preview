@@ -2322,6 +2322,7 @@ html.from-login-return .nav-wrap{
 .vnex-mask-fill{
   position:absolute;
   inset:0;
+  --vnex-mask-svg:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201088.6%20959.74'%3E%3Cpolygon%20fill='white'%20points='159.46%20647.12%200%20647.12%20358.67%2023.85%20518.13%2023.85%20159.46%20647.12'/%3E%3Cpolygon%20fill='white'%20points='235.93%20863.78%2064.55%20863.78%20564.35%200%20735.74%200%20235.93%20863.78'/%3E%3Cpolygon%20fill='white'%20points='597.57%20959.74%20426.18%20959.74%20834.02%20241.84%201005.4%20241.84%20597.57%20959.74'/%3E%3Cpolygon%20fill='white'%20points='795.07%20959.74%20623.69%20959.74%20917.21%20467.01%201088.6%20467.01%20795.07%20959.74'/%3E%3Cpolygon%20fill='white'%20points='400.02%20959.74%20228.63%20959.74%20688.57%20135.83%20859.96%20135.83%20400.02%20959.74'/%3E%3C/svg%3E");
   background-image:
     linear-gradient(162deg,rgba(255,180,82,.58) 0%,rgba(177,108,245,.4) 54%,rgba(62,214,248,.38) 100%),
     url("../VTC_Tower.jpg");
@@ -2329,8 +2330,8 @@ html.from-login-return .nav-wrap{
   background-position:center center,50% 82%;
   background-repeat:no-repeat,no-repeat;
   background-attachment:scroll,scroll;
-  -webkit-mask-image:url("../SVG/asset-2.svg");
-  mask-image:url("../SVG/asset-2.svg");
+  -webkit-mask-image:var(--vnex-mask-svg);
+  mask-image:var(--vnex-mask-svg);
   -webkit-mask-repeat:no-repeat;
   mask-repeat:no-repeat;
   -webkit-mask-position:center calc(50% + (var(--vnex-shift) * 1px));
