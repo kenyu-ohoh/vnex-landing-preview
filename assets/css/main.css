@@ -1795,7 +1795,7 @@ html.from-login-return .nav-wrap{
 .benefit-row{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:34px;
+  gap:48px;
   align-items:stretch;
   min-height:0;
 }
@@ -2282,7 +2282,7 @@ html.from-login-return .nav-wrap{
   height:90%;
   min-height:clamp(420px,58vh,640px);
   display:flex;
-  align-items:right;
+  align-items:center;
   justify-content:center;
   border-radius:0;
   border:none;
@@ -2325,10 +2325,10 @@ html.from-login-return .nav-wrap{
   background-image:
     linear-gradient(162deg,rgba(255,180,82,.58) 0%,rgba(177,108,245,.4) 54%,rgba(62,214,248,.38) 100%),
     url("../VTC_Tower.jpg");
-  background-size:100% 100%,100% auto;
-  background-position:center center,86% 88%;
+  background-size:100% 100%,contain;
+  background-position:center center,50% 82%;
   background-repeat:no-repeat,no-repeat;
-  background-attachment:scroll,fixed;
+  background-attachment:scroll,scroll;
   -webkit-mask-image:url("../SVG/Asset%202.svg");
   mask-image:url("../SVG/Asset%202.svg");
   -webkit-mask-repeat:no-repeat;
@@ -2639,7 +2639,7 @@ html.from-login-return .nav-wrap{
   .section#benefits > .container{height:auto;display:block}
   .benefit-shell{min-height:auto;height:auto;max-height:calc(100vh - 110px);width:min(920px,100%)}
   .benefit-viewport{min-height:360px;height:min(54vh,560px);flex:none}
-  .benefit-row{grid-template-columns:1fr 1fr;gap:30px}
+  .benefit-row{grid-template-columns:1fr 1fr;gap:40px}
   .benefit-row{min-height:0}
   .benefit-row.reverse .benefit-copy{padding-left:0;width:100%;margin-left:0}
   .benefit-row.reverse .benefit-copy h3{white-space:normal}
@@ -3319,7 +3319,7 @@ html.from-login-return .nav-wrap{
   .benefit-copy p{font-size:13px}
   .benefit-shell{height:auto;max-height:calc(100vh - 108px);width:100%}
   .benefit-viewport{min-height:340px;height:min(52vh,520px);flex:none}
-  .benefit-row{grid-template-columns:1fr 1fr;gap:26px;min-height:0}
+  .benefit-row{grid-template-columns:1fr 1fr;gap:36px;min-height:0}
   .benefit-row.reverse .benefit-copy{padding-left:24px;width:min(100%,520px);margin-left:auto}
   .benefit-shot{height:100%}
   .discover-motion{min-height:250vh}

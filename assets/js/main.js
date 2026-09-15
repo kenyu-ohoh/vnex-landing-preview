@@ -496,7 +496,7 @@ const i18n = {
     benefitTitles: [
       '\u8077\u4f4d<span class="soft">\u767c\u5e03</span>',
       'AI \u4eba\u624d<span class="soft">\u641c\u5c0b\u8207\u7be9\u9078</span>',
-      '\u7533\u8acb\u8005<span class="soft">\u7ba1\u7406</span>',
+      '\u8655\u7406\u8077\u4f4d<span class="soft">\u7533\u8acb</span>',
       '\u62db\u8058\u6d3b\u52d5<span class="soft">\u767c\u4f48</span>',
       'AI \u8077\u4f4d<span class="soft">\u63a8\u85a6</span>',
       'AI \u5c65\u6b77\u53ca\u6c42\u8077\u4fe1<span class="soft">\u5efa\u7acb</span>',
@@ -558,7 +558,7 @@ const i18n = {
     benefitTitles: [
       '\u804c\u4f4d<span class="soft">\u53d1\u5e03</span>',
       'AI \u4eba\u624d<span class="soft">\u641c\u7d22\u4e0e\u7b5b\u9009</span>',
-      '\u7533\u8bf7\u8005<span class="soft">\u7ba1\u7406</span>',
+      '\u5904\u7406\u804c\u4f4d<span class="soft">\u7533\u8bf7</span>',
       '\u62db\u8058\u6d3b\u52a8<span class="soft">\u53d1\u5e03</span>',
       'AI \u804c\u4f4d<span class="soft">\u63a8\u8350</span>',
       'AI \u7b80\u5386\u4e0e\u6c42\u804c\u4fe1<span class="soft">\u751f\u6210</span>',
