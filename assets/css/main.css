@@ -1051,7 +1051,7 @@ html.from-login-return .nav-wrap{
     linear-gradient(320deg,rgba(118,170,239,.12),rgba(255,255,255,.08));
   backdrop-filter:none;
   -webkit-backdrop-filter:none;
-  border-radius:35px;
+  border-radius:20px;
   padding:12px 24px;
   box-shadow:0 10px 20px rgba(18,41,84,.16), inset 0 1px 0 rgba(255,255,255,.72);
   transition:transform .34s cubic-bezier(.25,.8,.25,1),opacity .2s ease;
@@ -1069,7 +1069,7 @@ html.from-login-return .nav-wrap{
   content:"";
   position:absolute;
   inset:1px;
-  border-radius:35px;
+  border-radius:inherit;
   border:1px solid rgba(255,255,255,.56);
   box-shadow:inset 0 0 18px rgba(255,255,255,.34),0 0 0 1px rgba(164,196,238,.2);
   pointer-events:none;
