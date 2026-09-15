@@ -33,9 +33,18 @@ html.vnex-boot body{
   }
 })();
 </script>
+<script>
+(function(){
+  function clearBootClass(){
+    document.documentElement.classList.remove('vnex-boot');
+  }
+  window.addEventListener('load', clearBootClass, { once: true });
+  setTimeout(clearBootClass, 2500);
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/geist-font@latest/style.css" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kenyu-ohoh/vnex-landing-preview@8695792/assets/css/main.css"/>
+<link rel="stylesheet" href="assets/css/main.css?v=20260915ab214"/>
 </head>
 <body>
 <header class="hero" id="top">
@@ -401,7 +410,7 @@ E-mail: jis@vtc.edu.hk</p>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/gh/kenyu-ohoh/vnex-landing-preview@8695792/assets/js/main.js"></script>
+<script src="assets/js/main.js?v=20260915ab214"></script>
 </body>
 </html>
 
