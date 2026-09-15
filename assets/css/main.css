@@ -2329,8 +2329,8 @@ html.from-login-return .nav-wrap{
   background-position:center center,50% 82%;
   background-repeat:no-repeat,no-repeat;
   background-attachment:scroll,scroll;
-  -webkit-mask-image:url("../SVG/Asset%202.svg");
-  mask-image:url("../SVG/Asset%202.svg");
+  -webkit-mask-image:url("../SVG/asset-2.svg");
+  mask-image:url("../SVG/asset-2.svg");
   -webkit-mask-repeat:no-repeat;
   mask-repeat:no-repeat;
   -webkit-mask-position:center calc(50% + (var(--vnex-shift) * 1px));
