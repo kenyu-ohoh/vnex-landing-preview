@@ -35,7 +35,7 @@ html.vnex-boot body{
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/geist-font@latest/style.css" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/css/main.css?v=20260910ab112"/>
+<link rel="stylesheet" href="assets/css/main.css?v=20260915ab202"/>
 </head>
 <body>
 <header class="hero" id="top">
@@ -102,7 +102,7 @@ html.vnex-boot body{
 
   <div class="container nav-wrap">
     <nav class="nav">
-      <div class="brand"><img class="brand-logo" src="assets/vtc-logo.svg" alt="VTC"/> <span>V-NEX</span> <small>your job partner</small></div>
+      <div class="brand"><img class="brand-logo" src="assets/vtc-logo.svg" alt="VTC"/> <span class="brand-divider" aria-hidden="true"></span><span>V-NEX</span> <small>your job partner</small></div>
       <div class="spacer"></div>
       <div class="lang-dropdown" id="desktop-lang" aria-label="Language selector for preview">
         <button class="lang-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="desktop-lang-list">
@@ -321,7 +321,12 @@ html.vnex-boot body{
 
             <article class="discover-panel panel-2" id="panel-2">
               <figure class="screen2-media" aria-label="Campus mark visual">
-                <img src="assets/brand-subtraction.webp" alt="Campus cut into V-NEX mark"/>
+                <div class="vnex-parallax-mark" id="vnex-parallax-mark" role="img" aria-label="V-NEX slash subtraction over VTC Tower">
+                  <span class="vnex-mask-layer" aria-hidden="true">
+                    <span class="vnex-mask-fill" aria-hidden="true"></span>
+                  </span>
+                  <span class="vnex-wordmark" aria-hidden="true">V-NEX</span>
+                </div>
               </figure>
               <div class="screen2-copy">
                 <div class="screen2-lines" id="fill-screen-2" aria-label="V-NEX full branding definition">
@@ -396,7 +401,7 @@ E-mail: jis@vtc.edu.hk</p>
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260910ab80"></script>
+<script src="assets/js/main.js?v=20260915ab209"></script>
 </body>
 </html>
 

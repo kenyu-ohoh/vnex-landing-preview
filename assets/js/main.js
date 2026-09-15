@@ -93,17 +93,17 @@ const benefitsSection = document.getElementById('benefits');
 function getBenefitVariantFromLocation(){
   const urlParams = new URLSearchParams(window.location.search);
   const directAb = (urlParams.get('ab') || '').toLowerCase();
-  if (directAb === 'v1' || directAb === 'v2' || directAb === 'v3') return directAb;
+  if (directAb === 'v1' || directAb === 'v2' || directAb === 'v3' || directAb === 'v4') return directAb;
 
   // htmlpreview wraps the target URL in its own query string, so `ab` may only
   // exist inside the full href (for example: ...index.html?ab=v2#benefits).
   const href = String(window.location.href || '');
-  const match = href.match(/[?&]ab=(v1|v2|v3)(?:[&#]|$)/i);
+  const match = href.match(/[?&]ab=(v1|v2|v3|v4)(?:[&#]|$)/i);
   if (match) return match[1].toLowerCase();
 
   try {
     const decodedHref = decodeURIComponent(href);
-    const decodedMatch = decodedHref.match(/[?&]ab=(v1|v2|v3)(?:[&#]|$)/i);
+    const decodedMatch = decodedHref.match(/[?&]ab=(v1|v2|v3|v4)(?:[&#]|$)/i);
     if (decodedMatch) return decodedMatch[1].toLowerCase();
   } catch (_error) {
     // Ignore malformed URI sequence and fall back to default.
@@ -113,14 +113,14 @@ function getBenefitVariantFromLocation(){
 }
 
 const benefitVariant = getBenefitVariantFromLocation();
-document.body.classList.remove('ab-v1', 'ab-v2', 'ab-v3');
+document.body.classList.remove('ab-v1', 'ab-v2', 'ab-v3', 'ab-v4');
 document.body.classList.add('ab-' + benefitVariant);
 document.body.classList.remove('benefits-v2');
-if (benefitVariant === 'v3') {
+if (benefitVariant === 'v3' || benefitVariant === 'v4') {
   document.body.classList.add('benefits-v2');
 }
 if (benefitsSection) {
-  benefitsSection.setAttribute('data-ab', benefitVariant === 'v3' ? 'v2' : benefitVariant);
+  benefitsSection.setAttribute('data-ab', (benefitVariant === 'v3' || benefitVariant === 'v4') ? 'v2' : benefitVariant);
 }
 
 if (mainNode && discoverSection && benefitsSection && mainNode.firstElementChild !== discoverSection) {
@@ -605,6 +605,8 @@ const i18n = {
     footerMeta2: '(c) 2026 VTC V-NEX. \u7248\u6743\u6240\u6709\u3002'
   }
 };
+let activeLanguageCode = 'TC';
+let v4Screen1Bridge = null;
 let hasUserScrolled = window.scrollY > 8;
 let lastNavScrollY = window.scrollY;
 let mobileMenuScrollY = 0;
@@ -698,6 +700,7 @@ window.addEventListener('keydown', (event) => {
 
 function applyLanguage(langCode){
   const lang = i18n[langCode] ? langCode : 'ENG';
+  activeLanguageCode = lang;
   const copy = i18n[lang];
 
   document.documentElement.lang = copy.htmlLang;
@@ -784,6 +787,15 @@ function applyLanguage(langCode){
     }
   });
 
+  if (v4Screen1Bridge) {
+    const line1 = v4Screen1Bridge.querySelector('.v4-s1-l1');
+    const line2 = v4Screen1Bridge.querySelector('.v4-s1-l2');
+    const foot = v4Screen1Bridge.querySelector('.v4-screen1-bridge-foot');
+    if (line1) line1.textContent = copy.discoverLine1;
+    if (line2) line2.textContent = copy.discoverLine2;
+    if (foot) foot.innerHTML = copy.discoverFoot.replace('\u2022', '&bull;');
+  }
+
   if (quickTitle) quickTitle.textContent = copy.quickTitle;
   quickLinkSpans.forEach((node, index) => {
     if (copy.quickLabels[index]) node.textContent = copy.quickLabels[index];
@@ -837,7 +849,7 @@ if (heroVideo) {
   };
 
   const applyHeroMediaByVariant = () => {
-    const targetSources = benefitVariant === 'v3' ? v3Sources : defaultSources;
+    const targetSources = (benefitVariant === 'v3' || benefitVariant === 'v4') ? v3Sources : defaultSources;
     const currentKey = targetSources.webm + '|' + targetSources.mp4;
 
     if (heroVideo.dataset.clipKey === currentKey) return;
@@ -854,7 +866,9 @@ if (heroVideo) {
     heroVideo.classList.remove('is-ready');
     heroVideo.setAttribute(
       'aria-label',
-      benefitVariant === 'v3' ? 'V-NEX hero loop background alternate clip' : 'V-NEX hero loop background'
+      (benefitVariant === 'v3' || benefitVariant === 'v4')
+        ? 'V-NEX hero loop background alternate clip'
+        : 'V-NEX hero loop background'
     );
     heroVideo.load();
   };
@@ -888,7 +902,7 @@ if (heroVideo) {
   tryPlayHeroVideo();
 }
 
-if (hero3d) {
+if (hero3d && window.getComputedStyle(hero3d).display !== 'none') {
   let hero3dFrameId = null;
 
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -1044,7 +1058,7 @@ if (hero3d) {
   const enableHero3DMotion =
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
     !window.matchMedia('(max-width: 820px)').matches &&
-    benefitVariant === 'v3';
+    (benefitVariant === 'v3' || benefitVariant === 'v4');
 
   if (enableHero3DMotion) {
     if (heroArt) {
@@ -1259,6 +1273,241 @@ let discoverActiveHoldPoint = null;
 let lastDiscoverNaturalProgress = 0;
 let lastDiscoverRenderedProgress = 0;
 let discoverPanelIndex = 0;
+const isV4StoryVariant = benefitVariant === 'v4';
+let v4StoryRafId = null;
+let v4StageNode = null;
+let v4ProgressBar = null;
+let v4DebugNode = null;
+let v4LiteMode = false;
+let v4VideoFrozen = false;
+let v4NavTimerArmed = false;
+const motionDebugEnabled = new URLSearchParams(window.location.search).get('motionDebug') === '1';
+
+function initV4CinematicStage(){
+  if (!isV4StoryVariant) return;
+  const heroSection = document.getElementById('top');
+  if (!heroSection) return;
+
+  document.body.classList.add('cinematic-v4');
+
+  const weakDevice = (navigator.hardwareConcurrency || 8) <= 4;
+  v4LiteMode = weakDevice;
+  document.body.classList.toggle('v4-lite-mode', v4LiteMode);
+
+  if (!heroSection.querySelector('.v4-cinematic-stage')) {
+    const stage = document.createElement('div');
+    stage.className = 'v4-cinematic-stage';
+    while (heroSection.firstChild) {
+      stage.appendChild(heroSection.firstChild);
+    }
+    heroSection.appendChild(stage);
+  }
+
+  v4StageNode = heroSection.querySelector('.v4-cinematic-stage');
+  if (!v4StageNode) return;
+
+  if (!v4StageNode.querySelector('.v4-threshold-wash')) {
+    const wash = document.createElement('div');
+    wash.className = 'v4-threshold-wash';
+    v4StageNode.appendChild(wash);
+  }
+
+  if (!v4StageNode.querySelector('.v4-screen1-bridge')) {
+    const bridge = document.createElement('div');
+    bridge.className = 'v4-screen1-bridge';
+    bridge.setAttribute('aria-hidden', 'true');
+    bridge.innerHTML = '<div class="v4-screen1-bridge-lines"><p class="v4-s1-line v4-s1-l1"></p><p class="v4-s1-line v4-s1-l2"></p></div><p class="v4-screen1-bridge-foot"></p>';
+    v4StageNode.appendChild(bridge);
+  }
+
+  v4Screen1Bridge = v4StageNode.querySelector('.v4-screen1-bridge');
+  if (v4Screen1Bridge) {
+    const copy = i18n[activeLanguageCode] || i18n.TC;
+    const line1 = v4Screen1Bridge.querySelector('.v4-s1-l1');
+    const line2 = v4Screen1Bridge.querySelector('.v4-s1-l2');
+    const foot = v4Screen1Bridge.querySelector('.v4-screen1-bridge-foot');
+    if (line1) line1.textContent = copy.discoverLine1;
+    if (line2) line2.textContent = copy.discoverLine2;
+    if (foot) foot.innerHTML = copy.discoverFoot.replace('\u2022', '&bull;');
+  }
+
+  const legacyHall = v4StageNode.querySelector('.v4-origin-hall');
+  if (legacyHall) legacyHall.remove();
+
+  if (!v4StageNode.querySelector('.v4-pin-indicator')) {
+    const indicator = document.createElement('div');
+    indicator.className = 'v4-pin-indicator';
+    indicator.innerHTML = '<span class="v4-pin-indicator-bar"></span>';
+    v4StageNode.appendChild(indicator);
+  }
+
+  v4ProgressBar = v4StageNode.querySelector('.v4-pin-indicator-bar');
+
+  if (motionDebugEnabled && !v4StageNode.querySelector('.v4-motion-debug')) {
+    v4DebugNode = document.createElement('div');
+    v4DebugNode.className = 'v4-motion-debug';
+    v4StageNode.appendChild(v4DebugNode);
+  } else {
+    v4DebugNode = v4StageNode.querySelector('.v4-motion-debug');
+  }
+
+  heroSection.classList.remove('v4-video-frozen', 'v4-cta-locked', 'v4-pin-active');
+}
+
+if (isV4StoryVariant) {
+  initV4CinematicStage();
+}
+
+function updateV4ScrollStory(){
+  if (!isV4StoryVariant) return;
+
+  const heroSection = document.getElementById('top');
+  if (!heroSection || !heroArt || !heroVideo || !heroJobScene) return;
+  if (!v4StageNode) initV4CinematicStage();
+
+  const clamp01 = (value) => Math.max(0, Math.min(1, value));
+  const mobileView = window.matchMedia('(max-width: 820px)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pinVh = mobileView ? 120 : 150;
+  const pinDistance = Math.max(1, (window.innerHeight || 1) * (pinVh / 100));
+  const pinProgress = clamp01(((window.scrollY || 0) - heroSection.offsetTop) / pinDistance);
+
+  heroSection.style.setProperty('--v4-pin-distance', pinVh + 'vh');
+  heroSection.style.setProperty('--v4-pin-progress', pinProgress.toFixed(3));
+  document.body.classList.toggle('v4-pin-active', pinProgress > 0 && pinProgress < 1);
+  heroSection.classList.toggle('v4-pin-active', pinProgress > 0 && pinProgress < 1);
+  heroSection.classList.toggle('v4-cta-locked', pinProgress >= 0.1 && pinProgress < 1);
+
+  if (v4ProgressBar) {
+    v4ProgressBar.style.transform = 'scaleX(' + pinProgress.toFixed(3) + ')';
+  }
+  if (v4DebugNode) {
+    v4DebugNode.textContent = 'pin ' + pinProgress.toFixed(3);
+  }
+
+  const dolly = segmentProgress(pinProgress, 0.08, 0.22);
+  const truck = segmentProgress(pinProgress, 0.22, 0.38);
+  const freeze = segmentProgress(pinProgress, 0.38, 0.48);
+  const washIn = segmentProgress(pinProgress, 0.48, 0.64);
+  const washOut = 1 - segmentProgress(pinProgress, 0.74, 0.9);
+  const wash = clamp01(washIn * washOut);
+  const bridgeIn = segmentProgress(pinProgress, 0.68, 0.84);
+  const bridgeOut = segmentProgress(pinProgress, 0.9, 1.0);
+  const bridgeOpacity = clamp01(bridgeIn * (1 - bridgeOut * 0.65));
+  const heroCopyOff = segmentProgress(pinProgress, 0.62, 0.82);
+
+  const heroFade = Math.max(segmentProgress(pinProgress, 0.16, 0.44), wash * 0.9);
+  const uiFade = Math.max(segmentProgress(pinProgress, 0.18, 0.4), wash * 1.08, segmentProgress(pinProgress, 0.56, 0.66));
+
+  let camScale = 1 + dolly * 0.06 + truck * 0.018 + wash * 0.2;
+  let camX = truck * -18;
+  let camY = dolly * -8 + truck * -4;
+  let videoBlur = truck * 2.8 + wash * 6.2;
+  let videoBrightness = 0.8 - truck * 0.18 - wash * 0.24;
+  let videoSaturation = 1.02 - truck * 0.1 - wash * 0.16;
+
+  if (v4LiteMode) {
+    camScale = 1 + dolly * 0.035 + wash * 0.1;
+    camX = truck * -8;
+    camY = dolly * -4;
+    videoBlur = truck * 1.2 + wash * 2.4;
+  }
+
+  if (reduceMotion) {
+    const fade = segmentProgress(pinProgress, 0.08, 0.32);
+    camScale = 1;
+    camX = 0;
+    camY = 0;
+    videoBlur = 0;
+    videoBrightness = 0.8;
+    videoSaturation = 1;
+    heroSection.style.setProperty('--v4-hero-fade', fade.toFixed(3));
+    heroSection.style.setProperty('--v4-ui-fade', fade.toFixed(3));
+    heroSection.style.setProperty('--v4-wash', fade.toFixed(3));
+    heroSection.style.setProperty('--v4-hall', '0');
+    heroSection.style.setProperty('--v4-hall-focus', '0');
+    if (!heroVideo.paused) heroVideo.pause();
+    heroSection.classList.add('v4-video-frozen');
+  } else {
+    heroSection.style.setProperty('--v4-hero-fade', heroFade.toFixed(3));
+    heroSection.style.setProperty('--v4-ui-fade', uiFade.toFixed(3));
+    heroSection.style.setProperty('--v4-wash', wash.toFixed(3));
+    heroSection.style.setProperty('--v4-hall', '0');
+    heroSection.style.setProperty('--v4-hall-focus', '0');
+
+    if (pinProgress >= 0.38 && !v4VideoFrozen) {
+      heroVideo.pause();
+      v4VideoFrozen = true;
+      heroSection.classList.add('v4-video-frozen');
+    }
+
+    if (pinProgress <= 0.34 && v4VideoFrozen) {
+      v4VideoFrozen = false;
+      heroSection.classList.remove('v4-video-frozen');
+      if (pinProgress < 1) {
+        const playPromise = heroVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
+      }
+    }
+
+    if (pinProgress >= 1) {
+      heroVideo.pause();
+    }
+  }
+
+  heroSection.style.setProperty('--v4-cam-scale', camScale.toFixed(3));
+  heroSection.style.setProperty('--v4-cam-x', camX.toFixed(2));
+  heroSection.style.setProperty('--v4-cam-y', camY.toFixed(2));
+  heroSection.style.setProperty('--v4-video-blur', videoBlur.toFixed(3));
+  heroSection.style.setProperty('--v4-video-brightness', String(Math.max(0.45, videoBrightness.toFixed(3))));
+  heroSection.style.setProperty('--v4-video-saturation', String(Math.max(0.5, videoSaturation.toFixed(3))));
+  heroSection.style.setProperty('--v4-bridge', bridgeOpacity.toFixed(3));
+  heroSection.style.setProperty('--v4-hero-copy-off', heroCopyOff.toFixed(3));
+
+  const searchOut = segmentProgress(pinProgress, 0.24, 0.44);
+  heroSection.style.setProperty('--v4-search-out', searchOut.toFixed(3));
+
+  heroJobItems.forEach((item, index) => {
+    const start = 0.22 + index * 0.03;
+    const end = 0.4 + index * 0.04;
+    const out = segmentProgress(pinProgress, start, end);
+    item.style.setProperty('--v4-card-out', out.toFixed(3));
+    item.style.setProperty('--v4-card-x', (220 + index * 72) * out + 'px');
+    item.style.setProperty('--v4-card-y', (-16 + index * 8) * out + 'px');
+    item.style.setProperty('--v4-card-z', (-260 - index * 80) * out + 'px');
+    item.style.setProperty('--v4-card-ry', (-20 - index * 8) * out + 'deg');
+  });
+
+  heroSection.style.setProperty('--v4-hall-glyph', '0');
+
+  document.body.classList.toggle('v4-phase-cover', pinProgress >= 0.48 && pinProgress < 0.82);
+  document.documentElement.style.setProperty('--v4-branding-reveal', segmentProgress(pinProgress, 0.82, 0.98).toFixed(3));
+
+  if (pinProgress >= 0.9 && pinProgress < 1) {
+    if (!v4NavTimerArmed) {
+      showNavWithIdleTimer();
+      v4NavTimerArmed = true;
+    }
+  } else if (pinProgress < 0.9) {
+    v4NavTimerArmed = false;
+  }
+
+  // Keep discover transition background coherent while pinned.
+  const discoverEnter = segmentProgress(pinProgress, 0.62, 1.0);
+  document.documentElement.style.setProperty('--v4-discover-enter', discoverEnter.toFixed(3));
+
+  // Remove inline hero transform used by non-v4 variants so cinematic vars drive motion.
+  heroArt.style.removeProperty('transform');
+}
+
+function requestV4ScrollStoryUpdate(){
+  if (!isV4StoryVariant) return;
+  if (v4StoryRafId) return;
+  v4StoryRafId = window.requestAnimationFrame(() => {
+    v4StoryRafId = null;
+    updateV4ScrollStory();
+  });
+}
 
 window.addEventListener('scroll', () => {
   if (navWrap) {
@@ -1279,8 +1528,13 @@ window.addEventListener('scroll', () => {
     lastNavScrollY = currentY;
   }
 
-  const offset = Math.min(window.scrollY * 0.02, 10);
-  heroArt.style.transform = 'scale(' + (1.01 + offset / 400).toFixed(3) + ') translateY(' + (-offset).toFixed(2) + 'px)';
+  if (!isV4StoryVariant) {
+    const offset = Math.min(window.scrollY * 0.02, 10);
+    const scale = 1.01 + offset / 400;
+    const shiftY = -offset;
+    heroArt.style.transform = 'scale(' + scale.toFixed(3) + ') translateY(' + shiftY.toFixed(2) + 'px)';
+  }
+  requestV4ScrollStoryUpdate();
 
   if (discoverMotion) {
     const rect = discoverMotion.getBoundingClientRect();
@@ -1348,12 +1602,24 @@ window.addEventListener('scroll', () => {
     const p1 = segmentProgress(progress, 0.04, 0.44);
     const p2 = segmentProgress(progress, 0.62, 1.00);
 
+    const vnexReveal = segmentProgress(p2, 0.08, 0.44);
+    const vnexFill = 1;
+    const vnexWordFade = segmentProgress(p2, 0.38, 0.74);
+    const vnexShift = Math.max(0, Math.min(140, Math.round((1 - naturalProgress) * 140)));
+    const vnexBgY = 0;
+
     // Screen 1: fill line by line, top to bottom.
     const s1l1 = segmentProgress(p1, 0.00, 0.50);
     const s1l2 = segmentProgress(p1, 0.50, 1.00);
 
     discoverMotion.style.setProperty('--p1', p1.toFixed(3));
     discoverMotion.style.setProperty('--p2', p2.toFixed(3));
+    discoverMotion.style.setProperty('--vnex-reveal', vnexReveal.toFixed(3));
+    discoverMotion.style.setProperty('--vnex-fill', vnexFill.toFixed(3));
+    discoverMotion.style.setProperty('--vnex-word-fade', vnexWordFade.toFixed(3));
+    discoverMotion.style.setProperty('--vnex-shift', vnexShift.toFixed(2));
+    discoverMotion.style.setProperty('--vnex-bg-y', String(vnexBgY) + 'px');
+    discoverMotion.style.setProperty('--vnex-bg-pos', 'center ' + String(vnexBgY) + 'px');
     discoverMotion.style.setProperty('--s1l1', s1l1.toFixed(3));
     discoverMotion.style.setProperty('--s1l2', s1l2.toFixed(3));
 
@@ -1497,10 +1763,20 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 window.addEventListener('hashchange', () => {
+  requestV4ScrollStoryUpdate();
   window.dispatchEvent(new Event('scroll'));
 });
 
+window.addEventListener('resize', () => {
+  requestV4ScrollStoryUpdate();
+});
+
+window.addEventListener('pageshow', () => {
+  requestV4ScrollStoryUpdate();
+});
+
 window.requestAnimationFrame(() => {
+  requestV4ScrollStoryUpdate();
   window.dispatchEvent(new Event('scroll'));
 });
 
