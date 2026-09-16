@@ -2286,7 +2286,7 @@ html.from-login-return .nav-wrap{
   justify-content:center;
   border-radius:0;
   border:none;
-  margin:32px 40px;
+  margin:20px 24px;
   overflow:hidden;
   background:transparent;
 }
@@ -2309,7 +2309,7 @@ html.from-login-return .nav-wrap{
 
 .vnex-mask-layer{
   position:relative;
-  width:min(68%,700px);
+  width:min(86%,900px);
   aspect-ratio:1088.6 / 959.74;
   transform:none;
   opacity:1;
@@ -2349,7 +2349,7 @@ html.from-login-return .nav-wrap{
   top:50%;
   transform:translate(-50%,-50%);
   font-family:"Plus Jakarta Sans",Segoe UI,sans-serif;
-  font-size:clamp(60px,9vw,132px);
+  font-size:clamp(72px,10.4vw,172px);
   font-weight:860;
   letter-spacing:.01em;
   color:#f8fbff;
@@ -3442,9 +3442,9 @@ html.from-login-return .nav-wrap{
   }
   .panel-2{
     grid-template-columns:1fr;
-    grid-template-rows:minmax(0,1fr) minmax(0,1fr);
+    grid-template-rows:minmax(320px,46svh) minmax(0,1fr);
     justify-items:center;
-    align-content:stretch;
+    align-content:start;
     min-height:100svh;
     row-gap:10px;
     padding-top:18px;
@@ -3452,19 +3452,28 @@ html.from-login-return .nav-wrap{
   .screen2-media{
     width:min(100%,620px);
     height:100%;
+    align-self:start;
     justify-self:center;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
     overflow:hidden;
     border-radius:0;
     padding:0;
     margin:0;
     background:transparent;
   }
+  .screen2-media .vnex-parallax-mark{
+    align-items:flex-start;
+    justify-content:center;
+    padding-top:clamp(8px,2.6vh,20px);
+  }
   .vnex-mask-layer{
-    width:min(84%,620px);
+    width:min(92%,760px);
   }
   .vnex-mask-fill{background-attachment:scroll,scroll}
   .vnex-wordmark{
-    font-size:clamp(42px,10.8vw,88px);
+    font-size:clamp(50px,12.2vw,108px);
   }
   .screen2-media{
     background-attachment:scroll;
