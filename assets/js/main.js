@@ -840,8 +840,8 @@ screen2FillSpans.forEach((line) => {
 
 if (heroVideo) {
   const defaultSources = {
-    webm: 'assets/hero-loop_o.webm',
-    mp4: 'assets/hero-loop_o.mp4'
+    webm: 'assets/hero-loop.webm',
+    mp4: 'assets/hero-loop.mp4'
   };
   const v3Sources = {
     webm: 'assets/hero-loop.webm',
