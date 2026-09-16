@@ -126,7 +126,7 @@ body[data-view="employer-register"] .login-shell{grid-template-columns:38% 62%}
 .media-fallback{position:absolute;inset:0;z-index:2;opacity:1;transition:opacity .55s ease,background .55s ease}
 .video-ready .media-fallback{opacity:0}
 .media-stack{position:absolute;inset:0;z-index:1;background:var(--role-grad)}
-.role-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left center;opacity:0;transition:opacity .55s ease}
+.role-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;opacity:0;transition:opacity .55s ease}
 .role-video.current{opacity:1}
 
 .media-brand{position:absolute;left:48px;top:44px;z-index:2;display:flex;align-items:center;gap:12px;color:#12336d}
@@ -341,17 +341,16 @@ body.landing-intro-enter .view.active .roles-subtitle{
 .role-login-chip{border:none;cursor:pointer}
 .role-pill[aria-checked="true"] .role-login-chip{display:inline-flex}
 
-.role-icon{width:42px;height:42px;border-radius:50%;display:inline-block;position:relative}
-.role-icon.student{background:#4c7dff}
-.role-icon.staff{background:#1fa971}
-.role-icon.alumni{background:#7b4dff}
-.role-icon.employer{background:#f08a2a}
-.role-icon.student::before,.role-icon.student::after{content:"";position:absolute;top:10px;width:7px;height:22px;background:#fff;border-radius:2px}
-.role-icon.student::before{left:13px}
-.role-icon.student::after{right:13px}
-.role-icon.staff::before{content:"";position:absolute;left:11px;top:12px;width:20px;height:3px;background:#fff;border-radius:2px;box-shadow:0 7px 0 #fff,0 14px 0 #fff}
-.role-icon.alumni::before{content:"";position:absolute;left:13px;top:13px;width:16px;height:16px;background:#fff;transform:rotate(45deg);border-radius:2px}
-.role-icon.employer::before{content:"";position:absolute;left:11px;top:11px;width:8px;height:8px;background:#fff;box-shadow:12px 0 0 #fff,0 12px 0 #fff,12px 12px 0 #fff}
+.role-icon{width:42px;height:42px;border-radius:50%;display:inline-block;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 4px 10px rgba(14,22,40,.2)}
+.role-icon::before{content:"";position:absolute;inset:9px;background-position:center;background-repeat:no-repeat;background-size:contain}
+.role-icon.student{background:#4f82f4}
+.role-icon.staff{background:#25b58d}
+.role-icon.alumni{background:#7857e8}
+.role-icon.employer{background:#ee8a3c}
+.role-icon.student::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M3.2 6.2c2.8-1.7 5.4-2.2 8-1.2v13.7c-2.4-1-4.9-.7-8 1.2V6.2z'/%3E%3Cpath fill='%23fff' d='M20.8 6.2c-2.8-1.7-5.4-2.2-8-1.2v13.7c2.4-1 4.9-.7 8 1.2V6.2z'/%3E%3Crect x='11.4' y='4.7' width='1.2' height='14.7' fill='%23d8e6ff'/%3E%3C/svg%3E")}
+.role-icon.staff::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='8' width='18' height='12' rx='2' fill='%23fff'/%3E%3Crect x='9' y='4' width='6' height='3' rx='1.2' fill='%23fff'/%3E%3Crect x='3' y='12' width='18' height='2.2' fill='%23dceaff'/%3E%3C/svg%3E")}
+.role-icon.alumni::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon fill='%23fff' points='12,4 2.5,9 12,14 21.5,9'/%3E%3Cpath fill='%23fff' d='M6 12.1v4.3c0 .6 2.9 2.5 6 2.5s6-1.9 6-2.5v-4.3l-6 3.1-6-3.1z'/%3E%3C/svg%3E")}
+.role-icon.employer::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='5' y='3' width='14' height='16' rx='1.6' fill='%23fff'/%3E%3Crect x='8' y='6' width='3' height='3' fill='%23ee8a3c'/%3E%3Crect x='13' y='6' width='3' height='3' fill='%23ee8a3c'/%3E%3Crect x='8' y='11' width='3' height='3' fill='%23ee8a3c'/%3E%3Crect x='13' y='11' width='3' height='3' fill='%23ee8a3c'/%3E%3Crect x='2.5' y='20.2' width='19' height='1.8' rx='.9' fill='%23fff'/%3E%3C/svg%3E")}
 
 .summary-bar{height:64px;border-radius:18px;background:#16315f;color:#fff;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 8px 18px rgba(26,35,58,.24)}
 .view-signin .summary-bar{width:100%}
@@ -680,12 +679,7 @@ body[data-view="employer-signin"] .view-roles .role-pill[data-role="employer"]{
   .role-login-chip{min-width:92px;height:34px;font-size:13px}
   .summary-bar{height:auto;min-height:56px;padding:7px 10px;border-radius:16px}
   .summary-bar .role-icon{width:42px;height:42px}
-  .summary-bar .role-icon.student::before,.summary-bar .role-icon.student::after{top:10px;width:7px;height:22px}
-  .summary-bar .role-icon.student::before{left:13px}
-  .summary-bar .role-icon.student::after{right:13px}
-  .summary-bar .role-icon.staff::before{left:11px;top:12px;width:20px;height:3px;box-shadow:0 7px 0 #fff,0 14px 0 #fff}
-  .summary-bar .role-icon.alumni::before{left:13px;top:13px;width:16px;height:16px}
-  .summary-bar .role-icon.employer::before{left:11px;top:11px;width:8px;height:8px;box-shadow:12px 0 0 #fff,0 12px 0 #fff,12px 12px 0 #fff}
+  .summary-bar .role-icon::before{inset:9px}
   .summary-left{gap:10px}
   .summary-left strong{font-size:var(--role-font-title-size);font-weight:var(--role-font-title-weight);line-height:var(--role-font-title-line)}
   .summary-left small{font-size:clamp(10px,3.2vw,12px)}
@@ -820,8 +814,8 @@ body[data-view="employer-signin"] .view-roles .role-pill[data-role="employer"]{
   }
 
   .role-video{
-    object-fit:contain;
-    object-position:left center;
+    object-fit:cover;
+    object-position:center center;
   }
 
   .glass-pane{
