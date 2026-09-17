@@ -2410,6 +2410,17 @@ html.from-login-return .nav-wrap{
 .s2-line.l6{--line-fill:var(--s2l6)}
 .s2-line.l7{--line-fill:var(--s2l7)}
 .s2-line.l8{--line-fill:var(--s2l8)}
+html[lang="zh-Hant"] #fill-screen-2 .s2-line.l5,
+html[lang="zh-Hant"] #fill-screen-2 .s2-line.l6,
+html[lang="zh-Hans"] #fill-screen-2 .s2-line.l5,
+html[lang="zh-Hans"] #fill-screen-2 .s2-line.l6{
+  font-size:clamp(16px,1.15vw,20px) !important;
+  font-weight:700 !important;
+}
+html[lang="zh-Hant"] #fill-screen-2 .s2-line.l5,
+html[lang="zh-Hans"] #fill-screen-2 .s2-line.l5{
+  margin-top:12px;
+}
 
 .quick{
   margin-top:36px;

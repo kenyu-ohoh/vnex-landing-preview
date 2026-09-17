@@ -439,7 +439,7 @@ const i18n = {
       'AI Job <span class="soft">Match</span>',
       'AI Profile <span class="soft">Builder</span>',
       'Industry <span class="soft">Insights</span>',
-      'Career Coaching <span class="soft">Resources</span>',
+      'Career <span class="soft">Coaching</span>',
       'Recruitment <span class="soft">Activities</span>'
     ],
     benefitDescriptions: [
@@ -500,8 +500,8 @@ const i18n = {
       '\u6d3b\u52d5<span class="soft">\u767c\u4f48</span>',
       'AI \u8077\u4f4d<span class="soft">\u914d\u5c0d</span>',
       'AI \u5c65\u6b77<span class="soft">\u7de8\u88fd</span>',
-      '\u884c\u696d<span class="soft">\u6d1e\u5bdf</span>',
-      '\u8077\u6daf\u8f14\u5c0e<span class="soft">\u8cc7\u6e90</span>',
+      '\u884c\u696d<span class="soft">\u8cc7\u8a0a</span>',
+      '\u8077\u6daf<span class="soft">\u6307\u5c0e</span>',
       '\u62db\u8058<span class="soft">\u6d3b\u52d5</span>'
     ],
     benefitDescriptions: [
@@ -525,6 +525,7 @@ const i18n = {
       '',
       '\u6211\u5011\u651c\u624b\u4e26\u80a9\uff0c\u91cb\u653e\u6f5b\u80fd\uff0c',
       '\u5275\u9020\u7121\u9650\u6a5f\u9047\u3002',
+      '',
       '',
       ''
     ],
@@ -562,8 +563,8 @@ const i18n = {
       '\u6d3b\u52a8<span class="soft">\u53d1\u5e03</span>',
       'AI \u804c\u4f4d<span class="soft">\u914d\u5bf9</span>',
       'AI \u5c65\u5386<span class="soft">\u7f16\u5236</span>',
-      '\u884c\u4e1a<span class="soft">\u6d1e\u5bdf</span>',
-      '\u804c\u4e1a\u8f85\u5bfc<span class="soft">\u8d44\u6e90</span>',
+      '\u884c\u4e1a<span class="soft">\u8d44\u8baf</span>',
+      '\u804c\u6daf<span class="soft">\u6307\u5bfc</span>',
       '\u62db\u8058<span class="soft">\u6d3b\u52a8</span>'
     ],
     benefitDescriptions: [
@@ -587,6 +588,7 @@ const i18n = {
       '',
       '\u6211\u4eec\u643a\u624b\u5e76\u80a9\uff0c\u91ca\u653e\u6f5c\u80fd\uff0c',
       '\u521b\u9020\u65e0\u9650\u673a\u9047\u3002',
+      '',
       '',
       ''
     ],
@@ -612,9 +614,11 @@ let lastNavScrollY = window.scrollY;
 let mobileMenuScrollY = 0;
 let navIdleHideTimer = null;
 const NAV_IDLE_HIDE_MS = 2000;
+const NAV_HOVER_ZONE_HEIGHT = 120;
 let lastNavScrollAt = Date.now();
 const NAV_SCROLL_DIRECTION_DELTA = 2;
 let lastTouchY = null;
+let navHoverActive = false;
 
 function clearNavIdleHideTimer(){
   if (!navIdleHideTimer) return;
@@ -622,16 +626,19 @@ function clearNavIdleHideTimer(){
   navIdleHideTimer = null;
 }
 
-function scheduleNavIdleHideTimer(){
+function scheduleNavIdleHideTimer(ignoreScrollElapsed = false){
   clearNavIdleHideTimer();
   navIdleHideTimer = window.setTimeout(() => {
     if (!navWrap) return;
     if (navWrap.classList.contains('mobile-nav-open')) return;
+    if (navHoverActive) return;
     if ((window.scrollY || 0) <= 12) return;
-    const elapsed = Date.now() - lastNavScrollAt;
-    if (elapsed < NAV_IDLE_HIDE_MS) {
-      scheduleNavIdleHideTimer();
-      return;
+    if (!ignoreScrollElapsed) {
+      const elapsed = Date.now() - lastNavScrollAt;
+      if (elapsed < NAV_IDLE_HIDE_MS) {
+        scheduleNavIdleHideTimer();
+        return;
+      }
     }
     document.body.classList.add('nav-hidden');
   }, NAV_IDLE_HIDE_MS);
@@ -652,6 +659,25 @@ function showNavWithIdleTimer(){
 function hideNavImmediate(){
   document.body.classList.add('nav-hidden');
   clearNavIdleHideTimer();
+}
+
+function activateNavHover(){
+  if (!navWrap) return;
+  if (window.innerWidth <= 820) return;
+  if (navWrap.classList.contains('mobile-nav-open')) return;
+  navHoverActive = true;
+  document.body.classList.remove('nav-hidden');
+  clearNavIdleHideTimer();
+}
+
+function deactivateNavHover(){
+  if (!navWrap) return;
+  navHoverActive = false;
+  if (window.innerWidth <= 820) return;
+  if (navWrap.classList.contains('mobile-nav-open')) return;
+  if ((window.scrollY || 0) <= 12) return;
+  // On hover leave, always hide exactly after 2s.
+  scheduleNavIdleHideTimer(true);
 }
 
 function lockPageScroll(){
@@ -1181,6 +1207,38 @@ if (navWrap && navToggle && mobileNavMenu) {
     if (!navWrap.contains(event.target)) {
       closeMobileMenu();
     }
+  });
+
+  navWrap.addEventListener('pointerenter', (event) => {
+    if (event.pointerType && event.pointerType !== 'mouse') return;
+    activateNavHover();
+  });
+
+  navWrap.addEventListener('pointerleave', (event) => {
+    if (event.pointerType && event.pointerType !== 'mouse') return;
+    const nextTarget = event.relatedTarget;
+    if (nextTarget && navWrap.contains(nextTarget)) return;
+    deactivateNavHover();
+  });
+
+  document.addEventListener('pointermove', (event) => {
+    if (event.pointerType && event.pointerType !== 'mouse') return;
+    if (window.innerWidth <= 820) {
+      navHoverActive = false;
+      return;
+    }
+    const inNav = navWrap.contains(event.target);
+    const inHoverZone = event.clientY >= 0 && event.clientY <= NAV_HOVER_ZONE_HEIGHT;
+    if (inNav || inHoverZone) {
+      activateNavHover();
+      return;
+    }
+    if (navHoverActive) deactivateNavHover();
+  }, { passive: true });
+
+  window.addEventListener('pointerleave', () => {
+    if (!navHoverActive) return;
+    deactivateNavHover();
   });
 }
 
