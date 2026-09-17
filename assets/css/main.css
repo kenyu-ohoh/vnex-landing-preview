@@ -2121,7 +2121,7 @@ html.from-login-return .nav-wrap{
   --s2l7:0;
   --s2l8:0;
   position:relative;
-  min-height:250vh;
+  min-height:300vh;
   width:100%;
   border:none;
   border-radius:0;
@@ -2649,7 +2649,7 @@ html.from-login-return .nav-wrap{
   .benefit-shot{height:100%}
   .benefit-copy h3{font-size:clamp(26px,2.9vw,38px)}
   .benefit-copy p{font-size:clamp(13px,1.05vw,16px)}
-  .discover-motion{min-height:240vh}
+  .discover-motion{min-height:280vh}
   .hero-down{width:44px;height:60px}
   .hero-down::after{display:none}
   .discover-sticky{padding:20px}
@@ -3325,7 +3325,7 @@ html.from-login-return .nav-wrap{
   .benefit-row{grid-template-columns:1fr 1fr;gap:36px;min-height:0}
   .benefit-row.reverse .benefit-copy{padding-left:24px;width:min(100%,520px);margin-left:auto}
   .benefit-shot{height:100%}
-  .discover-motion{min-height:250vh}
+  .discover-motion{min-height:300vh}
   .discover-stage{min-height:78vh}
   .discover-meta{font-size:12px}
   .screen1-foot{font-size:12px;bottom:18px}
@@ -3414,7 +3414,7 @@ html.from-login-return .nav-wrap{
 }
 
 @media (max-width:700px){
-  .discover-motion{min-height:300vh}
+  .discover-motion{min-height:340vh}
   .js-motion #benefits.benefits-intro-pending .section-kicker,
   .js-motion #benefits.benefits-intro-pending .benefit-head,
   .js-motion #benefits.benefits-intro-pending .benefit-page.active .benefit-row,

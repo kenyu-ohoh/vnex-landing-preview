@@ -1261,13 +1261,15 @@ const DISCOVER_HOLDS = [
   // Hold after screen 1 fill completes.
   { point: 0.44, durationMs: 650 },
   // Hold after screen 2 fill completes.
-  { point: 1.00, durationMs: 650 }
+  { point: 1.00, durationMs: 2000 }
 ];
 const DISCOVER_MAX_PROGRESS_STEP_DOWN = 0.02;
-const DISCOVER_HOLD_EPSILON = 0.0005;
+const DISCOVER_HOLD_EPSILON = 0.001;
 const DISCOVER_HOLD_CANCEL_DELTA = 0.06;
-const DISCOVER_PANEL_ENTER_POINT = 0.62;
-const DISCOVER_PANEL_EXIT_POINT = 0.56;
+const DISCOVER_SCREEN2_START = 0.42;
+const DISCOVER_SCREEN2_END = 1.00;
+const DISCOVER_PANEL_ENTER_POINT = DISCOVER_SCREEN2_START;
+const DISCOVER_PANEL_EXIT_POINT = 0.38;
 let discoverFillHoldUntil = 0;
 let discoverActiveHoldPoint = null;
 let lastDiscoverNaturalProgress = 0;
@@ -1597,10 +1599,10 @@ window.addEventListener('scroll', () => {
     discoverMotion.style.setProperty('--discover-progress', progress.toFixed(3));
 
     // Two-screen timeline with hold states:
-    // screen1 fill: 0.04-0.44, then hold 0.5s
-    // screen2 fill: 0.62-1.00, then hold 0.5s
+    // screen1 fill: 0.04-0.44, then hold
+    // screen2 fill: DISCOVER_SCREEN2_START-DISCOVER_SCREEN2_END, then hold
     const p1 = segmentProgress(progress, 0.04, 0.44);
-    const p2 = segmentProgress(progress, 0.62, 1.00);
+    const p2 = segmentProgress(progress, DISCOVER_SCREEN2_START, DISCOVER_SCREEN2_END);
 
     const vnexReveal = segmentProgress(p2, 0.08, 0.44);
     const vnexFill = 1;
