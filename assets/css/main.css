@@ -2365,6 +2365,7 @@ html.from-login-return .nav-wrap{
   height:100%;
   text-align:left;
   background:rgba(236,243,255,.84);
+  border-radius:22px;
   padding:clamp(20px,3vw,30px);
   display:flex;
   flex-direction:column;

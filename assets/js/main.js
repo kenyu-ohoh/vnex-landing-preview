@@ -430,17 +430,17 @@ const i18n = {
     tabEmployer: 'Employer',
     tabStudent: 'Student & Alumni',
     employerLogin: 'Employer Login',
-    studentLogin: 'Student Login (Coming soon)',
+    studentLogin: 'Student & Alumni Login (Coming soon)',
     benefitTitles: [
       'Job <span class="soft">Posting</span>',
-      'AI Talent <span class="soft">Search & Sourcing</span>',
-      'Direct Applicant <span class="soft">Management</span>',
-      'Recruitment Event <span class="soft">Publishing</span>',
-      'AI Job <span class="soft">Recommendations</span>',
-      'AI CV & Cover Letter <span class="soft">Builder</span>',
+      'AI Talent <span class="soft">Match</span>',
+      'Applicant <span class="soft">Management</span>',
+      'Event <span class="soft">Publishing</span>',
+      'AI Job <span class="soft">Match</span>',
+      'AI Profile <span class="soft">Builder</span>',
       'Industry <span class="soft">Insights</span>',
       'Career Coaching <span class="soft">Resources</span>',
-      'Recruitment and Placement <span class="soft">Activities</span>'
+      'Recruitment <span class="soft">Activities</span>'
     ],
     benefitDescriptions: [
       'Create open positions to reach qualified candidates.',
@@ -459,12 +459,12 @@ const i18n = {
     screen2Lines: [
       'Derived from Nexus',
       'a central connection\u2014V-NEX',
-      'serves as the official gateway',
-      'integrating VTC students, alumni,',
+      'Connect VTC students, alumni,',
       'and industry partners across one',
       'shared network.',
-      'Together, we connect potential',
-      'with opportunity for the future.'
+      '',
+      'Together, we unlock potential to',
+      'create opportunities for the future.'
     ],
     quickTitle: 'Quick Links',
     quickLabels: ['VTC Official Website', 'VTC Admission', 'Internship Arrangement', 'Alumni Portal', 'Occupation Dictionary'],
@@ -492,17 +492,17 @@ const i18n = {
     tabEmployer: '\u50f1\u4e3b',
     tabStudent: '\u5b78\u751f\u53ca\u6821\u53cb',
     employerLogin: '\u50f1\u4e3b\u767b\u5165',
-    studentLogin: '\u5b78\u751f\u767b\u5165\uff08\u5373\u5c07\u63a8\u51fa\uff09',
+    studentLogin: '\u5b78\u751f\u53ca\u6821\u53cb\u767b\u5165\uff08\u5373\u5c07\u63a8\u51fa\uff09',
     benefitTitles: [
       '\u8077\u4f4d<span class="soft">\u767c\u5e03</span>',
-      'AI \u4eba\u624d<span class="soft">\u641c\u5c0b\u8207\u7be9\u9078</span>',
-      '\u8655\u7406\u8077\u4f4d<span class="soft">\u7533\u8acb</span>',
-      '\u62db\u8058\u6d3b\u52d5<span class="soft">\u767c\u4f48</span>',
-      'AI \u8077\u4f4d<span class="soft">\u63a8\u85a6</span>',
-      'AI \u5c65\u6b77\u53ca\u6c42\u8077\u4fe1<span class="soft">\u5efa\u7acb</span>',
+      'AI \u4eba\u624d<span class="soft">\u914d\u5c0d</span>',
+      '\u6c42\u8077\u8005<span class="soft">\u7ba1\u7406</span>',
+      '\u6d3b\u52d5<span class="soft">\u767c\u4f48</span>',
+      'AI \u8077\u4f4d<span class="soft">\u914d\u5c0d</span>',
+      'AI \u5c65\u6b77<span class="soft">\u7de8\u88fd</span>',
       '\u884c\u696d<span class="soft">\u6d1e\u5bdf</span>',
       '\u8077\u6daf\u8f14\u5c0e<span class="soft">\u8cc7\u6e90</span>',
-      '\u62db\u8058\u8207\u5c31\u696d\u914d\u5c0d<span class="soft">\u6d3b\u52d5</span>'
+      '\u62db\u8058<span class="soft">\u6d3b\u52d5</span>'
     ],
     benefitDescriptions: [
       '\u5efa\u7acb\u8077\u4f4d\u7a7a\u7f3a\uff0c\u63a5\u89f8\u5408\u9069\u4eba\u624d\u3002',
@@ -516,21 +516,21 @@ const i18n = {
       '\u900f\u904e\u62db\u8058\u6d3b\u52d5\u8207\u50f1\u4e3b\u5efa\u7acb\u9023\u7d50\u3002'
     ],
     discoverLine1: 'V \u53d6\u81ea VTC',
-    discoverLine2: 'NEX \u6e90\u81ea Nexus',
+    discoverLine2: 'NEX \u6e90\u65bc Nexus',
     discoverFoot: '\u8077\u6daf\u4e0b\u4e00\u9801 \u2022 \u4eba\u751f\u4e0b\u4e00\u6b65',
     screen2Lines: [
       '\u6e90\u65bc Nexus',
       '\u9019\u500b\u6838\u5fc3\u9023\u7d50\u2014V-NEX',
-      '\u4f5c\u70ba\u5b98\u65b9\u5e73\u53f0',
-      '\u9023\u7e6b VTC \u5b78\u751f\u3001\u6821\u53cb\uff0c',
-      '\u4ee5\u53ca\u696d\u754c\u5925\u4f34\uff0c\u5171\u5efa',
-      '\u5171\u4eab\u7db2\u7d61\u3002',
-      '\u6211\u5011\u628a\u6f5b\u80fd\u9023\u63a5\u6a5f\u9047\uff0c',
-      '\u5171\u5275\u672a\u4f86\u3002'
+      '\u532f\u805a VTC \u5b78\u751f\u3001\u6821\u53cb\u53ca\u696d\u754c\u5925\u4f34\u3002',
+      '',
+      '\u6211\u5011\u651c\u624b\u4e26\u80a9\uff0c\u91cb\u653e\u6f5b\u80fd\uff0c',
+      '\u5275\u9020\u7121\u9650\u6a5f\u9047\u3002',
+      '',
+      ''
     ],
     quickTitle: '\u5feb\u901f\u9023\u7d50',
-    quickLabels: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8fad\u5178'],
-    quickAlts: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8fad\u5178'],
+    quickLabels: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8cc7\u6599\u5eab'],
+    quickAlts: ['VTC \u5b98\u65b9\u7db2\u7ad9', 'VTC \u5165\u5b78\u8cc7\u8a0a', '\u5be6\u7fd2\u5b89\u6392', '\u6821\u53cb\u5e73\u53f0', '\u8077\u696d\u8cc7\u6599\u5eab'],
     contactTitle: '\u806f\u7d61\u6211\u5011',
     contactCopy: '\u7e3d\u8fa6\u4e8b\u8655\uff08\u6559\u52d9\uff09 \u7562\u696d\u751f\u5c31\u696d\u670d\u52d9\n\u7063\u4ed4\u6d3b\u9053\u4e8c\u5341\u4e03\u865f\u8077\u696d\u8a13\u7df4\u5c40\u5927\u6a13\u5341\u56db\u6a13\n\u67e5\u8a62\u96fb\u8a71\uff1a(852) 2836 1228 \u50b3\u771f\uff1a(852) 2574 3705\n\u96fb\u90f5\u5730\u5740\uff1ajis@vtc.edu.hk',
     contactMailCta: '\u96fb\u90f5\u806f\u7d61\u6211\u5011',
@@ -554,17 +554,17 @@ const i18n = {
     tabEmployer: '\u96c7\u4e3b',
     tabStudent: '\u5b66\u751f\u53ca\u6821\u53cb',
     employerLogin: '\u96c7\u4e3b\u767b\u5f55',
-    studentLogin: '\u5b66\u751f\u767b\u5f55\uff08\u5373\u5c06\u63a8\u51fa\uff09',
+    studentLogin: '\u5b66\u751f\u53ca\u6821\u53cb\u767b\u5f55\uff08\u5373\u5c06\u63a8\u51fa\uff09',
     benefitTitles: [
       '\u804c\u4f4d<span class="soft">\u53d1\u5e03</span>',
-      'AI \u4eba\u624d<span class="soft">\u641c\u7d22\u4e0e\u7b5b\u9009</span>',
-      '\u5904\u7406\u804c\u4f4d<span class="soft">\u7533\u8bf7</span>',
-      '\u62db\u8058\u6d3b\u52a8<span class="soft">\u53d1\u5e03</span>',
-      'AI \u804c\u4f4d<span class="soft">\u63a8\u8350</span>',
-      'AI \u7b80\u5386\u4e0e\u6c42\u804c\u4fe1<span class="soft">\u751f\u6210</span>',
+      'AI \u4eba\u624d<span class="soft">\u914d\u5bf9</span>',
+      '\u6c42\u804c\u8005<span class="soft">\u7ba1\u7406</span>',
+      '\u6d3b\u52a8<span class="soft">\u53d1\u5e03</span>',
+      'AI \u804c\u4f4d<span class="soft">\u914d\u5bf9</span>',
+      'AI \u5c65\u5386<span class="soft">\u7f16\u5236</span>',
       '\u884c\u4e1a<span class="soft">\u6d1e\u5bdf</span>',
       '\u804c\u4e1a\u8f85\u5bfc<span class="soft">\u8d44\u6e90</span>',
-      '\u62db\u8058\u4e0e\u5c31\u4e1a\u914d\u5bf9<span class="soft">\u6d3b\u52a8</span>'
+      '\u62db\u8058<span class="soft">\u6d3b\u52a8</span>'
     ],
     benefitDescriptions: [
       '\u521b\u5efa\u804c\u4f4d\u7a7a\u7f3a\uff0c\u89e6\u8fbe\u5408\u9002\u5019\u9009\u4eba\u3002',
@@ -578,21 +578,21 @@ const i18n = {
       '\u901a\u8fc7\u62db\u8058\u6d3b\u52a8\u4e0e\u96c7\u4e3b\u5efa\u7acb\u8054\u7cfb\u3002'
     ],
     discoverLine1: 'V \u53d6\u81ea VTC',
-    discoverLine2: 'NEX \u6e90\u81ea Nexus',
+    discoverLine2: 'NEX \u6e90\u4e8e Nexus',
     discoverFoot: '\u804c\u4e1a\u4e0b\u4e00\u9875 \u2022 \u4eba\u751f\u4e0b\u4e00\u6b65',
     screen2Lines: [
       '\u6e90\u4e8e Nexus',
       '\u8fd9\u4e00\u6838\u5fc3\u8fde\u63a5\u2014V-NEX',
-      '\u4f5c\u4e3a\u5b98\u65b9\u5e73\u53f0',
-      '\u8fde\u63a5 VTC \u5b66\u751f\u3001\u6821\u53cb\uff0c',
-      '\u4ee5\u53ca\u4e1a\u754c\u4f19\u4f34\uff0c\u5171\u5efa',
-      '\u5171\u4eab\u7f51\u7edc\u3002',
-      '\u6211\u4eec\u628a\u6f5c\u80fd\u8fde\u63a5\u673a\u9047\uff0c',
-      '\u5171\u521b\u672a\u6765\u3002'
+      '\u6c47\u805a VTC \u5b66\u751f\u3001\u6821\u53cb\u53ca\u4e1a\u754c\u4f19\u4f34\u3002',
+      '',
+      '\u6211\u4eec\u643a\u624b\u5e76\u80a9\uff0c\u91ca\u653e\u6f5c\u80fd\uff0c',
+      '\u521b\u9020\u65e0\u9650\u673a\u9047\u3002',
+      '',
+      ''
     ],
     quickTitle: '\u5feb\u901f\u94fe\u63a5',
-    quickLabels: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8bcd\u5178'],
-    quickAlts: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8bcd\u5178'],
+    quickLabels: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8d44\u6599\u5e93'],
+    quickAlts: ['VTC \u5b98\u65b9\u7f51\u7ad9', 'VTC \u5165\u5b66\u8d44\u8baf', '\u5b9e\u4e60\u5b89\u6392', '\u6821\u53cb\u95e8\u6237', '\u804c\u4e1a\u8d44\u6599\u5e93'],
     contactTitle: '\u8054\u7cfb\u6211\u4eec',
     contactCopy: '\u603b\u529e\u4e8b\u5904\uff08\u6559\u52a1\uff09 \u6bd5\u4e1a\u751f\u5c31\u4e1a\u670d\u52a1\n\u6e7e\u4ed4\u6d3b\u9053\u4e8c\u5341\u4e03\u53f7\u804c\u4e1a\u8bad\u7ec3\u5c40\u5927\u697c\u5341\u56db\u697c\n\u67e5\u8be2\u7535\u8bdd\uff1a(852) 2836 1228 \u4f20\u771f\uff1a(852) 2574 3705\n\u7535\u90ae\u5730\u5740\uff1ajis@vtc.edu.hk',
     contactMailCta: '\u7535\u90ae\u8054\u7cfb\u6211\u4eec',
@@ -1259,9 +1259,9 @@ function segmentProgress(progress, start, end){
 
 const DISCOVER_HOLDS = [
   // Hold after screen 1 fill completes.
-  { point: 0.44, durationMs: 500 },
+  { point: 0.44, durationMs: 650 },
   // Hold after screen 2 fill completes.
-  { point: 1.00, durationMs: 500 }
+  { point: 1.00, durationMs: 650 }
 ];
 const DISCOVER_MAX_PROGRESS_STEP_DOWN = 0.02;
 const DISCOVER_HOLD_EPSILON = 0.0005;
@@ -1544,52 +1544,52 @@ window.addEventListener('scroll', () => {
     const progressRaw = (window.scrollY - sectionStart) / track;
     const naturalProgress = Math.max(0, Math.min(1, progressRaw));
     let progress = naturalProgress;
+    const now = performance.now();
+    const movingDown = naturalProgress > lastDiscoverNaturalProgress + 0.0005;
+    const movingUp = naturalProgress < lastDiscoverNaturalProgress - 0.0005;
 
-    if (window.innerWidth <= 820) {
-      const now = performance.now();
-      const movingDown = naturalProgress > lastDiscoverNaturalProgress + 0.0005;
-      const movingUp = naturalProgress < lastDiscoverNaturalProgress - 0.0005;
+    // Cancel hold only when user intentionally scrolls back enough.
+    if (
+      movingUp &&
+      discoverActiveHoldPoint !== null &&
+      naturalProgress < discoverActiveHoldPoint - DISCOVER_HOLD_CANCEL_DELTA
+    ) {
+      discoverFillHoldUntil = 0;
+      discoverActiveHoldPoint = null;
+    }
 
-      // Cancel hold only when user intentionally scrolls back enough.
-      if (
-        movingUp &&
-        discoverActiveHoldPoint !== null &&
-        naturalProgress < discoverActiveHoldPoint - DISCOVER_HOLD_CANCEL_DELTA
-      ) {
-        discoverFillHoldUntil = 0;
-        discoverActiveHoldPoint = null;
+    if (movingDown && now >= discoverFillHoldUntil) {
+      const nextHold = DISCOVER_HOLDS.find((hold) => {
+        return lastDiscoverRenderedProgress < hold.point && naturalProgress >= hold.point;
+      });
+      if (nextHold) {
+        discoverActiveHoldPoint = nextHold.point;
+        discoverFillHoldUntil = now + nextHold.durationMs;
       }
+    }
 
-      if (movingDown && now >= discoverFillHoldUntil) {
-        const nextHold = DISCOVER_HOLDS.find((hold) => {
-          return lastDiscoverRenderedProgress < hold.point && naturalProgress >= hold.point;
-        });
-        if (nextHold) {
-          discoverActiveHoldPoint = nextHold.point;
-          discoverFillHoldUntil = now + nextHold.durationMs;
-        }
-      }
+    const holdActive = (
+      now < discoverFillHoldUntil &&
+      discoverActiveHoldPoint !== null
+    );
 
-      const holdActive = (
-        now < discoverFillHoldUntil &&
-        discoverActiveHoldPoint !== null
-      );
+    if (holdActive) {
+      progress = discoverActiveHoldPoint;
+    }
 
-      if (
-        holdActive
-      ) {
-        progress = discoverActiveHoldPoint;
-      }
+    // Keep downward fill speed readable on mobile swipe momentum.
+    // Do not cap while hold is active, otherwise hold points can feel stuck.
+    if (
+      window.innerWidth <= 820 &&
+      !holdActive &&
+      movingDown &&
+      progress > lastDiscoverRenderedProgress + DISCOVER_MAX_PROGRESS_STEP_DOWN
+    ) {
+      progress = lastDiscoverRenderedProgress + DISCOVER_MAX_PROGRESS_STEP_DOWN;
+    }
 
-      // Keep downward fill speed readable even on fast swipe momentum.
-      // Do not cap while hold is active, otherwise hold points can feel stuck.
-      if (!holdActive && movingDown && progress > lastDiscoverRenderedProgress + DISCOVER_MAX_PROGRESS_STEP_DOWN) {
-        progress = lastDiscoverRenderedProgress + DISCOVER_MAX_PROGRESS_STEP_DOWN;
-      }
-
-      if (now >= discoverFillHoldUntil) {
-        discoverActiveHoldPoint = null;
-      }
+    if (now >= discoverFillHoldUntil) {
+      discoverActiveHoldPoint = null;
     }
 
     lastDiscoverNaturalProgress = naturalProgress;
