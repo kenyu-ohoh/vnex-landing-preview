@@ -2382,8 +2382,8 @@ html.from-login-return .nav-wrap{
   white-space:nowrap;
 }
 .s2-line.title{font-size:clamp(23px,2.2vw,34px);font-weight:800}
-.s2-line.body{font-size:clamp(20px,1.72vw,28px);font-weight:700}
-.s2-line.note{font-size:clamp(16px,1.15vw,20px);font-weight:700;margin-top:3px}
+.s2-line.body{font-size:clamp(23px,2.2vw,34px);font-weight:800}
+.s2-line.note{font-size:clamp(20px,1.72vw,28px);font-weight:700;margin-top:3px}
 .s2-ghost{color:rgba(32,68,133,.36)}
 .s2-fill{
   position:absolute;
@@ -2410,16 +2410,24 @@ html.from-login-return .nav-wrap{
 .s2-line.l6{--line-fill:var(--s2l6)}
 .s2-line.l7{--line-fill:var(--s2l7)}
 .s2-line.l8{--line-fill:var(--s2l8)}
+#fill-screen-2 .s2-line.l1,
+#fill-screen-2 .s2-line.l2,
+#fill-screen-2 .screen2-gap:first-of-type{
+  display:none;
+}
+html[lang="zh-Hant"] #fill-screen-2 .s2-line.l3,
+html[lang="zh-Hans"] #fill-screen-2 .s2-line.l3,
 html[lang="zh-Hant"] #fill-screen-2 .s2-line.l5,
 html[lang="zh-Hant"] #fill-screen-2 .s2-line.l6,
 html[lang="zh-Hans"] #fill-screen-2 .s2-line.l5,
 html[lang="zh-Hans"] #fill-screen-2 .s2-line.l6{
-  font-size:clamp(16px,1.15vw,20px) !important;
-  font-weight:700 !important;
+  font-size:clamp(20px,1.72vw,28px);
+  font-weight:700;
 }
-html[lang="zh-Hant"] #fill-screen-2 .s2-line.l5,
-html[lang="zh-Hans"] #fill-screen-2 .s2-line.l5{
-  margin-top:12px;
+html[lang="zh-Hant"] #fill-screen-2 .s2-line.l3,
+html[lang="zh-Hans"] #fill-screen-2 .s2-line.l3{
+  font-size:clamp(23px,2.2vw,34px);
+  font-weight:800;
 }
 
 .quick{
@@ -3358,8 +3366,20 @@ html[lang="zh-Hans"] #fill-screen-2 .s2-line.l5{
   .s2-line{line-height:1.18;white-space:normal}
   .s2-fill{white-space:normal;width:100%;right:0}
   .s2-line.title{font-size:clamp(20px,6.3vw,30px)}
-  .s2-line.body{font-size:clamp(16px,5vw,24px)}
-  .s2-line.note{font-size:clamp(14px,4.4vw,18px)}
+  .s2-line.body{font-size:clamp(20px,6.3vw,30px)}
+  .s2-line.note{font-size:clamp(16px,5vw,24px)}
+  html[lang="zh-Hant"] #fill-screen-2 .s2-line.l5,
+  html[lang="zh-Hant"] #fill-screen-2 .s2-line.l6,
+  html[lang="zh-Hans"] #fill-screen-2 .s2-line.l5,
+  html[lang="zh-Hans"] #fill-screen-2 .s2-line.l6{
+    font-size:clamp(16px,5vw,24px);
+    font-weight:700;
+  }
+  html[lang="zh-Hant"] #fill-screen-2 .s2-line.l3,
+  html[lang="zh-Hans"] #fill-screen-2 .s2-line.l3{
+    font-size:clamp(20px,6.3vw,30px);
+    font-weight:800;
+  }
   .screen2-gap{height:8px}
   .quick-panels{grid-template-columns:1fr;gap:12px}
   .quick{
@@ -3504,8 +3524,20 @@ html[lang="zh-Hans"] #fill-screen-2 .s2-line.l5{
   }
   .screen2-lines{gap:8px}
   .s2-line.title{font-size:clamp(22px,6.5vw,32px);font-weight:900;line-height:1.08}
-  .s2-line.body{font-size:clamp(17px,4.9vw,24px);font-weight:780;line-height:1.2}
-  .s2-line.note{font-size:clamp(14px,4.2vw,18px);font-weight:760;line-height:1.26}
+  .s2-line.body{font-size:clamp(22px,6.5vw,32px);font-weight:900;line-height:1.12}
+  .s2-line.note{font-size:clamp(17px,4.9vw,24px);font-weight:780;line-height:1.2}
+  html[lang="zh-Hant"] #fill-screen-2 .s2-line.l5,
+  html[lang="zh-Hant"] #fill-screen-2 .s2-line.l6,
+  html[lang="zh-Hans"] #fill-screen-2 .s2-line.l5,
+  html[lang="zh-Hans"] #fill-screen-2 .s2-line.l6{
+    font-size:clamp(22px,6.5vw,32px);
+    font-weight:900;
+  }
+  html[lang="zh-Hant"] #fill-screen-2 .s2-line.l3,
+  html[lang="zh-Hans"] #fill-screen-2 .s2-line.l3{
+    font-size:clamp(22px,6.5vw,32px);
+    font-weight:900;
+  }
   .s2-line .s2-ghost{color:rgba(30,64,126,.54)}
   .s2-line.note .s2-ghost{color:rgba(30,64,126,.62)}
   .screen2-gap{height:12px}
